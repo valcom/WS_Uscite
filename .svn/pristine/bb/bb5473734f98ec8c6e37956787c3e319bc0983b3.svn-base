@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+package it.ccse.uscite.application.facade.dto.input;
+
+
+/**
+ * @author vcompagnone
+ *
+ */
+public class GetComitati_InDTO extends Base_InDTO {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+}

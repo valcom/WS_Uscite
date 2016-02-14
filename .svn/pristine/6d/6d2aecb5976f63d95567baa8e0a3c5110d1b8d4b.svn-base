@@ -1,0 +1,10 @@
+#Specifies whether Dozer collects runtime mapping statistics. Note that statistics gathering imposes certain performance overhead. It is not recommended to enable this option in production settings under heavy load.	true|false	default: false
+dozer.statistics.enabled = false	
+#Specifies whether Dozer will auto register it's JMX beans with the PlatformMDBServer on startup. true|false default: true
+dozer.autoregister.jmx.beans = false
+#Specifies whether during Xml mappings parsing Dozer will recognize EL expressions.	true|false default: false	
+dozer.el.enabled = false
+#Specifies the max size for one of Dozers internal caches.	0 - Long.MAX_VALUE	default:10000	
+dozer.cache.converter.by.dest.type.maxsize = 10000
+#Specifies the max size for one of Dozers internal caches 0 - Long.MAX_VALUE default:10000
+dozer.cache.super.type.maxsize = 10000

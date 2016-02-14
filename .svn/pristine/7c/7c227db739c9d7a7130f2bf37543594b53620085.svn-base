@@ -1,0 +1,34 @@
+/**
+ * 
+ */
+package it.ccse.uscite.application.facade.dto.output;
+
+import it.ccse.uscite.application.facade.dto.ContainerDTO;
+import it.ccse.uscite.application.facade.dto.DettaglioNotaPagamentoDTO;
+
+/**
+ * @author vcompagnone
+ *
+ */
+public class AssociaPraticheANota_OutDTO extends Base_OutDTO implements ContainerDTO<DettaglioNotaPagamentoDTO>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1379502450648455466L;
+	private DettaglioNotaPagamentoDTO content;
+
+	
+	
+	@Override
+	public DettaglioNotaPagamentoDTO getContent() {
+		return content;
+	}
+
+	@Override
+	public void setContent(DettaglioNotaPagamentoDTO content) {
+		this.content = content;		
+	}
+	
+
+}

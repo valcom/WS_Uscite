@@ -1,0 +1,298 @@
+/**
+ * 
+ */
+package it.ccse.uscite.application.facade.impl;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import it.ccse.uscite.application.facade.WS_UsciteFacade;
+import it.ccse.uscite.application.facade.assembler.Assembler;
+import it.ccse.uscite.application.facade.dto.input.AggiornaComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiornaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiornaSemaforiAnagrafica_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiungiComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiungiNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ApriComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ApriNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AutorizzaComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ChiudiComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ChiudiNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.EliminaComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.EliminaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetComitatiAutorizzabili_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetComitati_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetNoteByComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetNoteInLavorazione_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetNoteLavorabili_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetNoteLavorate_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetPraticheByNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.GetPraticheLavorabili_InDTO;
+import it.ccse.uscite.application.facade.dto.input.LavorazioneContabileNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.LavorazioneContabilePratica_InDTO;
+import it.ccse.uscite.application.facade.dto.input.RifiutaAutorizzazioneComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.RinviaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.SearchNote_InDTO;
+import it.ccse.uscite.application.facade.dto.input.SearchPraticheInSospeso_InDTO;
+import it.ccse.uscite.application.facade.dto.input.SearchPratiche_InDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaSemaforiAnagrafica_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiungiComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiungiNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ApriComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ApriNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AutorizzaComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ChiudiComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ChiudiNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.EliminaComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.EliminaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetComitatiAutorizzabili_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetComitati_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetNoteByComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetNoteInLavorazione_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetNoteLavorabili_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetNoteLavorate_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetPraticheByNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetPraticheLavorabili_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.LavorazioneContabile_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.RifiutaAutorizzazioneComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.RinviaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.SearchNote_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.SearchPraticheInSospeso_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.SearchPratiche_OutDTO;
+import it.ccse.uscite.application.service.OrdineDelGiornoService;
+import it.ccse.uscite.application.service.PraticaErogazioneService;
+import it.ccse.uscite.application.service.ProcessoErogazioneService;
+import it.ccse.uscite.domain.LavorazioneContabile;
+import it.ccse.uscite.domain.OrdineDelGiorno;
+import it.ccse.uscite.domain.PraticaErogazione;
+import it.ccse.uscite.domain.ProcessoErogazione;
+import it.ccse.uscite.domain.SettoreAttivita;
+import it.ccse.uscite.domain.common.PageableRequest;
+import it.ccse.uscite.domain.filter.PraticaFilter;
+import it.ccse.uscite.domain.filter.ProcessoFilter;
+
+/**
+ * @author vcompagnone
+ *
+ */
+@Transactional
+@Component
+public class WS_UsciteFacadeImpl implements WS_UsciteFacade {
+	
+	@Autowired
+	private Assembler assembler;
+	
+	@Autowired
+	private PraticaErogazioneService praticaErogazioneService;
+	
+	@Autowired
+	private OrdineDelGiornoService ordineDelGiornoService;
+	
+	@Autowired
+	private ProcessoErogazioneService processoErogazioneService;	
+	
+	/* (non-Javadoc)
+	 * @see it.ccse.uscite.facade.GestionaleFacadeWS#getOrdiniDelGiorno(it.ccse.uscite.facade.dto.gestione_comitato.input.GetOrdiniDelGiorno_InDTO)
+	 */
+	@Override
+	public GetComitati_OutDTO getComitati(GetComitati_InDTO inputDTO) {
+		List<OrdineDelGiorno> ordini = ordineDelGiornoService.getOrdiniDelGiorno();
+		GetComitati_OutDTO output = assembler.toGetComitati_OutDTO(ordini);
+		return output;
+	}
+
+	/* (non-Javadoc)
+	 * @see it.ccse.uscite.facade.GestionaleFacadeWS#searchPraticheErogazione(it.ccse.uscite.facade.dto.gestione_comitato.input.SearchPratiche_InDTO)
+	 */
+	@Override
+	public SearchPratiche_OutDTO searchPratiche(
+			SearchPratiche_InDTO searchPratiche_InDTO) {
+		PageableRequest<PraticaFilter> filter = assembler.toPraticaFilter(searchPratiche_InDTO);
+		return assembler.toSearchPratiche_OutDTO(praticaErogazioneService.searchPraticheErogazione(filter));
+	}
+
+	@Override
+	public AggiungiComitato_OutDTO aggiungiComitato(
+			AggiungiComitato_InDTO comitato_InDTO) {
+		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(comitato_InDTO);
+		return assembler.toAggiungiComitato_OutDTO(ordineDelGiornoService.createOrdineDelGiorno(ordineDelGiorno));
+	}
+
+	@Override
+	public AggiornaComitato_OutDTO aggiornaComitato(
+			AggiornaComitato_InDTO updateComitato_InDTO) {
+		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(updateComitato_InDTO);
+		return assembler.toAggiornaComitato_OutDTO(ordineDelGiornoService.updateOrdineDelGiorno(ordineDelGiorno));
+	}
+
+	@Override
+	public ApriComitato_OutDTO apriComitato(
+			ApriComitato_InDTO apriComitato_InDTO) {
+		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(apriComitato_InDTO);
+		return assembler.toApriComitato_OutDTO(ordineDelGiornoService.apriOrdineDelGiorno(ordineDelGiorno));
+	}
+
+	@Override
+	public ChiudiComitato_OutDTO chiudiComitato(
+			ChiudiComitato_InDTO chiudiComitato_InDTO) {
+		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(chiudiComitato_InDTO);
+		return assembler.toChiudiComitato_InDTO(ordineDelGiornoService.chiudiOrdineDelGiorno(ordineDelGiorno));
+	}
+
+	@Override
+	public EliminaComitato_OutDTO deleteComitato(
+			EliminaComitato_InDTO deleteComitato_InDTO) {
+		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(deleteComitato_InDTO);
+		ordineDelGiornoService.eliminaOrdineDelGiorno(ordineDelGiorno);
+		return assembler.toEliminaComitato_OutDTO();
+	}
+
+	@Override
+	public AggiungiNota_OutDTO aggiungiNota(
+			AggiungiNota_InDTO aggiungiNotaDTO_InDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(aggiungiNotaDTO_InDTO);
+		return assembler.toAggiungiNota_OutDTO(processoErogazioneService.createProcessoErogazione(processo));
+	}
+
+	@Override
+	public EliminaNota_OutDTO eliminaNota(EliminaNota_InDTO eliminaNota_InDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(eliminaNota_InDTO);
+		processoErogazioneService.eliminaProcessoErogazione(processo);
+		return assembler.toEliminaNota_OutDTO();
+	}
+
+	@Override
+	public AggiornaNota_OutDTO aggiornaNota(
+			AggiornaNota_InDTO aggiornaNota_InDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(aggiornaNota_InDTO);
+		return assembler.toAggiornaNota_OutDTO(processoErogazioneService.aggiornaProcessoErogazione(processo));
+	}
+
+	@Override
+	public ApriNota_OutDTO apriNota(ApriNota_InDTO apriNotaInDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(apriNotaInDTO);
+		return assembler.toApriNota_OutDTO(processoErogazioneService.apriProcessoErogazione(processo));
+	}
+
+	@Override
+	public ChiudiNota_OutDTO chiudiNota(ChiudiNota_InDTO chiudiNotaInDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(chiudiNotaInDTO);
+		return assembler.toChiudiNota_OutDTO(processoErogazioneService.chiudiProcessoErogazione(processo));
+	}
+
+	@Override
+	public GetNoteByComitato_OutDTO getNoteByComitato(
+			GetNoteByComitato_InDTO getNoteByComitato_InDTO) {
+		OrdineDelGiorno odg = assembler.toOrdineDelGiorno(getNoteByComitato_InDTO);
+		return assembler.toGetNoteByComitato_OutDTO(processoErogazioneService.getProcessiErogazioneByOrdineDelGiorno(odg));
+	}
+
+	@Override
+	public RinviaNota_OutDTO rinviaNota(RinviaNota_InDTO rinviaNota_InDTO) {
+		OrdineDelGiorno ordine = assembler.toOrdineDelGiorno(rinviaNota_InDTO);
+		ProcessoErogazione processo = assembler.toProcessoErogazione(rinviaNota_InDTO);
+		return assembler.toRinviaNota_OutDTO(processoErogazioneService.rinviaProcessoErogazione(processo, ordine));
+	}
+
+	@Override
+	public GetPraticheByNota_OutDTO getPraticheByNota(
+			GetPraticheByNota_InDTO getPraticheByNota_InDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(getPraticheByNota_InDTO);
+		return assembler.toGetPraticheByNota_InDTO(praticaErogazioneService.getPraticheByProcessoErogazione(processo));
+	}
+
+	@Override
+	public GetNoteInLavorazione_OutDTO getNoteInLavorazione(
+			GetNoteInLavorazione_InDTO getNoteInLavorazione_InDTO) {
+		OrdineDelGiorno ordine = assembler.toOrdineDelGiorno(getNoteInLavorazione_InDTO);
+		return assembler.toGetNoteInLavorazione_OutDTO(processoErogazioneService.getProcessiErogazioneInLavorazione(ordine));
+	}
+
+	@Override
+	public GetNoteLavorate_OutDTO getNoteLavorate(
+			GetNoteLavorate_InDTO getNoteLavorate_InDTO) {
+		OrdineDelGiorno ordine = assembler.toOrdineDelGiorno(getNoteLavorate_InDTO);
+		return assembler.toGetNoteLavorate_OutDTO(processoErogazioneService.getProcessiErogazioneLavorati(ordine));
+	}
+
+	@Override
+	public GetNoteLavorabili_OutDTO getGetNoteLavorabili(
+			GetNoteLavorabili_InDTO getNoteLavorabili_InDTO) {
+		OrdineDelGiorno ordine = assembler.toOrdineDelGiorno(getNoteLavorabili_InDTO);
+		return assembler.toGetNoteLavorabili_OutDTO(processoErogazioneService.getProcessiErogazioneLavorabili(ordine));
+	}
+
+	@Override
+	public GetPraticheLavorabili_OutDTO getPraticheLavorabili(
+			GetPraticheLavorabili_InDTO getPraticheLavorabili_InDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(getPraticheLavorabili_InDTO);
+		return assembler.toGetPraticheLavorabili_OutDTO(praticaErogazioneService.getPraticheLavorabili(processo));
+	}
+
+	@Override
+	public GetComitatiAutorizzabili_OutDTO getComitatiAutorizzabili(
+			GetComitatiAutorizzabili_InDTO getOrdiniDelGiornoAutorizzabiliInDTO) {
+		return assembler.toGetComitatiAutorizzabili_OutDTO(ordineDelGiornoService.getOrdiniDelGiornoAutorizzabili());
+	}
+
+	@Override
+	public LavorazioneContabile_OutDTO lavorazioneContabileNota(
+			LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO) {
+		ProcessoErogazione processo = assembler.toProcessoErogazione(lavorazioneContabileNota_InDTO);
+		LavorazioneContabile lavorazioneContabile = processoErogazioneService.lavorazioneContabile(processo);
+		return assembler.toLavorazioneContabile_OutDTO(lavorazioneContabile);
+	}
+
+	@Override
+	public LavorazioneContabile_OutDTO lavorazioneContabilePratiche(
+			LavorazioneContabilePratica_InDTO lavorazioneContabilePratica_InDTO) {
+		List<PraticaErogazione> pratiche = assembler.toPratiche(lavorazioneContabilePratica_InDTO);
+		LavorazioneContabile lavorazione = praticaErogazioneService.lavorazioneContabile(pratiche);
+		return assembler.toLavorazioneContabile_OutDTO(lavorazione);
+	}
+
+	@Override
+	public AggiornaSemaforiAnagrafica_OutDTO aggiornaSemaforiAnagrafica(
+			AggiornaSemaforiAnagrafica_InDTO aggiornaSemaforiAnagrafica_InDTO) {
+		List<SettoreAttivita> settoriAttivita = assembler.toSettoriAttivita(aggiornaSemaforiAnagrafica_InDTO);
+		return assembler.toAggiornaSemaforiAnagrafica_OutDTO(praticaErogazioneService.aggiornaSemaforiAnagrafica(settoriAttivita));
+	}
+
+	@Override
+	public SearchPraticheInSospeso_OutDTO searchPraticheInSospeso(
+			SearchPraticheInSospeso_InDTO searchPraticheInSospeso_InDTO) {
+		PageableRequest<PraticaFilter> filter = assembler.toPraticaFilter(searchPraticheInSospeso_InDTO);
+		return assembler.toSearchPraticheInSospeso_OutDTO(praticaErogazioneService.searchPraticheInSospeso(filter));
+	}
+
+	@Override
+	public AutorizzaComitato_OutDTO autorizzaComitato(
+			AutorizzaComitato_InDTO autorizzaComitatoIn_DTO) {
+		List<PraticaErogazione> pratiche = assembler.toPratiche(autorizzaComitatoIn_DTO);
+		praticaErogazioneService.autorizzaComitato(pratiche);
+		return assembler.toAutorizzaComitato_OutDTO();
+	}
+
+	@Override
+	public RifiutaAutorizzazioneComitato_OutDTO rifiutaAutorizzazioneComitato(
+			RifiutaAutorizzazioneComitato_InDTO rifiutaAutorizzazioneComitatoIn_DTO) {
+		List<PraticaErogazione> pratiche = assembler.toPratiche(rifiutaAutorizzazioneComitatoIn_DTO);
+		praticaErogazioneService.rifiutaAutorizzazioneComitato(pratiche);
+		return assembler.toRifiutaAutorizzazioneComitato_OutDTO();
+	}
+
+	@Override
+	public SearchNote_OutDTO searchNote(SearchNote_InDTO searchNote_InDTO) {
+		PageableRequest<ProcessoFilter> req = assembler.toProcessoFilter(searchNote_InDTO);
+		return assembler.toSearchNote_OutDTO(processoErogazioneService.searchProcessiErogazione(req));
+	}
+
+	
+	
+}

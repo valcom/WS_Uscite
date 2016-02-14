@@ -1,0 +1,100 @@
+/**
+ * 
+ */
+package it.ccse.uscite.domain.specification;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import it.ccse.uscite.domain.PraticaErogazione;
+import it.ccse.uscite.domain.PraticaErogazione.AutorizzazioneComitato;
+import it.ccse.uscite.domain.PraticaErogazione.AutorizzazioneContabile;
+import it.ccse.uscite.domain.PraticaErogazione.AutorizzazioneLegale;
+import it.ccse.uscite.domain.PraticaErogazione.FideiussionePratica;
+import it.ccse.uscite.domain.PraticaErogazione.UnbundlingPratica;
+import it.ccse.uscite.domain.PraticaErogazione_;
+
+import org.springframework.data.jpa.domain.Specification;
+
+/**
+ * @author vcompagnone
+ *
+ */
+public class PraticaErogazioneSpecifications {
+
+	public static Specification<PraticaErogazione> hasAnnoDa(final Integer annoDa){
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return annoDa != null ? cb.ge(root.get(PraticaErogazione_.anno), annoDa):cb.and();
+				}
+			};
+		
+	}  
+	
+	public static Specification<PraticaErogazione> hasAnnoA(final Integer annoA){
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return annoA != null ? cb.le(root.get(PraticaErogazione_.anno), annoA):cb.and();
+				}
+			};
+		
+	}
+
+	public static Specification<PraticaErogazione> hasAutorizzazioneComitato(
+			final AutorizzazioneComitato autorizzazioneComitato) {
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return autorizzazioneComitato != null ? cb.equal(root.get(PraticaErogazione_.autorizzazioneComitato), autorizzazioneComitato):cb.and();
+				}
+			};
+	}  
+	
+	public static Specification<PraticaErogazione> hasAutorizzazioneContabile(final AutorizzazioneContabile autorizzazioneContabile){
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return autorizzazioneContabile != null ? cb.equal(root.get(PraticaErogazione_.autorizzazioneContabile), autorizzazioneContabile):cb.and();
+				}
+			};
+	}
+	
+	public static Specification<PraticaErogazione> hasAutorizzazioneLegale(final AutorizzazioneLegale autorizzazioneLegale){
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return autorizzazioneLegale != null ? cb.equal(root.get(PraticaErogazione_.autorizzazioneLegale), autorizzazioneLegale):cb.and();
+				}
+			};
+	}
+
+	public static Specification<PraticaErogazione> hasUnbundling(final UnbundlingPratica unbundling){
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return unbundling != null ? cb.equal(root.get(PraticaErogazione_.unbundling), unbundling):cb.and();
+				}
+			};
+	}
+	
+	public static Specification<PraticaErogazione> hasFideiussione(final FideiussionePratica fideiussione){
+		return new Specification<PraticaErogazione>(){
+			@Override
+			public Predicate toPredicate(Root<PraticaErogazione> root,
+					CriteriaQuery<?> cq, CriteriaBuilder cb) {
+				return fideiussione != null ? cb.equal(root.get(PraticaErogazione_.fideiussione), fideiussione):cb.and();
+				}
+			};
+	}
+	
+}

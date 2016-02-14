@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+package it.ccse.uscite.application.facade.dto.output;
+
+import it.ccse.uscite.application.facade.dto.ContainerDTO;
+import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneDTO;
+
+import java.util.List;
+
+/**
+ * @author vcompagnone
+ *
+ */
+public class GetPraticheLavorabili_OutDTO extends Base_OutDTO implements ContainerDTO<List<DettaglioPraticaErogazioneDTO>>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<DettaglioPraticaErogazioneDTO> content;
+
+	@Override
+	public List<DettaglioPraticaErogazioneDTO> getContent() {
+		return content;
+	}
+
+	@Override
+	public void setContent(List<DettaglioPraticaErogazioneDTO> content) {
+		this.content = content;
+	}
+
+}

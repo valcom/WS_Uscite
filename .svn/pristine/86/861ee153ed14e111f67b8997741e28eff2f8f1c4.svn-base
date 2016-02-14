@@ -1,0 +1,37 @@
+/**
+ * 
+ */
+package it.ccse.uscite.application.facade.dto.output;
+
+import it.ccse.uscite.application.facade.dto.ContainerDTO;
+import it.ccse.uscite.application.facade.dto.DettaglioNotaPagamentoDTO;
+
+import java.util.List;
+
+/**
+ * @author vcompagnone
+ *
+ */
+public class GetNoteByComitato_OutDTO extends Base_OutDTO implements ContainerDTO<List<DettaglioNotaPagamentoDTO>> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private List<DettaglioNotaPagamentoDTO> content;
+
+	/**
+	 * @return the content
+	 */
+	public List<DettaglioNotaPagamentoDTO> getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(List<DettaglioNotaPagamentoDTO> content) {
+		this.content = content;
+	}
+	
+}

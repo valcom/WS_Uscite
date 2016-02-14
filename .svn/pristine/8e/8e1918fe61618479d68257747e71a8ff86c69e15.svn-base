@@ -1,0 +1,316 @@
+/**
+ * 
+ */
+package it.ccse.uscite.application.facade.assembler;
+
+import it.ccse.uscite.application.facade.dto.input.AggiornaComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiornaFideiussione_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiornaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiornaSemaforiAnagrafica_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiungiComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AggiungiNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ApriComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ApriNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AssociaPraticheANota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.AutorizzaComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ChiudiComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.ChiudiNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.DissociaPraticheDaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.EliminaComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.EliminaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.LavorazioneContabileNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.LavorazioneContabilePratica_InDTO;
+import it.ccse.uscite.application.facade.dto.input.RifiutaAutorizzazioneComitato_InDTO;
+import it.ccse.uscite.application.facade.dto.input.RinviaNota_InDTO;
+import it.ccse.uscite.application.facade.dto.input.SearchComitati_InDTO;
+import it.ccse.uscite.application.facade.dto.input.SearchNote_InDTO;
+import it.ccse.uscite.application.facade.dto.input.SearchPratiche_InDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaFideiussione_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiornaSemaforiAnagrafica_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiungiComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AggiungiNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ApriComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ApriNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AssociaPraticheANota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.AutorizzaComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ChiudiComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.ChiudiNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.DissociaPraticheDaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.EliminaComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.EliminaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetComitati_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.GetTipiPeriodo_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.LavorazioneContabile_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.RifiutaAutorizzazioneComitato_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.RinviaNota_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.SearchComitati_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.SearchNote_OutDTO;
+import it.ccse.uscite.application.facade.dto.output.SearchPratiche_OutDTO;
+import it.ccse.uscite.domain.LavorazioneContabile;
+import it.ccse.uscite.domain.OrdineDelGiorno;
+import it.ccse.uscite.domain.PraticaErogazione;
+import it.ccse.uscite.domain.ProcessoErogazione;
+import it.ccse.uscite.domain.SettoreAttivita;
+import it.ccse.uscite.domain.TipoPeriodo;
+import it.ccse.uscite.domain.common.Container;
+import it.ccse.uscite.domain.common.ListContainer;
+import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
+import it.ccse.uscite.domain.filter.PraticaFilter;
+import it.ccse.uscite.domain.filter.ProcessoFilter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
+
+/**
+ * @author vcompagnone
+ *
+ */
+@Component
+public class Assembler{
+	
+	@Autowired
+	private Mapper mapper;
+	
+	public GetComitati_OutDTO toGetComitati_OutDTO(List<OrdineDelGiorno> ordini) {
+		return mapper.map(new Container<List<OrdineDelGiorno>>(ordini), GetComitati_OutDTO.class);
+	}
+	
+	public PraticaFilter toPraticaFilter(SearchPratiche_InDTO searchPratiche_InDTO){
+		PraticaFilter filter = mapper.map(searchPratiche_InDTO, PraticaFilter.class);
+		return filter;
+	}
+
+	public SearchPratiche_OutDTO toSearchPratiche_OutDTO(
+			Page<PraticaErogazione> pratiche) {
+		return mapper.map(pratiche, SearchPratiche_OutDTO.class);
+	}
+	
+	public OrdineDelGiorno toOrdineDelGiorno(AggiungiComitato_InDTO aggiungiComitato_InDTO){
+		return mapper.map(aggiungiComitato_InDTO, OrdineDelGiorno.class);
+	}
+
+	public AggiungiComitato_OutDTO toAggiungiComitato_OutDTO(
+			OrdineDelGiorno ordineDelGiorno) {
+		return mapper.map(new Container<OrdineDelGiorno>(ordineDelGiorno), AggiungiComitato_OutDTO.class);
+	}
+	
+	public OrdineDelGiorno toOrdineDelGiorno(AggiornaComitato_InDTO updateComitato_InDTO){
+		return mapper.map(updateComitato_InDTO, OrdineDelGiorno.class);
+	}
+
+	public AggiornaComitato_OutDTO toAggiornaComitato_OutDTO(
+			OrdineDelGiorno ordineDelGiorno) {
+		AggiornaComitato_OutDTO dto = mapper.map(new Container<OrdineDelGiorno>(ordineDelGiorno), AggiornaComitato_OutDTO.class);
+		return dto;
+	}
+	
+	public OrdineDelGiorno toOrdineDelGiorno(ApriComitato_InDTO apriComitato_InDTO){
+		return mapper.map(apriComitato_InDTO, OrdineDelGiorno.class);
+	}
+
+	public ApriComitato_OutDTO toApriComitato_OutDTO(
+			OrdineDelGiorno ordineDelGiorno) {
+		ApriComitato_OutDTO dto = mapper.map(new Container<OrdineDelGiorno>(ordineDelGiorno), ApriComitato_OutDTO.class);
+		return dto;
+	}
+	
+	public OrdineDelGiorno toOrdineDelGiorno(ChiudiComitato_InDTO chiudiComitato_InDTO){
+		return mapper.map(chiudiComitato_InDTO, OrdineDelGiorno.class);
+	}
+
+	public ChiudiComitato_OutDTO toChiudiComitato_OutDTO(
+			OrdineDelGiorno chiudiOrdineDelGiorno) {
+		ChiudiComitato_OutDTO dto = mapper.map(new Container<OrdineDelGiorno>(chiudiOrdineDelGiorno), ChiudiComitato_OutDTO.class);
+		return dto;
+	}
+	
+	public OrdineDelGiorno toOrdineDelGiorno(EliminaComitato_InDTO deleteComitato_InDTO){
+		return mapper.map(deleteComitato_InDTO, OrdineDelGiorno.class);
+	}
+
+	public EliminaComitato_OutDTO toEliminaComitato_OutDTO() {
+		return new EliminaComitato_OutDTO();
+	}
+	
+	public ProcessoErogazione toProcessoErogazione(AggiungiNota_InDTO aggiungiNotaDTO_InDTO){
+		return mapper.map(aggiungiNotaDTO_InDTO, ProcessoErogazione.class);
+	}
+
+	public AggiungiNota_OutDTO toAggiungiNota_OutDTO(
+			ProcessoErogazione processoErogazione) {
+		return mapper.map(new Container<ProcessoErogazione>(processoErogazione), AggiungiNota_OutDTO.class);
+	}
+	 
+	public ProcessoErogazione toProcessoErogazione(EliminaNota_InDTO eliminaNota_InDTO){
+		return mapper.map(eliminaNota_InDTO, ProcessoErogazione.class);
+	}
+
+	public EliminaNota_OutDTO toEliminaNota_OutDTO() {
+		return new EliminaNota_OutDTO();
+	}
+	
+	public ProcessoErogazione toProcessoErogazione(AggiornaNota_InDTO aggiornaNota_InDTO){
+		return mapper.map(aggiornaNota_InDTO, ProcessoErogazione.class);
+	}
+
+	public AggiornaNota_OutDTO toAggiornaNota_OutDTO(ProcessoErogazione processo) {
+		return mapper.map(new Container<ProcessoErogazione>(processo), AggiornaNota_OutDTO.class);
+	}
+	
+	public ProcessoErogazione toProcessoErogazione(ApriNota_InDTO apriNotaInDTO){
+		return mapper.map(apriNotaInDTO, ProcessoErogazione.class);
+	}
+
+	public ApriNota_OutDTO toApriNota_OutDTO(ProcessoErogazione processo) {
+		return mapper.map(new Container<ProcessoErogazione>(processo), ApriNota_OutDTO.class);
+	}
+
+	public ProcessoErogazione toProcessoErogazione(ChiudiNota_InDTO chiudiNotaInDTO) {
+		return mapper.map(chiudiNotaInDTO, ProcessoErogazione.class);
+	}
+
+	public ChiudiNota_OutDTO toChiudiNota_OutDTO(ProcessoErogazione processo) {
+		return mapper.map(new Container<ProcessoErogazione>(processo), ChiudiNota_OutDTO.class);
+	}
+
+
+	public OrdineDelGiorno toOrdineDelGiorno(RinviaNota_InDTO rinviaNota_InDTO) {
+		return mapper.map(rinviaNota_InDTO, OrdineDelGiorno.class);
+	}
+
+	public ProcessoErogazione toProcessoErogazione(
+			RinviaNota_InDTO rinviaNota_InDTO) {
+		return mapper.map(rinviaNota_InDTO, ProcessoErogazione.class);
+	}
+
+	public RinviaNota_OutDTO toRinviaNota_OutDTO(ProcessoErogazione processo) {
+		return mapper.map(new Container<ProcessoErogazione>(processo), RinviaNota_OutDTO.class);
+	}
+
+	public ProcessoErogazione toProcessoErogazione(
+			LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO) {
+		return mapper.map(lavorazioneContabileNota_InDTO, ProcessoErogazione.class);
+	}
+
+	public LavorazioneContabile_OutDTO toLavorazioneContabile_OutDTO(
+			LavorazioneContabile lavorazioneContabile) {
+		return lavorazioneContabile!=null ?  mapper.map(lavorazioneContabile, LavorazioneContabile_OutDTO.class):null;
+	}
+
+	public List<PraticaErogazione> toPratiche(
+			LavorazioneContabilePratica_InDTO lavorazioneContabilePratica_InDTO) {
+		ListContainer<PraticaErogazione> container = new ListContainer<PraticaErogazione>(new ArrayList<PraticaErogazione>()); 
+		mapper.map(lavorazioneContabilePratica_InDTO,container,"praticaContentMap");
+		return container.getContent();
+	}
+
+	public AggiornaSemaforiAnagrafica_OutDTO toAggiornaSemaforiAnagrafica_OutDTO(
+			List<PraticaErogazione> pratiche) {	
+		return mapper.map(new ListContainer<PraticaErogazione>(pratiche), AggiornaSemaforiAnagrafica_OutDTO.class,"praticaContentMap");
+	}
+
+	public List<SettoreAttivita> toSettoriAttivita(
+			AggiornaSemaforiAnagrafica_InDTO aggiornaSemaforiAnagrafica_InDTO) {
+		ListContainer<SettoreAttivita> container = new ListContainer<SettoreAttivita>(new ArrayList<SettoreAttivita>()); 
+		mapper.map(aggiornaSemaforiAnagrafica_InDTO,container);
+		return container.getContent();
+	}
+
+	public List<PraticaErogazione> toPratiche(
+			AutorizzaComitato_InDTO autorizzaComitatoIn_DTO) {
+		ListContainer<PraticaErogazione> container = new ListContainer<PraticaErogazione>(new ArrayList<PraticaErogazione>()); 
+		mapper.map(autorizzaComitatoIn_DTO,container,"praticaContentMap");
+		return container.getContent();
+	}
+
+	public AutorizzaComitato_OutDTO toAutorizzaComitato_OutDTO() {
+		return new AutorizzaComitato_OutDTO();
+	}
+
+	public List<PraticaErogazione> toPratiche(
+			RifiutaAutorizzazioneComitato_InDTO rifiutaAutorizzazioneComitatoIn_DTO) {
+		ListContainer<PraticaErogazione> container = new ListContainer<PraticaErogazione>(new ArrayList<PraticaErogazione>()); 
+		mapper.map(rifiutaAutorizzazioneComitatoIn_DTO,container,"praticaContentMap");
+		return container.getContent();
+	}
+
+	public RifiutaAutorizzazioneComitato_OutDTO toRifiutaAutorizzazioneComitato_OutDTO() {
+		return new RifiutaAutorizzazioneComitato_OutDTO();
+	}
+
+	public ProcessoFilter toProcessoFilter(SearchNote_InDTO searchNote_InDTO) {
+		ProcessoFilter filter = mapper.map(searchNote_InDTO, ProcessoFilter.class);
+		return filter;
+	}
+
+	public SearchNote_OutDTO toSearchNote_OutDTO(Page<ProcessoErogazione> searchProcessiErogazione) {
+		return mapper.map(searchProcessiErogazione, SearchNote_OutDTO.class);
+	}
+
+	public OrdineDelGiornoFilter toOrdineDelGiornoFilter(
+			SearchComitati_InDTO searchComitati_InDTO) {
+		OrdineDelGiornoFilter filter = mapper.map(searchComitati_InDTO, OrdineDelGiornoFilter.class);
+		return filter;
+	}
+
+	public SearchComitati_OutDTO toSearchComitati_OutDTO(
+			Page<OrdineDelGiorno> searchComitati) {
+		return mapper.map(searchComitati, SearchComitati_OutDTO.class);
+	}
+
+	public GetTipiPeriodo_OutDTO toGetTipiPeriodoOutDTO(
+			List<TipoPeriodo> tipiPeriodo) {
+		return mapper.map(new ListContainer<TipoPeriodo>(tipiPeriodo), GetTipiPeriodo_OutDTO.class);
+	}
+
+	public List<PraticaErogazione> toPratiche(
+			AssociaPraticheANota_InDTO associaPraticheANota_InDTO) {
+		ListContainer<PraticaErogazione> container = new ListContainer<PraticaErogazione>(new ArrayList<PraticaErogazione>());
+		mapper.map(associaPraticheANota_InDTO,container,"praticaContentMap");
+		return container.getContent();
+	}
+
+	public ProcessoErogazione toProcessoErogazione(
+			AssociaPraticheANota_InDTO associaPraticheANota_InDTO) {
+		ProcessoErogazione processo = new ProcessoErogazione();
+		processo.setId(associaPraticheANota_InDTO.getIdNota());
+		return processo;
+	}
+
+	public AssociaPraticheANota_OutDTO toAssociaPraticheANota_OutDTO(
+			ProcessoErogazione processo) {
+		Container<ProcessoErogazione> container = new Container<ProcessoErogazione>(processo);
+		return mapper.map(container,AssociaPraticheANota_OutDTO.class);
+	}
+
+	public List<PraticaErogazione> toPratiche(
+			DissociaPraticheDaNota_InDTO dissociaPraticheDaNota_InDTO) {
+		ListContainer<PraticaErogazione> container = new ListContainer<PraticaErogazione>(new ArrayList<PraticaErogazione>()); 
+		mapper.map(dissociaPraticheDaNota_InDTO,container,"praticaContentMap");
+		return container.getContent();
+	}
+
+	public DissociaPraticheDaNota_OutDTO toDissociaPraticheDaNota_OutDTO() {
+		return new DissociaPraticheDaNota_OutDTO();
+	}
+
+	public List<PraticaErogazione> toPratiche(
+			AggiornaFideiussione_InDTO aggiornaFideiussione_InDTO) {
+		ListContainer<PraticaErogazione> container = new ListContainer<PraticaErogazione>(new ArrayList<PraticaErogazione>());
+		mapper.map(aggiornaFideiussione_InDTO,container,"praticaContentMap");
+		return container.getContent();
+	}
+
+	public AggiornaFideiussione_OutDTO toAggiornaFideiussione_OutDTO(
+			List<PraticaErogazione> pratiche) {
+		return mapper.map(new ListContainer<PraticaErogazione>(pratiche), AggiornaFideiussione_OutDTO.class,"praticaContentMap");
+	}
+	
+}
