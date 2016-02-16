@@ -11,15 +11,22 @@
      
     	<!-- CCSE -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" >
-		<property name="host" value="192.168.0.101" />
-		<property name="port" value="25" />
-		<property name="protocol" value="smtp" />
-		<property name="username" value="anagrafeccse@ccse.cc" />
-		<property name="password" value="anaccse" />
+		<property name="host" value="smtp.mail.yahoo.it" />
+		<property name="port" value="465" />
+		<property name="protocol" value="smtps" />
+		<property name="username" value="asso_mazzo82@yahoo.it" />
+		<property name="password" value="S@gittario82" />
+		<property name="javaMailProperties">
+        <props>
+            <prop key="mail.smtps.auth">true</prop>
+            <prop key="mail.smtp.ssl.enable">true</prop>
+            <prop key="mail.transport.protocol">smtps</prop>
+        </props>
+    </property>
 	</bean>
 <!-- messaggio sblocco pratiche Template -->
 	<bean id="msgSbloccoPratiche" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
-		<property name="from" value="dbusciteservice@ccse.cc" />
+		<property name="from" value="asso_mazzo82@yahoo.it" />
 		<property name="to" ref="to" />
 		<property name="cc" ref="cc" />
 		<property name="bcc" ref="bcc" />

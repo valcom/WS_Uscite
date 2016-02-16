@@ -45,8 +45,6 @@
 		<commons-lang.version>2.2</commons-lang.version>
 		<dozer.version>5.5.1</dozer.version>
 
-		<lambdaj.version>2.3.3</lambdaj.version>
-
 		<!-- Test -->
 		<junit.version>4.11</junit.version>
 		<mysql-connector.version>5.1.30</mysql-connector.version>
@@ -87,12 +85,6 @@
 	</profiles>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>com.googlecode.lambdaj</groupId>
-			<artifactId>lambdaj</artifactId>
-			<version>${lambdaj.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>javax</groupId>

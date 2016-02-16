@@ -6,7 +6,6 @@ package it.ccse.uscite.infrastructure.xml_adapter;
 import it.ccse.uscite.application.facade.dto.ComitatoFullDTO;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import ch.lambdaj.Lambda;
 
 /**
  * Classe utilizzata per evitare cicli e permettere la serializzazione del dto
@@ -19,7 +18,7 @@ public class ComitatoFullDTOAdapter extends XmlAdapter<ComitatoFullDTO, Comitato
 	@Override
 	public ComitatoFullDTO marshal(ComitatoFullDTO v) throws Exception {
 		if(v!=null&&v.getNote()!=null){
-			Lambda.forEach(v.getNote()).setOrdineDelGiorno(null);
+			v.getNote().stream().forEach(n->n.setOrdineDelGiorno(null));
 		}
 		return v;
 	}

@@ -31,21 +31,16 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsIn;
-import org.hamcrest.core.IsEqual;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ch.lambdaj.Lambda;
 
 /**
  * @author vcompagnone
@@ -72,12 +67,6 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	
 	@Autowired
 	private MailService mailService;
-	
-	
-	
-	private final static  Matcher<PraticaErogazione> isInErogazione = Lambda.having(Lambda.on(PraticaErogazione.class).getLavorazioneContabile(), IsEqual.equalTo(StatoPratica.IN_EROGAZIONE));
-
-	private final static  Matcher<PraticaErogazione> isInSospeso = Lambda.having(Lambda.on(PraticaErogazione.class).getLavorazioneContabile(), IsEqual.equalTo(StatoPratica.IN_SOSPESO));
 
 
 	/* (non-Javadoc)
@@ -147,14 +136,14 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 		}
 		if(pratiche!=null&&!pratiche.isEmpty()){
 			List<PraticaErogazione> praticheNuove = pratiche;
-			List<String> codiciPratica = Lambda.extract(pratiche,Lambda.on(PraticaErogazione.class).getCodicePratica());
+			List<String> codiciPratica = pratiche.stream().map(PraticaErogazione::getCodicePratica).collect(Collectors.toList());
 			List<PraticaErogazione> praticheEsistenti = praticaErogazioneRepository.findByCodicePraticaIn(codiciPratica);
 			if(praticheEsistenti!=null&&!praticheEsistenti.isEmpty()){
-				List<String> codiciPraticaEsistenti = Lambda.extract(praticheEsistenti,Lambda.on(PraticaErogazione.class).getCodicePratica());
-				praticheNuove = Lambda.select(pratiche, Lambda.having(Lambda.on(PraticaErogazione.class).getCodicePratica(),Matchers.not(IsIn.isIn(codiciPraticaEsistenti))));
+				List<String> codiciPraticaEsistenti = praticheEsistenti.stream().map(PraticaErogazione::getCodicePratica).collect(Collectors.toList());
+				praticheNuove = pratiche.stream().filter(p->!codiciPraticaEsistenti.contains(p.getCodicePratica())).collect(Collectors.toList());
 				for(PraticaErogazione praticaEsistente:praticheEsistenti){
 					praticaEsistente.checkModificabilita();
-					PraticaErogazione pratica = Lambda.selectUnique(pratiche, Lambda.having(Lambda.on(PraticaErogazione.class).getCodicePratica(),IsEqual.equalTo(praticaEsistente.getCodicePratica())));
+					PraticaErogazione pratica = pratiche.stream().filter(p->p.getCodicePratica().equals(praticaEsistente.getCodicePratica())).findFirst().get();
 					pratica.setId(praticaEsistente.getId());
 					pratica.setLavorazioneContabile(praticaEsistente.getLavorazioneContabile());
 					pratica.setStatoComitato(praticaEsistente.getStatoComitato());
@@ -182,19 +171,9 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
 			List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 			for(PraticaErogazione pratica:pratiche){
-				StatoLegale statoLegale = Lambda.selectUnique(statiLegale, Lambda.having(Lambda.on(StatoLegale.class).getAutorizzazioneLegale(),IsEqual.equalTo(calcolaAutorizzazioneLegale(pratica))));	
-				StatoUnbundling statoUnbundling = Lambda.selectUnique(statiUnbundling, Lambda.having(Lambda.on(StatoUnbundling.class).getUnbundling(),IsEqual.equalTo(calcolaUnbundlingPratica(pratica))));	;
-				StatoFideiussione statoFideiussione = Lambda.selectUnique(statiFideiussione, Lambda.having(Lambda.on(StatoFideiussione.class).getFideiussione(),IsEqual.equalTo(calcolaFideiussione(pratica,statoFideiussioneIniziale.getFideiussione()))));
-
-				if(statoLegale==null){
-					throw new RuntimeException("stato legale non valido per la pratica "+pratica.getCodicePratica());
-				}
-				if(statoUnbundling==null){
-					throw new RuntimeException("stato unbundling non valido per la pratica "+pratica.getCodicePratica());
-				}
-				if(statoFideiussione==null){
-					throw new RuntimeException("stato fideiussione non valido per la pratica "+pratica.getCodicePratica());
-				}
+				StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(calcolaAutorizzazioneLegale(pratica))).findFirst().orElseThrow(()->new RuntimeException("stato legale non valido per la pratica "+pratica.getCodicePratica()));
+				StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(su->su.getUnbundling().equals(calcolaUnbundlingPratica(pratica))).findFirst().orElseThrow(()->new RuntimeException("stato unbundling non valido per la pratica "+pratica.getCodicePratica()));
+				StatoFideiussione statoFideiussione = statiFideiussione.stream().filter(sf->sf.getFideiussione().equals(calcolaFideiussione(pratica, statoFideiussioneIniziale.getFideiussione()))).findFirst().orElseThrow(()->new RuntimeException("stato fideiussione non valido per la pratica "+pratica.getCodicePratica()));
 				
 				pratica.setStatoLegale(statoLegale);
 				pratica.setStatoUnbundling(statoUnbundling);
@@ -211,13 +190,13 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public void dissociaPraticheDaNota(
 			List<PraticaErogazione> pratiche) {	
 		int nPratiche = pratiche.size();
-		List<Integer> ids = Lambda.extract(pratiche, Lambda.on(PraticaErogazione.class).getIdPraticaErogazione());
+		List<Integer> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 		pratiche = praticaErogazioneRepository.findAll(ids);
 		if(pratiche==null || pratiche.size()<nPratiche){
 			throw new ApplicationException("error.pratica.notFound.dissociazionePraticaNota");
 		}
-		Lambda.forEach(pratiche).checkDissociaDaNota();
-		Lambda.forEach(pratiche).dissociaDaNota();
+		pratiche.parallelStream().forEach(PraticaErogazione::checkDissociaDaNota);
+		pratiche.parallelStream().forEach(PraticaErogazione::dissociaDaNota);
 		delete(pratiche);
 	}
 
@@ -240,14 +219,14 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public LavorazioneContabile lavorazioneContabile(List<PraticaErogazione> pratiche) {
 		LavorazioneContabile lavorazioneContabile = new LavorazioneContabile();
 		
-		List<Integer> ids = Lambda.extract(pratiche, Lambda.on(PraticaErogazione.class).getIdPraticaErogazione());
+		List<Integer> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 		pratiche = praticaErogazioneRepository.findAll(ids);
-		Lambda.forEach(pratiche).lavorazioneContabile();
-		lavorazioneContabile.addErogazioni(Lambda.select(pratiche, isInErogazione));
-		lavorazioneContabile.addSospesi(Lambda.select(pratiche, isInSospeso));
+		pratiche.stream().forEach(PraticaErogazione::lavorazioneContabile);
+		lavorazioneContabile.addErogazioni(pratiche.stream().filter(PraticaErogazione.IS_IN_EROGAZIONE).collect(Collectors.toList()));
+		lavorazioneContabile.addSospesi(pratiche.stream().filter(PraticaErogazione.IS_IN_SOSPESO).collect(Collectors.toList()));
 
-		Set<ProcessoErogazione> processi = new HashSet<ProcessoErogazione>(Lambda.extract(pratiche, Lambda.on(PraticaErogazione.class).getProcessoErogazione()));
-		Lambda.forEach(processi).lavorazioneContabile();	
+		Set<ProcessoErogazione> processi = pratiche.stream().map(p->p.getProcessoErogazione()).collect(Collectors.toSet());
+		processi.stream().forEach(ProcessoErogazione::lavorazioneContabile);
 
 		praticaErogazioneRepository.save(pratiche);
 		processoErogazioneRepository.save(processi);
@@ -272,8 +251,8 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 					pratica.setSettoreAttivita(settoreAttivita);
 					AutorizzazioneLegale autorizzazioneLegale = pratica.getAutorizzazioneLegale();
 					UnbundlingPratica unbundlingPratica = pratica.getUnbundling();
-					StatoLegale statoLegale = Lambda.selectUnique(statiLegale, Lambda.having(Lambda.on(StatoLegale.class).getAutorizzazioneLegale(),IsEqual.equalTo(calcolaAutorizzazioneLegale(pratica))));	
-					StatoUnbundling statoUnbundling = Lambda.selectUnique(statiUnbundling, Lambda.having(Lambda.on(StatoUnbundling.class).getUnbundling(),IsEqual.equalTo(calcolaUnbundlingPratica(pratica))));	;
+					StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(calcolaAutorizzazioneLegale(pratica))).findFirst().orElse(null);
+					StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(sb->sb.getUnbundling().equals(calcolaUnbundlingPratica(pratica))).findFirst().orElse(null); 
 					if(statoLegale!=null){
 						pratica.setStatoLegale(statoLegale);
 					}
@@ -289,7 +268,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			}
 		}
 
-		List<PraticaErogazione> praticheErogabili = Lambda.select(pratiche, Lambda.having(Lambda.on(PraticaErogazione.class).isErogabile(),IsEqual.equalTo(true)));
+		List<PraticaErogazione> praticheErogabili = pratiche.stream().filter(PraticaErogazione::isErogabile).collect(Collectors.toList());
 		if(!praticheErogabili.isEmpty()){
 			mailService.sendMailSbloccoAnagraficaPratiche(praticheErogabili);
 		}
@@ -366,7 +345,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public void autorizzaComitato(List<PraticaErogazione> pratiche) {
 
 		if(pratiche != null && !pratiche.isEmpty()){
-			List<Integer> ids = Lambda.extract(pratiche, Lambda.on(PraticaErogazione.class).getIdPraticaErogazione());
+			List<Integer> ids = pratiche.parallelStream().map(PraticaErogazione::getId).collect(Collectors.toList());
 			pratiche = praticaErogazioneRepository.findAll(ids);
 			StatoComitato statoComitato = statoComitatoService.getStatoAutorizzazioneComitato();
 			for(PraticaErogazione pratica:pratiche){
@@ -382,7 +361,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Override
 	public void rifiutaAutorizzazioneComitato(List<PraticaErogazione> pratiche) {
 		if(pratiche != null && !pratiche.isEmpty()){
-			List<Integer> ids = Lambda.extract(pratiche, Lambda.on(PraticaErogazione.class).getIdPraticaErogazione());
+			List<Integer> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 			pratiche = praticaErogazioneRepository.findAll(ids);
 			StatoComitato statoComitato = statoComitatoService.getStatoRifiutoComitato();
 			for(PraticaErogazione pratica:pratiche){
@@ -409,7 +388,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 				List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 				for(PraticaErogazione pratica:praticheEsistenti){
 					StatoFideiussione fideiussioneEsistente = pratica.getStatoFideiussione();
-					StatoFideiussione nuovaFideiussione = Lambda.selectUnique(statiFideiussione, Lambda.having(Lambda.on(StatoFideiussione.class).getFideiussione(),IsEqual.equalTo(calcolaFideiussione(pratica,mappaCodiciPraticaFideiussioni.get(pratica.getCodicePratica())))));
+					StatoFideiussione nuovaFideiussione = statiFideiussione.stream().filter(sf->sf.getFideiussione().equals(calcolaFideiussione(pratica,mappaCodiciPraticaFideiussioni.get(pratica.getCodicePratica())))).findFirst().get(); 
 					pratica.setStatoFideiussione(nuovaFideiussione);
 					if(!nuovaFideiussione.equals(fideiussioneEsistente)){
 						praticheModificate.add(pratica);

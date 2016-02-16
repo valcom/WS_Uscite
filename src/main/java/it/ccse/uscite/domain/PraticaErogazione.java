@@ -1,20 +1,14 @@
 package it.ccse.uscite.domain;
 
-import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
-import it.ccse.uscite.domain.StatoContabile.AutorizzazioneContabile;
-import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
-import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
-import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
-import it.ccse.uscite.domain.util.UsciteProperties;
-import it.ccse.uscite.infrastructure.exception.ApplicationException;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -32,6 +26,14 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
+
+import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
+import it.ccse.uscite.domain.StatoContabile.AutorizzazioneContabile;
+import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
+import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
+import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
+import it.ccse.uscite.domain.util.UsciteProperties;
+import it.ccse.uscite.infrastructure.exception.ApplicationException;
 
 
 /**
@@ -225,6 +227,15 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_unbundling")
 	private Date dataUnbundling;
+	
+	
+	public static final Predicate<? super PraticaErogazione> IS_LAVORABILE = p->p.getLavorazioneContabile().equals(StatoPratica.LAVORABILE);
+
+	public static final Predicate<? super PraticaErogazione> IS_NOT_LAVORABILE = p-> Arrays.asList(new StatoPratica[]{StatoPratica.ASSEGNATO,StatoPratica.IN_INSERIMENTO,StatoPratica.UNDEFINED}).contains(p.getLavorazioneContabile());
+
+	public static final Predicate<? super PraticaErogazione> IS_IN_EROGAZIONE = p->p.getLavorazioneContabile().equals(StatoPratica.IN_EROGAZIONE);
+
+	public static final Predicate<? super PraticaErogazione> IS_IN_SOSPESO = p->p.getLavorazioneContabile().equals(StatoPratica.IN_SOSPESO);
 	
 	public PraticaErogazione() {
 	}
@@ -558,7 +569,8 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	}
 
 	public static enum StatoPratica {
-		UNDEFINED,IN_INSERIMENTO,ASSEGNATO,LAVORABILE,LAVORATO,IN_SOSPESO,IN_EROGAZIONE,RISCONTRATO,ANNULLATO,DONT_CARE
+		UNDEFINED,IN_INSERIMENTO,ASSEGNATO,LAVORABILE,LAVORATO,IN_SOSPESO,IN_EROGAZIONE,RISCONTRATO,ANNULLATO,DONT_CARE;
+		
 	}
 	
 	public Integer getIdPraticaErogazione(){

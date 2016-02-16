@@ -1,11 +1,5 @@
 package it.ccse.uscite.domain;
 
-import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
-import it.ccse.uscite.domain.ProcessoErogazione.StatoLavorazioneContabile;
-import it.ccse.uscite.domain.ProcessoErogazione.StatoProcesso;
-import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
-import it.ccse.uscite.infrastructure.exception.ApplicationException;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -28,7 +22,11 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import ch.lambdaj.Lambda;
+import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
+import it.ccse.uscite.domain.ProcessoErogazione.StatoLavorazioneContabile;
+import it.ccse.uscite.domain.ProcessoErogazione.StatoProcesso;
+import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
+import it.ccse.uscite.infrastructure.exception.ApplicationException;
 
 /**
  * The persistent class for the ordine_del_giorno database table.}
@@ -266,7 +264,7 @@ public class OrdineDelGiorno extends DomainEntity<Integer> implements Serializab
 	}
 	
 	public BigDecimal getTotaleImporto(){
-		return processiErogazione != null ? Lambda.sum(processiErogazione,Lambda.on(ProcessoErogazione.class).getTotaleImporto()):BigDecimal.ZERO;
+		return processiErogazione != null ? processiErogazione.stream().map(p->p.getTotaleImporto()).reduce(BigDecimal.ZERO, BigDecimal::add):BigDecimal.ZERO;
 	}
 	
 	public Set<ProcessoErogazione> getNote(){

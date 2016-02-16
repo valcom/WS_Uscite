@@ -1,9 +1,5 @@
 package it.ccse.uscite.domain;
 
-import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
-import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
-import it.ccse.uscite.infrastructure.exception.ApplicationException;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -21,12 +17,11 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hamcrest.collection.IsIn;
-import org.hamcrest.core.IsEqual;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
-import ch.lambdaj.Lambda;
+import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
+import it.ccse.uscite.infrastructure.exception.ApplicationException;
 
 
 /**
@@ -190,7 +185,7 @@ public class ProcessoErogazione extends DomainEntity<Integer> implements Seriali
 	}
 
 	public BigDecimal getTotaleImporto() {
-		return (getNumeroPratiche() > 0) ? ch.lambdaj.Lambda.sumFrom(praticheErogazione).getImpegno():BigDecimal.ZERO;
+		return (getNumeroPratiche() > 0) ? praticheErogazione.stream().map(p->p.getImpegno()).reduce(BigDecimal.ZERO, BigDecimal::add):BigDecimal.ZERO;
 	}
 	
 	public Integer getNumeroPratiche(){
@@ -289,7 +284,7 @@ public class ProcessoErogazione extends DomainEntity<Integer> implements Seriali
 	public void lavorazioneContabile(){
 		checkLavorazioneContabile();
 		if(lavorazioneContabile == StatoLavorazioneContabile.LAVORABILE && getNumeroPratiche()>0){
-			if(!Lambda.exists(praticheErogazione, Lambda.having(Lambda.on(PraticaErogazione.class).getLavorazioneContabile(),IsEqual.equalTo(StatoPratica.LAVORABILE)))){
+			if(!praticheErogazione.stream().filter(PraticaErogazione.IS_LAVORABILE).findAny().isPresent()){
 				lavorazioneContabile = StatoLavorazioneContabile.LAVORATO;
 			}
 		}
@@ -301,7 +296,7 @@ public class ProcessoErogazione extends DomainEntity<Integer> implements Seriali
 		}
 		
 		if(getNumeroPratiche()>0){
-			if(Lambda.exists(praticheErogazione, Lambda.having(Lambda.on(PraticaErogazione.class).getLavorazioneContabile(),IsIn.isIn(new StatoPratica[]{StatoPratica.ASSEGNATO,StatoPratica.IN_INSERIMENTO,StatoPratica.UNDEFINED})))){
+			if(praticheErogazione.stream().filter(PraticaErogazione.IS_NOT_LAVORABILE).findAny().isPresent()){
 				throw new ApplicationException("error.nota.pratiche.stato.invalid.lavorazione");
 			}
 		}
