@@ -571,6 +571,8 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	public static enum StatoPratica {
 		UNDEFINED,IN_INSERIMENTO,ASSEGNATO,LAVORABILE,LAVORATO,IN_SOSPESO,IN_EROGAZIONE,RISCONTRATO,ANNULLATO,DONT_CARE;
 		
+		public static final List<StatoPratica> STATI_PRATICA_MODIFICABILE = Arrays.asList(new StatoPratica[]{ASSEGNATO,DONT_CARE,IN_INSERIMENTO,IN_SOSPESO,LAVORABILE,LAVORATO,UNDEFINED});
+		
 	}
 	
 	public Integer getIdPraticaErogazione(){

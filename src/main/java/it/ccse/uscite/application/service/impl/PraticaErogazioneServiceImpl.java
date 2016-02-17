@@ -15,6 +15,8 @@ import it.ccse.uscite.domain.PraticaErogazione;
 import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
 import it.ccse.uscite.domain.ProcessoErogazione;
 import it.ccse.uscite.domain.SettoreAttivita;
+import it.ccse.uscite.domain.SettoreAttivita.StatoAntimafia;
+import it.ccse.uscite.domain.SettoreAttivita.Unbundling;
 import it.ccse.uscite.domain.StatoComitato;
 import it.ccse.uscite.domain.StatoContabile;
 import it.ccse.uscite.domain.StatoFideiussione;
@@ -29,6 +31,7 @@ import it.ccse.uscite.domain.repository.ProcessoErogazioneRepository;
 import it.ccse.uscite.domain.util.UsciteProperties;
 import it.ccse.uscite.infrastructure.exception.ApplicationException;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -171,8 +174,8 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
 			List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 			for(PraticaErogazione pratica:pratiche){
-				StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(calcolaAutorizzazioneLegale(pratica))).findFirst().orElseThrow(()->new RuntimeException("stato legale non valido per la pratica "+pratica.getCodicePratica()));
-				StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(su->su.getUnbundling().equals(calcolaUnbundlingPratica(pratica))).findFirst().orElseThrow(()->new RuntimeException("stato unbundling non valido per la pratica "+pratica.getCodicePratica()));
+				StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(calcolaAutorizzazioneLegale(pratica.getSettoreAttivita().getStatoAntimafia()))).findFirst().orElseThrow(()->new RuntimeException("stato legale non valido per la pratica "+pratica.getCodicePratica()));
+				StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(su->su.getUnbundling().equals(calcolaUnbundlingPratica(pratica.getSettoreAttivita().getUnbundling(),pratica.getIdComponenteTariffariaAc()))).findFirst().orElseThrow(()->new RuntimeException("stato unbundling non valido per la pratica "+pratica.getCodicePratica()));
 				StatoFideiussione statoFideiussione = statiFideiussione.stream().filter(sf->sf.getFideiussione().equals(calcolaFideiussione(pratica, statoFideiussioneIniziale.getFideiussione()))).findFirst().orElseThrow(()->new RuntimeException("stato fideiussione non valido per la pratica "+pratica.getCodicePratica()));
 				
 				pratica.setStatoLegale(statoLegale);
@@ -237,22 +240,22 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public List<PraticaErogazione> aggiornaSemaforiAnagrafica(Collection<SettoreAttivita> settoriAttivita) {
 		
 		List<PraticaErogazione> pratiche = new ArrayList<PraticaErogazione>();
+		List<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
+		List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
 
 		for(SettoreAttivita settoreAttivita:settoriAttivita){
 			PraticaFilter filter = new PraticaFilter();
 			filter.setListaIdSettoriAttivita(settoreAttivita.getId());
-			filter.setStatiPratica(getStatiPraticaModificabile());
+			filter.setStatiPratica(StatoPratica.STATI_PRATICA_MODIFICABILE);
 			Page<PraticaErogazione> pagePratiche = searchPraticheErogazione(filter);
 			if(pagePratiche!=null){
 				List<PraticaErogazione> praticheBySettore = pagePratiche.getContent();
-				List<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
-				List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
 				for(PraticaErogazione pratica:praticheBySettore){
 					pratica.setSettoreAttivita(settoreAttivita);
 					AutorizzazioneLegale autorizzazioneLegale = pratica.getAutorizzazioneLegale();
 					UnbundlingPratica unbundlingPratica = pratica.getUnbundling();
-					StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(calcolaAutorizzazioneLegale(pratica))).findFirst().orElse(null);
-					StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(sb->sb.getUnbundling().equals(calcolaUnbundlingPratica(pratica))).findFirst().orElse(null); 
+					StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(calcolaAutorizzazioneLegale(settoreAttivita.getStatoAntimafia()))).findFirst().orElse(null);
+					StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(sb->sb.getUnbundling().equals(calcolaUnbundlingPratica(settoreAttivita.getUnbundling(),pratica.getIdComponenteTariffariaAc()))).findFirst().orElse(null); 
 					if(statoLegale!=null){
 						pratica.setStatoLegale(statoLegale);
 					}
@@ -275,11 +278,11 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 		return praticaErogazioneRepository.save(pratiche);
 	}
 	
-	private UnbundlingPratica calcolaUnbundlingPratica(PraticaErogazione pratica) {
+	private static UnbundlingPratica calcolaUnbundlingPratica(Unbundling unbundlingSettoreAttivita,BigInteger idComponenteTariffaria) {
 			UnbundlingPratica unbundlingPratica = null;
-			if(pratica.getSettoreAttivita().getUnbundling()!=null){
-				if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_SOGGETTE_BLOCCO_UNBUNDLING.contains(pratica.getIdComponenteTariffariaAc().toString())){
-					switch(pratica.getSettoreAttivita().getUnbundling()){
+			if(unbundlingSettoreAttivita!=null){
+				if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_SOGGETTE_BLOCCO_UNBUNDLING.contains(idComponenteTariffaria.toString())){
+					switch(unbundlingSettoreAttivita){
 					case BLOCCATA:
 						unbundlingPratica = UnbundlingPratica.NON_AUTORIZZATO;
 						break;
@@ -297,10 +300,10 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 		}		
 	
 
-	private AutorizzazioneLegale calcolaAutorizzazioneLegale(PraticaErogazione pratica) {
+	private static AutorizzazioneLegale calcolaAutorizzazioneLegale(StatoAntimafia statoAntimafia) {
 			AutorizzazioneLegale autorizzazioneLegale = null;
-			if(pratica.getSettoreAttivita().getStatoAntimafia()!=null){
-				switch(pratica.getSettoreAttivita().getStatoAntimafia()){
+			if(statoAntimafia!=null){
+				switch(statoAntimafia){
 				case ATTESA_45_GIORNI:
 				case ATTESA_CERTIFICATO:
 				case ATTESA_DOCUMENTAZIONE:
@@ -381,7 +384,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			List<String> codiciPratica = new ArrayList<String>(mappaCodiciPraticaFideiussioni.keySet());
 			PraticaFilter filter = new PraticaFilter();
 			filter.setCodiciPratica(codiciPratica);
-			filter.setStatiPratica(getStatiPraticaModificabile());
+			filter.setStatiPratica(StatoPratica.STATI_PRATICA_MODIFICABILE);
 			Page<PraticaErogazione> page = searchPraticheErogazione(filter);
 			if(page!=null){
 				List<PraticaErogazione> praticheEsistenti = page.getContent();
@@ -399,17 +402,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 		return praticaErogazioneRepository.save(praticheModificate);
 	}
 
-	public List<StatoPratica>  getStatiPraticaModificabile(){
-		List<StatoPratica> stati = new ArrayList<StatoPratica>();
-		stati.add(StatoPratica.ASSEGNATO);
-		stati.add(StatoPratica.DONT_CARE);
-		stati.add(StatoPratica.IN_INSERIMENTO);
-		stati.add(StatoPratica.IN_SOSPESO);
-		stati.add(StatoPratica.LAVORABILE);
-		stati.add(StatoPratica.LAVORATO);
-		stati.add(StatoPratica.UNDEFINED);
-		return stati;
-	}
+	
 	
 
 	@Override
@@ -421,7 +414,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 		pratica.setProcessoErogazione(processo);
 	}
 	
-	private FideiussionePratica calcolaFideiussione(PraticaErogazione pratica,FideiussionePratica nuovaFideiussione) {
+	private static FideiussionePratica calcolaFideiussione(PraticaErogazione pratica,FideiussionePratica nuovaFideiussione) {
 		FideiussionePratica fideiussione = null;
 		if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_FIDEIUSSIONE.contains(pratica.getIdComponenteTariffariaAc().toString())){
 			switch(nuovaFideiussione){
