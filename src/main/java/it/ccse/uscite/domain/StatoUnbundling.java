@@ -46,23 +46,5 @@ public class StatoUnbundling extends StatoPratica<StatoUnbundling.UnbundlingPrat
 		setValore(aut);
 	}
 
-
-	/**
-	 * @return the valore
-	 */
-	public UnbundlingPratica getValore() {
-		return UnbundlingPratica.valueOf(getId());
-	}
-
-
-	/**
-	 * @param valore the valore to set
-	 */
-	public void setValore(UnbundlingPratica valore) {
-		setId(valore.name());
-	}
-
-
-
 	
 }

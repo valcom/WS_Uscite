@@ -54,46 +54,130 @@ import javax.jws.WebService;
 @WebService(targetNamespace="it.ccse.uscite")
 public interface GestionaleWSFacade {
 		
+	/**
+	 * @param comitato_InDTO
+	 * @return
+	 */
 	public AggiungiComitato_OutDTO aggiungiComitato(AggiungiComitato_InDTO comitato_InDTO);
 	
+	/**
+	 * @param updateComitato_InDTO
+	 * @return
+	 */
 	public AggiornaComitato_OutDTO aggiornaComitato(AggiornaComitato_InDTO updateComitato_InDTO);
 	
+	/**
+	 * @param apriComitato_InDTO
+	 * @return
+	 */
 	public ApriComitato_OutDTO apriComitato(ApriComitato_InDTO apriComitato_InDTO);
 	
+	/**
+	 * @param chiudiComitato_InDTO
+	 * @return
+	 */
 	public ChiudiComitato_OutDTO chiudiComitato(ChiudiComitato_InDTO chiudiComitato_InDTO);
 	
+	/**
+	 * @param deleteComitato_InDTO
+	 * @return
+	 */
 	public EliminaComitato_OutDTO deleteComitato(EliminaComitato_InDTO deleteComitato_InDTO);
 	
+	/**
+	 * @param aggiungiNotaDTO_InDTO
+	 * @return
+	 */
 	public AggiungiNota_OutDTO aggiungiNota(AggiungiNota_InDTO aggiungiNotaDTO_InDTO);
 	
+	/**
+	 * @param eliminaNota_InDTO
+	 * @return
+	 */
 	public EliminaNota_OutDTO eliminaNota(EliminaNota_InDTO eliminaNota_InDTO);
 	
+	/**
+	 * @param aggiornaNota_InDTO
+	 * @return
+	 */
 	public AggiornaNota_OutDTO aggiornaNota(AggiornaNota_InDTO aggiornaNota_InDTO);
 	
+	/**
+	 * @param apriNotaInDTO
+	 * @return
+	 */
 	public ApriNota_OutDTO apriNota(ApriNota_InDTO apriNotaInDTO);
 	
+	/**
+	 * @param chiudiNotaInDTO
+	 * @return
+	 */
 	public ChiudiNota_OutDTO chiudiNota(ChiudiNota_InDTO chiudiNotaInDTO);
 	
+	/**
+	 * @param rinviaNota_InDTO
+	 * @return
+	 */
 	public RinviaNota_OutDTO rinviaNota(RinviaNota_InDTO rinviaNota_InDTO);
 							
+	/**
+	 * @param autorizzaComitatoIn_DTO
+	 * @return
+	 */
 	public AutorizzaComitato_OutDTO autorizzaComitato(AutorizzaComitato_InDTO autorizzaComitatoIn_DTO);
 	
+	/**
+	 * @param rifiutaAutorizzazioneComitatoIn_DTO
+	 * @return
+	 */
 	public RifiutaAutorizzazioneComitato_OutDTO rifiutaAutorizzazioneComitato(RifiutaAutorizzazioneComitato_InDTO rifiutaAutorizzazioneComitatoIn_DTO);
 
+	/**
+	 * @param lavorazioneContabileNota_InDTO
+	 * @return
+	 */
 	public LavorazioneContabile_OutDTO lavorazioneContabileNota(LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO);
 
+	/**
+	 * @param lavorazioneContabilePratica_InDTO
+	 * @return
+	 */
 	public LavorazioneContabile_OutDTO lavorazioneContabilePratiche(LavorazioneContabilePratica_InDTO lavorazioneContabilePratica_InDTO);
 	
+	/**
+	 * @param searchNote_InDTO
+	 * @return
+	 */
 	public SearchNote_OutDTO searchNote(SearchNote_InDTO searchNote_InDTO);
 	
+	/**
+	 * @param searchComitati_InDTO
+	 * @return
+	 */
 	public SearchComitati_OutDTO searchComitati(SearchComitati_InDTO searchComitati_InDTO);
 
+	/**
+	 * @param getTipiPeriodo_InDTO
+	 * @return
+	 */
 	public GetTipiPeriodo_OutDTO getTipiPeriodo(GetTipiPeriodo_InDTO getTipiPeriodo_InDTO);
 	
+	/**
+	 * @param associaPraticheANota_InDTO
+	 * @return
+	 */
 	public AssociaPraticheANota_OutDTO associaPraticheANota(AssociaPraticheANota_InDTO associaPraticheANota_InDTO);
 	
+	/**
+	 * @param dissociaPraticheDaNota_InDTO
+	 * @return
+	 */
 	public DissociaPraticheDaNota_OutDTO dissociaPraticheDaNota(DissociaPraticheDaNota_InDTO dissociaPraticheDaNota_InDTO);
 
+	/**
+	 * @param getStatiLegali_InDTO
+	 * @return
+	 */
 	public GetStatiLegali_OutDTO getStatiLegali(GetStatiLegali_InDTO getStatiLegali_InDTO);
 
 }

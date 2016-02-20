@@ -45,23 +45,5 @@ public class StatoContabile extends StatoPratica<StatoContabile.AutorizzazioneCo
 	public void setAutorizzazioneContabile(AutorizzazioneContabile aut){
 		setValore(aut);
 	}
-
-
-	/**
-	 * @return the valore
-	 */
-	public AutorizzazioneContabile getValore() {
-		return AutorizzazioneContabile.valueOf(getId());
-	}
-
-
-	/**
-	 * @param valore the valore to set
-	 */
-	public void setValore(AutorizzazioneContabile valore) {
-		setId(valore.name());
-	}
-
-
 	
 }

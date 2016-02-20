@@ -17,7 +17,6 @@ import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
@@ -33,7 +32,6 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 @Table(name="processo_erogazione")
 @AttributeOverride(name = "id", column = @Column(name = "id_processo_erogazione"))
 @Audited
-@AuditTable(value="processo_erogazione")
 public class ProcessoErogazione extends DomainEntity<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -47,7 +45,6 @@ public class ProcessoErogazione extends DomainEntity<Integer> implements Seriali
 	@Column(name="numero_nota")
 	private Integer numeroNota;
 
-	
 	private String owner;
 
 	@Enumerated(EnumType.STRING)

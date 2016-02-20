@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
+import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
+
 /**
  * @author vcompagnone
  *
@@ -75,6 +77,41 @@ public class SettoreAttivita extends ValueObject {
 			this.dataScadenzaCAM = dataScadenzaCAM;
 		}
 		
+		
+		public AutorizzazioneLegale getAutorizzazioneLegale() {
+			AutorizzazioneLegale autorizzazioneLegale = null;
+				switch(this){
+				case ATTESA_45_GIORNI:
+				case ATTESA_CERTIFICATO:
+				case ATTESA_DOCUMENTAZIONE:
+					autorizzazioneLegale = AutorizzazioneLegale.NON_AUTORIZZATO;
+					break;
+				case CERTIFICATO_NON_VALIDO:
+					autorizzazioneLegale = AutorizzazioneLegale.DI_UFFICIO;
+					break;
+				case CERTIFICATO_VALIDO:
+					autorizzazioneLegale = AutorizzazioneLegale.AUTORIZZATO;
+					break;
+				case MUNICIPALIZZATA:
+					autorizzazioneLegale = AutorizzazioneLegale.DEROGA_CAM;
+					break;
+				case PAGAMENTO_SOTTO_CONDIZIONE:
+					autorizzazioneLegale = AutorizzazioneLegale.DEROGA_123;
+					break;
+				case SOTTOSOGLIA:
+					autorizzazioneLegale = AutorizzazioneLegale.DEROGA_SOGLIA;
+					break;
+				case CESSATA_ATTIVITA:
+					autorizzazioneLegale = AutorizzazioneLegale.CESSATA_ATTIVITA;
+					break;
+				case ISTRUTTORIA_COMPLESSA:
+					autorizzazioneLegale = AutorizzazioneLegale.ISTRUTTORIA_COMPLESSA;
+					break;
+				}	
+
+			
+			return autorizzazioneLegale;
+	}
 		
 		
 	}

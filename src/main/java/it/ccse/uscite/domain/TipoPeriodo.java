@@ -11,10 +11,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tipo_periodo")
-public class TipoPeriodo  extends DomainEntity<String> implements Serializable{
+public class TipoPeriodo  extends DomainEntity<Integer> implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String descrizione;
+	
+	@Column(nullable=false,unique=true)
+	private String codice;
 
 	public TipoPeriodo() {
 	}

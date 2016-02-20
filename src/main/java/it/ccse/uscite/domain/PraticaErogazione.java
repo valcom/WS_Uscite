@@ -23,7 +23,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.RelationTargetAuditMode;
 
@@ -44,7 +43,6 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 @Table(name="pratica_erogazione")
 @AttributeOverride(name = "id", column = @Column(name = "id_pratica_erogazione"))
 @Audited
-@AuditTable(value="pratica_erogazione")
 public class PraticaErogazione extends DomainEntity<Integer> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -228,7 +226,6 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	@Column(name="data_unbundling")
 	private Date dataUnbundling;
 	
-	
 	public static final Predicate<? super PraticaErogazione> IS_LAVORABILE = p->p.getLavorazioneContabile().equals(StatoPratica.LAVORABILE);
 
 	public static final Predicate<? super PraticaErogazione> IS_NOT_LAVORABILE = p-> Arrays.asList(new StatoPratica[]{StatoPratica.ASSEGNATO,StatoPratica.IN_INSERIMENTO,StatoPratica.UNDEFINED}).contains(p.getLavorazioneContabile());
@@ -237,337 +234,587 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 
 	public static final Predicate<? super PraticaErogazione> IS_IN_SOSPESO = p->p.getLavorazioneContabile().equals(StatoPratica.IN_SOSPESO);
 	
+	/**
+	 * 
+	 */
 	public PraticaErogazione() {
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getAnno() {
 		return this.anno;
 	}
 
+	/**
+	 * @param anno
+	 */
 	public void setAnno(Integer anno) {
 		this.anno = anno;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getAutorizzazioneAutorizzante() {
 		return this.autorizzazioneAutorizzante;
 	}
 
+	/**
+	 * @param autorizzazioneAutorizzante
+	 */
 	public void setAutorizzazioneAutorizzante(String autorizzazioneAutorizzante) {
 		this.autorizzazioneAutorizzante = autorizzazioneAutorizzante;
 	}
 
+	/**
+	 * @return
+	 */
 	public AutorizzazioneComitato getAutorizzazioneComitato() {
 		return this.statoComitato.getValore();
 	}
 
+	/**
+	 * @param autorizzazioneComitato
+	 */
 	public void setAutorizzazioneComitato(AutorizzazioneComitato autorizzazioneComitato) {
 		this.statoComitato.setValore(autorizzazioneComitato);
 	}
 
+	/**
+	 * @return
+	 */
 	public AutorizzazioneContabile getAutorizzazioneContabile() {
 		return this.statoContabile.getAutorizzazioneContabile();
 	}
 
+	/**
+	 * @param autorizzazioneContabile
+	 */
 	public void setAutorizzazioneContabile(AutorizzazioneContabile autorizzazioneContabile) {
 		this.statoContabile.setAutorizzazioneContabile(autorizzazioneContabile);
 	}
 
+	/**
+	 * @return
+	 */
 	public AutorizzazioneLegale getAutorizzazioneLegale() {
 		return this.statoLegale.getValore();
 	}
 
+	/**
+	 * @param autorizzazioneLegale
+	 */
 	public void setAutorizzazioneLegale(AutorizzazioneLegale autorizzazioneLegale) {
 		this.statoLegale.setValore(autorizzazioneLegale);
 	}
 
+	/**
+	 * @return
+	 */
 	public String getBimestre() {
 		return this.bimestre;
 	}
 
+	/**
+	 * @param bimestre
+	 */
 	public void setBimestre(String bimestre) {
 		this.bimestre = bimestre;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getCodicePratica() {
 		return this.codicePratica;
 	}
 
+	/**
+	 * @param codicePratica
+	 */
 	public void setCodicePratica(String codicePratica) {
 		this.codicePratica = codicePratica;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataAutorizzazioneComitato() {
 		return this.dataAutorizzazioneComitato;
 	}
 
+	/**
+	 * @param dataAutorizzazioneComitato
+	 */
 	public void setDataAutorizzazioneComitato(Date dataAutorizzazioneComitato) {
 		this.dataAutorizzazioneComitato = dataAutorizzazioneComitato;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataContabilizzazione() {
 		return this.dataContabilizzazione;
 	}
 
+	/**
+	 * @param dataContabilizzazione
+	 */
 	public void setDataContabilizzazione(Date dataContabilizzazione) {
 		this.dataContabilizzazione = dataContabilizzazione;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataErogazione() {
 		return this.dataErogazione;
 	}
 
+	/**
+	 * @param dataErogazione
+	 */
 	public void setDataErogazione(Date dataErogazione) {
 		this.dataErogazione = dataErogazione;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataInteressi() {
 		return this.dataInteressi;
 	}
 
+	/**
+	 * @param dataInteressi
+	 */
 	public void setDataInteressi(Date dataInteressi) {
 		this.dataInteressi = dataInteressi;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataLavorazione() {
 		return this.dataLavorazione;
 	}
 
+	/**
+	 * @param dataLavorazione
+	 */
 	public void setDataLavorazione(Date dataLavorazione) {
 		this.dataLavorazione = dataLavorazione;
 	}
 
+	/**
+	 * @return
+	 */
 	@Deprecated
 	public Date getDataRegolazione() {
 		return this.dataRegolazione;
 	}
 
+	/**
+	 * @param dataRegolazione
+	 */
 	@Deprecated
 	public void setDataRegolazione(Date dataRegolazione) {
 		this.dataRegolazione = dataRegolazione;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getDescrizione() {
 		return this.descrizione;
 	}
 
+	/**
+	 * @param descrizione
+	 */
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigInteger getIdArticoloAc() {
 		return this.idArticoloAc;
 	}
 
+	/**
+	 * @param idArticoloAc
+	 */
 	public void setIdArticoloAc(BigInteger idArticoloAc) {
 		this.idArticoloAc = idArticoloAc;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getIdAutorizzante() {
 		return this.idAutorizzante;
 	}
 
+	/**
+	 * @param idAutorizzante
+	 */
 	public void setIdAutorizzante(String idAutorizzante) {
 		this.idAutorizzante = idAutorizzante;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigInteger getIdCapitoloAc() {
 		return this.idCapitoloAc;
 	}
 
+	/**
+	 * @param idCapitoloAc
+	 */
 	public void setIdCapitoloAc(BigInteger idCapitoloAc) {
 		this.idCapitoloAc = idCapitoloAc;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getIdCentroCosto() {
 		return this.idCentroCosto;
 	}
 
+	/**
+	 * @param idCentroCosto
+	 */
 	public void setIdCentroCosto(String idCentroCosto) {
 		this.idCentroCosto = idCentroCosto;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getIdCentroResponsabilita() {
 		return this.idCentroResponsabilita;
 	}
 
+	/**
+	 * @param idCentroResponsabilita
+	 */
 	public void setIdCentroResponsabilita(String idCentroResponsabilita) {
 		this.idCentroResponsabilita = idCentroResponsabilita;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigInteger getIdComponenteTariffariaAc() {
 		return this.idComponenteTariffariaAc;
 	}
 
+	/**
+	 * @param idComponenteTariffariaAc
+	 */
 	public void setIdComponenteTariffariaAc(BigInteger idComponenteTariffariaAc) {
 		this.idComponenteTariffariaAc = idComponenteTariffariaAc;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigInteger getIdContoCorrenteAc() {
 		return this.idContoCorrenteAc;
 	}
 
+	/**
+	 * @param idContoCorrenteAc
+	 */
 	public void setIdContoCorrenteAc(BigInteger idContoCorrenteAc) {
 		this.idContoCorrenteAc = idContoCorrenteAc;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigInteger getIdContoGestioneAc() {
 		return this.idContoGestioneAc;
 	}
 
+	/**
+	 * @param idContoGestioneAc
+	 */
 	public void setIdContoGestioneAc(BigInteger idContoGestioneAc) {
 		this.idContoGestioneAc = idContoGestioneAc;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getIdLavorante() {
 		return this.idLavorante;
 	}
 
+	/**
+	 * @param idLavorante
+	 */
 	public void setIdLavorante(String idLavorante) {
 		this.idLavorante = idLavorante;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigInteger getIdPosizioneFinanziariaAc() {
 		return this.idPosizioneFinanziariaAc;
 	}
 
+	/**
+	 * @param idPosizioneFinanziariaAc
+	 */
 	public void setIdPosizioneFinanziariaAc(BigInteger idPosizioneFinanziariaAc) {
 		this.idPosizioneFinanziariaAc = idPosizioneFinanziariaAc;
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getIdPraticaErogazioneDifferenza() {
 		return this.idPraticaErogazioneDifferenza;
 	}
 
+	/**
+	 * @param idPraticaErogazioneDifferenza
+	 */
 	public void setIdPraticaErogazioneDifferenza(Integer idPraticaErogazioneDifferenza) {
 		this.idPraticaErogazioneDifferenza = idPraticaErogazioneDifferenza;
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getIdPraticaErogazioneOriginale() {
 		return this.idPraticaErogazioneOriginale;
 	}
 
+	/**
+	 * @param idPraticaErogazioneOriginale
+	 */
 	public void setIdPraticaErogazioneOriginale(Integer idPraticaErogazioneOriginale) {
 		this.idPraticaErogazioneOriginale = idPraticaErogazioneOriginale;
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getIdPraticaErogazioneRettifica() {
 		return this.idPraticaErogazioneRettifica;
 	}
 
+	/**
+	 * @param idPraticaErogazioneRettifica
+	 */
 	public void setIdPraticaErogazioneRettifica(Integer idPraticaErogazioneRettifica) {
 		this.idPraticaErogazioneRettifica = idPraticaErogazioneRettifica;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getIdProponente() {
 		return this.idProponente;
 	}
 
+	/**
+	 * @param idProponente
+	 */
 	public void setIdProponente(String idProponente) {
 		this.idProponente = idProponente;
 	}
 
 
 
+	/**
+	 * @return
+	 */
 	public BigDecimal getImpegno() {
 		return this.impegno;
 	}
 
+	/**
+	 * @param impegno
+	 */
 	public void setImpegno(BigDecimal impegno) {
 		this.impegno = impegno;
 	}
 
+	/**
+	 * @return
+	 */
 	public StatoPratica getLavorazioneContabile() {
 		return this.lavorazioneContabile;
 	}
 
+	/**
+	 * @param lavorazioneContabile
+	 */
 	public void setLavorazioneContabile(StatoPratica lavorazioneContabile) {
 		this.lavorazioneContabile = lavorazioneContabile;
 	}
 
+	/**
+	 * @return
+	 */
 	public BigDecimal getMandato() {
 		return this.mandato;
 	}
 
+	/**
+	 * @param mandato
+	 */
 	public void setMandato(BigDecimal mandato) {
 		this.mandato = mandato;
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getNumeroRettifica() {
 		return this.numeroRettifica;
 	}
 
+	/**
+	 * @param numeroRettifica
+	 */
 	public void setNumeroRettifica(Integer numeroRettifica) {
 		this.numeroRettifica = numeroRettifica;
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getPeriodo() {
 		return this.periodo;
 	}
 
+	/**
+	 * @param periodo
+	 */
 	public void setPeriodo(Integer periodo) {
 		this.periodo = periodo;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getStatoPraticaGestionale() {
 		return this.statoPraticaGestionale;
 	}
 
+	/**
+	 * @param statoPraticaGestionale
+	 */
 	public void setStatoPraticaGestionale(String statoPraticaGestionale) {
 		this.statoPraticaGestionale = statoPraticaGestionale;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getStatoRiepilogativo() {
 		return this.statoRiepilogativo;
 	}
 
+	/**
+	 * @param statoRiepilogativo
+	 */
 	public void setStatoRiepilogativo(String statoRiepilogativo) {
 		this.statoRiepilogativo = statoRiepilogativo;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getTipologia() {
 		return this.tipologia;
 	}
 
+	/**
+	 * @param tipologia
+	 */
 	public void setTipologia(String tipologia) {
 		this.tipologia = tipologia;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getVistoConformita() {
 		return this.vistoConformita;
 	}
 
+	/**
+	 * @param vistoConformita
+	 */
 	public void setVistoConformita(String vistoConformita) {
 		this.vistoConformita = vistoConformita;
 	}
 
+	/**
+	 * @return
+	 */
 	public TipoPeriodo getTipoPeriodo() {
 		return this.tipoPeriodo;
 	}
 
+	/**
+	 * @param tipoPeriodo
+	 */
 	public void setTipoPeriodo(TipoPeriodo tipoPeriodo) {
 		this.tipoPeriodo = tipoPeriodo;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getOwner() {
 		return this.owner;
 	}
 
+	/**
+	 * @param owner
+	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
 
+	/**
+	 * @return
+	 */
 	public ProcessoErogazione getProcessoErogazione() {
 		return this.processoErogazione;
 	}
 
+	/**
+	 * @param processoErogazione
+	 */
 	public void setProcessoErogazione(ProcessoErogazione processoErogazione) {
 		this.processoErogazione = processoErogazione;
 	}
 	
+	/**
+	 * @return
+	 */
 	public ProcessoErogazione getNota(){
 		return processoErogazione;
 	}
 
+	/**
+	 * @author valer
+	 *
+	 */
 	public static enum StatoPratica {
 		UNDEFINED,IN_INSERIMENTO,ASSEGNATO,LAVORABILE,LAVORATO,IN_SOSPESO,IN_EROGAZIONE,RISCONTRATO,ANNULLATO,DONT_CARE;
 		
@@ -575,16 +822,25 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		
 	}
 	
+	/**
+	 * @return
+	 */
 	public Integer getIdPraticaErogazione(){
 		return getId();
 	}
 	
+	/**
+	 * @param id
+	 */
 	public void setIdPraticaErogazione(Integer id){
 		setId(id);
 	}
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
+	 */
+	/* (non-Javadoc)
+	 * @see it.ccse.uscite.domain.DomainObject#toString()
 	 */
 	@Override
 	public String toString() {
@@ -671,6 +927,10 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		return builder.toString();
 	}
 	
+	/**
+	 * @param processo
+	 * @return
+	 */
 	public ProcessoErogazione associaANota(ProcessoErogazione processo){
 		checkAssociaANota();
 		processoErogazione = processo;
@@ -680,18 +940,27 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	
 	
 	
+	/**
+	 * 
+	 */
 	public void checkAssociaANota(){
 		if(lavorazioneContabile!=StatoPratica.IN_INSERIMENTO){
 			throw new ApplicationException("error.pratica.statoContabile.invalid.associazionePraticaNota");
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void checkDissociaDaNota(){
 		if(lavorazioneContabile!=StatoPratica.ASSEGNATO){
 			throw new ApplicationException("error.pratica.statoContabile.invalid.dissociazionePraticaNotaNota");
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void checkModificabilita() {
 		switch(getLavorazioneContabile()){
 		case IN_EROGAZIONE:
@@ -705,12 +974,22 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void dissociaDaNota() {
 		checkDissociaDaNota();
 		processoErogazione = null;	
 		lavorazioneContabile = StatoPratica.IN_INSERIMENTO;
 	}
 
+	/**
+	 * @param statoLegaleIniziale
+	 * @param statoContabileIniziale
+	 * @param statoComitatoIniziale
+	 * @param statoUnbundlingIniziale
+	 * @param statoFideiussioneIniziale
+	 */
 	public void init(StatoLegale statoLegaleIniziale, StatoContabile statoContabileIniziale,StatoComitato statoComitatoIniziale,StatoUnbundling statoUnbundlingIniziale,StatoFideiussione statoFideiussioneIniziale) {
 		setId(null);
 		lavorazioneContabile = StatoPratica.IN_INSERIMENTO;
@@ -740,6 +1019,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		
 	}
 
+	/**
+	 * 
+	 */
 	public void checkInit() {
 		if(lavorazioneContabile!=null&&lavorazioneContabile != StatoPratica.UNDEFINED){
 			throw new ApplicationException("error.pratica.statoContabile.invalid.inserimento");		
@@ -748,6 +1030,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 
 	/**
 	 * @return the unbundling
+	 */
+	/**
+	 * @return
 	 */
 	public UnbundlingPratica getUnbundling() {
 		return statoUnbundling.getUnbundling();
@@ -758,6 +1043,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the fideiussione
 	 */
+	/**
+	 * @return
+	 */
 	public FideiussionePratica getFideiussione() {
 		return statoFideiussione.getFideiussione();
 	}
@@ -767,6 +1055,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	
 
 	
+	/**
+	 * 
+	 */
 	public void checkGestioneComitato() {
 		switch(lavorazioneContabile){
 		case LAVORABILE:
@@ -786,39 +1077,66 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		
 	}
 
+	/**
+	 * @return
+	 */
 	public Boolean hasBloccoContabile(){
 		return statoContabile.getBloccante();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean hasBloccoComitato(){
 		return statoComitato.getBloccante();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean hasBloccoLegale(){
 		return statoLegale.getBloccante();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean hasBloccoFideiussione(){
 		return statoFideiussione.getBloccante();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean hasBloccoUnbundling(){
 		return statoUnbundling.getBloccante();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean isSbloccata(){
 		return  !(hasBloccoComitato()||hasBloccoContabile()||hasBloccoFideiussione()||hasBloccoLegale()||hasBloccoUnbundling());
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean isErogabile(){
 		return isSbloccata() && !hasBloccoDataScadenza();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean hasBloccoDataScadenza(){
 		Date dataRif = dataScadenza!=null ? dataScadenza : dataInteressi;
 		return dataRif !=null && dataRif.after(DateUtils.addDays(new Date(), UsciteProperties.SOGLIA_GIORNI_SBLOCCO_DATA_REGOLAZIONE));
 	}
 	
+	/**
+	 * 
+	 */
 	public void lavorazioneContabile() {
 		checkLavorazioneContabile();
 		if(!isErogabile()){
@@ -832,6 +1150,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void checkLavorazioneContabile() {
 		if(lavorazioneContabile != StatoPratica.LAVORATO &&
 		   lavorazioneContabile != StatoPratica.IN_SOSPESO && 
@@ -846,6 +1167,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 
 	
 
+	/**
+	 * @return
+	 */
 	private Date calcolaDataErogabilita(){
 		Date dataErogabilita = null;
 		if(isSbloccata()){
@@ -879,12 +1203,18 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the settoreAttivita
 	 */
+	/**
+	 * @return
+	 */
 	public SettoreAttivita getSettoreAttivita() {
 		return settoreAttivita;
 	}
 
 	/**
 	 * @param settoreAttivita the settoreAttivita to set
+	 */
+	/**
+	 * @param settoreAttivita
 	 */
 	public void setSettoreAttivita(SettoreAttivita settoreAttivita) {
 		this.settoreAttivita = settoreAttivita;
@@ -893,6 +1223,9 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the idSoggetto
 	 */
+	/**
+	 * @return
+	 */
 	public Integer getIdSoggetto() {
 		return idSoggetto;
 	}
@@ -900,82 +1233,139 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @param idSoggetto the idSoggetto to set
 	 */
+	/**
+	 * @param idSoggetto
+	 */
 	public void setIdSoggetto(Integer idSoggetto) {
 		this.idSoggetto = idSoggetto;
 	}
 
 	
 	
+	/**
+	 * @return
+	 */
 	public Integer getIdSettoreAttivita(){
 		return settoreAttivita!=null?settoreAttivita.getId():null;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataAutorizzazioneContabile() {
 		return dataAutorizzazioneContabile;
 	}
 
+	/**
+	 * @param dataAutorizzazioneContabile
+	 */
 	public void setDataAutorizzazioneContabile(Date dataAutorizzazioneContabile) {
 		this.dataAutorizzazioneContabile = dataAutorizzazioneContabile;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataAutorizzazioneLegale() {
 		return dataAutorizzazioneLegale;
 	}
 
+	/**
+	 * @param dataAutorizzazioneLegale
+	 */
 	public void setDataAutorizzazioneLegale(Date dataAutorizzazioneLegale) {
 		this.dataAutorizzazioneLegale = dataAutorizzazioneLegale;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataFideiussione() {
 		return dataFideiussione;
 	}
 
+	/**
+	 * @param dataFideiussione
+	 */
 	public void setDataFideiussione(Date dataFideiussione) {
 		this.dataFideiussione = dataFideiussione;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataUnbundling() {
 		return dataUnbundling;
 	}
 
+	/**
+	 * @param dataUnbundling
+	 */
 	public void setDataUnbundling(Date dataUnbundling) {
 		this.dataUnbundling = dataUnbundling;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataInErogazione() {
 		return getDataErogabilita();
 	}
 
 	
+	/**
+	 * @return
+	 */
 	public Date getDataErogabilita() {
 		return calcolaDataErogabilita();
 	}
 
+	/**
+	 * 
+	 */
 	public void annullaAutorizzazioneComitato() {
 		setAutorizzazioneComitato(AutorizzazioneComitato.UNDEFINED);
 		setDataAutorizzazioneComitato(null);
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataScadenza() {
 		return dataScadenza;
 	}
 
+	/**
+	 * @param dataScadenza
+	 */
 	public void setDataScadenza(Date dataScadenza) {
 		this.dataScadenza = dataScadenza;
 	}
 
+	/**
+	 * @return
+	 */
 	public Date getDataCompetenzaEconomica() {
 		return dataCompetenzaEconomica;
 	}
 
+	/**
+	 * @param dataCompetenzaEconomica
+	 */
 	public void setDataCompetenzaEconomica(Date dataCompetenzaEconomica) {
 		this.dataCompetenzaEconomica = dataCompetenzaEconomica;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getCodicePosizioneFinanziaria() {
 		return codicePosizioneFinanziaria;
 	}
 
+	/**
+	 * @param codicePosizioneFinanziaria
+	 */
 	public void setCodicePosizioneFinanziaria(String codicePosizioneFinanziaria) {
 		this.codicePosizioneFinanziaria = codicePosizioneFinanziaria;
 	}
@@ -983,22 +1373,37 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the bloccoComitato
 	 */
+	/**
+	 * @return
+	 */
 	public Boolean getBloccoComitato() {
 		return hasBloccoComitato();
 	}
 
+	/**
+	 * @return
+	 */
 	public Boolean getBloccoContabile() {
 		return hasBloccoContabile();
 	}
 	
+	/**
+	 * @return
+	 */
 	public Boolean getBloccoLegale() {
 		return hasBloccoLegale();
 	}
 
+	/**
+	 * @return
+	 */
 	public Boolean getBloccoFideiussione() {
 		return hasBloccoFideiussione();
 	}
 
+	/**
+	 * @return
+	 */
 	public Boolean getBloccoUnbundling() {
 		return hasBloccoUnbundling();
 	}
@@ -1006,12 +1411,18 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the statoLegale
 	 */
+	/**
+	 * @return
+	 */
 	public StatoLegale getStatoLegale() {
 		return statoLegale;
 	}
 
 	/**
 	 * @param statoLegale the statoLegale to set
+	 */
+	/**
+	 * @param statoLegale
 	 */
 	public void setStatoLegale(StatoLegale statoLegale) {
 		boolean hadBloccoLegale = hasBloccoLegale();
@@ -1024,12 +1435,18 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the statoContabile
 	 */
+	/**
+	 * @return
+	 */
 	public StatoContabile getStatoContabile() {
 		return statoContabile;
 	}
 
 	/**
 	 * @param statoContabile the statoContabile to set
+	 */
+	/**
+	 * @param statoContabile
 	 */
 	public void setStatoContabile(StatoContabile statoContabile) {
 		boolean hadBloccoContabile = hasBloccoContabile();
@@ -1042,12 +1459,18 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the statoComitato
 	 */
+	/**
+	 * @return
+	 */
 	public StatoComitato getStatoComitato() {
 		return statoComitato;
 	}
 
 	/**
 	 * @param statoComitato the statoComitato to set
+	 */
+	/**
+	 * @param statoComitato
 	 */
 	public void setStatoComitato(StatoComitato statoComitato) {
 		boolean hadBloccoComitato = hasBloccoComitato();
@@ -1060,12 +1483,18 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the statoUnbundling
 	 */
+	/**
+	 * @return
+	 */
 	public StatoUnbundling getStatoUnbundling() {
 		return statoUnbundling;
 	}
 
 	/**
 	 * @param statoUnbundling the statoUnbundling to set
+	 */
+	/**
+	 * @param statoUnbundling
 	 */
 	public void setStatoUnbundling(StatoUnbundling statoUnbundling) {
 		boolean hadBloccoUnbundling = hasBloccoUnbundling();
@@ -1078,12 +1507,18 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return the statoFideiussione
 	 */
+	/**
+	 * @return
+	 */
 	public StatoFideiussione getStatoFideiussione() {
 		return statoFideiussione;
 	}
 
 	/**
 	 * @param statoFideiussione the statoFideiussione to set
+	 */
+	/**
+	 * @param statoFideiussione
 	 */
 	public void setStatoFideiussione(StatoFideiussione statoFideiussione) {
 		boolean hadBloccoFideiussione = hasBloccoFideiussione();
@@ -1093,8 +1528,36 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		}
 	}
 
+	/**
+	 * 
+	 */
 	public void init() {
 		init(null,null,null,null,null);
+	}
+	
+	/**
+	 * 
+	 * @param statoComitato
+	 */
+	public void aggiornaAutorizzazioneComitato(StatoComitato statoComitato){
+		checkGestioneComitato();
+		setStatoComitato(statoComitato);
+		setLavorazioneContabile(StatoPratica.LAVORABILE);
+	}    
+	
+	/**
+	 * 
+	 * @param fideiussione
+	 * @return
+	 */
+	public void aggiornaStatoFideiussione(FideiussionePratica fideiussione) {
+		FideiussionePratica nuovaFideiussione = getFideiussione();
+		if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_FIDEIUSSIONE.contains(getIdComponenteTariffariaAc().toString())){
+			nuovaFideiussione = fideiussione;
+		}else{
+			nuovaFideiussione = FideiussionePratica.DONT_CARE;
+		}
+		setStatoFideiussione(new StatoFideiussione(nuovaFideiussione));
 	}
 
 }

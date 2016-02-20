@@ -5,9 +5,10 @@ package it.ccse.uscite.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -16,20 +17,23 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 @Cacheable
-@AttributeOverride(name = "id", column = @Column(name = "valore"))
-public abstract class StatoPratica<V> extends DomainEntity<String> implements Serializable{
+public abstract class StatoPratica<V extends Enum<?>> extends DomainEntity<Integer> implements Serializable{
+
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Column(updatable=false,nullable=false)
 	private Boolean bloccante;
 	
+	@Column(updatable=false,nullable=false)
 	private String descrizione;
 	
-	@Column(name="id")
-	private Integer idStato;
+	@Column(updatable=false,nullable=false,unique=true)
+	@Enumerated(EnumType.STRING)
+	private V valore;
 
 	/**
 	 * @return the bloccante
@@ -58,26 +62,17 @@ public abstract class StatoPratica<V> extends DomainEntity<String> implements Se
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-	
-	
-	
-	abstract public V getValore();
-	
-	
-	abstract public void setValore(V valore);
 
-	/**
-	 * @return the id
-	 */
-	public Integer getIdStato() {
-		return idStato;
+	public V getValore() {
+		return valore;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setIdStato(Integer id) {
-		this.idStato = id;
+	public void setValore(V valore) {
+		this.valore = valore;
 	}
+	
+	
+
+	
 
 }

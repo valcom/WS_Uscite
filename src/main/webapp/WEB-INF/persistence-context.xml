@@ -35,7 +35,6 @@
 				<entry key="net.sf.ehcache.configurationResourceName" value="ehcache.xml"/>
 				
 				<!-- ENVERS -->
-				<entry key="org.hibernate.envers.default_schema" value="dbu_core_aud" />
 				<entry key="org.hibernate.envers.store_data_at_delete" value="true"/>					
 			</map>
 		</property>

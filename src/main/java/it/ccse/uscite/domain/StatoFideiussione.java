@@ -28,6 +28,9 @@ public class StatoFideiussione extends StatoPratica<StatoFideiussione.Fideiussio
 		setBloccante(bloccante);
 	}
 
+	public StatoFideiussione(FideiussionePratica aut) {
+		setValore(aut);
+	}
 	
 	public StatoFideiussione() {
 		this(FideiussionePratica.UNDEFINED,Boolean.FALSE);
@@ -37,24 +40,5 @@ public class StatoFideiussione extends StatoPratica<StatoFideiussione.Fideiussio
 	public FideiussionePratica getFideiussione(){
 		return getValore();
 	}
-
-
-	/**
-	 * @return the valore
-	 */
-	public FideiussionePratica getValore() {
-		return FideiussionePratica.valueOf(getId());
-	}
-
-
-	/**
-	 * @param valore the valore to set
-	 */
-	public void setValore(FideiussionePratica valore) {
-		setId(valore.name());
-	}
-
-
-
 
 }

@@ -33,27 +33,4 @@ public class StatoComitato extends StatoPratica<StatoComitato.AutorizzazioneComi
 		this(AutorizzazioneComitato.UNDEFINED,Boolean.TRUE);
 	}
 
-
-	/**
-	 * @return the valore
-	 */
-	public AutorizzazioneComitato getValore() {
-		return AutorizzazioneComitato.valueOf(getId());
-	}
-
-
-	/**
-	 * @param valore the valore to set
-	 */
-	public void setValore(AutorizzazioneComitato valore) {
-		setId(valore.name());
-	}
-	
-
-	
-
-	
-
-
-
 }

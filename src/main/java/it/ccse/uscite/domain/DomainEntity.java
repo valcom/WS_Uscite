@@ -5,9 +5,10 @@ package it.ccse.uscite.domain;
 
 import javax.persistence.Cacheable;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.envers.Audited;
 
 /**
  * @author vcompagnone
@@ -15,11 +16,15 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 @Cacheable
+@Audited
 public abstract class DomainEntity<ID> extends DomainObject{
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue
 	private ID id;
+	
+	private String username;
+
 	
 	public void setId(ID id){
 		this.id = id;
@@ -66,6 +71,14 @@ public abstract class DomainEntity<ID> extends DomainObject{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 

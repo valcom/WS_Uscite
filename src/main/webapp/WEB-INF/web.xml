@@ -78,12 +78,10 @@
 		<description>Mail Reply To</description>
 		<resource-env-ref-name>uscite/mail.replyTo</resource-env-ref-name>
 		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
-		<lookup-name>mail.replyTo</lookup-name>
 	</resource-env-ref>
 	<resource-env-ref>
 		<description>Mail Cc</description>
 		<resource-env-ref-name>uscite/mail.cc</resource-env-ref-name>
-		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
 	</resource-env-ref>
 	<resource-env-ref>
 		<description>Mail Bcc</description>
@@ -92,7 +90,7 @@
 	</resource-env-ref>
 	<resource-env-ref>
 		<description>Environment Name</description>
-		<resource-env-ref-name>uscite/environment</resource-env-ref-name>
+		<resource-env-ref-name>uscite/environmentName</resource-env-ref-name>
 		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
 	</resource-env-ref>
 </web-app>

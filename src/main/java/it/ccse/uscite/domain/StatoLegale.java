@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="stato_legale")
 public class StatoLegale extends StatoPratica<StatoLegale.AutorizzazioneLegale>{
-
+	
 	/**
 	 * 
 	 */
@@ -41,25 +41,5 @@ public class StatoLegale extends StatoPratica<StatoLegale.AutorizzazioneLegale>{
 	public AutorizzazioneLegale getAutorizzazioneLegale(){
 		return getValore();
 	}
-
-
-	/**
-	 * @return the valore
-	 */
-	public AutorizzazioneLegale getValore() {
-		return AutorizzazioneLegale.valueOf(getId());
-	}
-
-
-	/**
-	 * @param valore the valore to set
-	 */
-	public void setValore(AutorizzazioneLegale valore) {
-		setId(valore.name());
-
-	}
-
-
-	
 
 }

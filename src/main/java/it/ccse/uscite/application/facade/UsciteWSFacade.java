@@ -19,9 +19,21 @@ import it.ccse.uscite.application.facade.dto.output.uscite.SearchPratiche_OutDTO
 @WebService(name="UsciteWS",targetNamespace="it.ccse.uscite")
 public interface UsciteWSFacade {
 	
+	/**
+	 * @param searchPratiche_InDTO
+	 * @return
+	 */
 	public SearchPratiche_OutDTO searchPratiche(SearchPratiche_InDTO searchPratiche_InDTO);
 	
+	/**
+	 * @param aggiornaSemaforiAnagrafica_InDTO
+	 * @return
+	 */
 	public AggiornaSemaforiAnagrafica_OutDTO aggiornaSemaforiAnagrafica(AggiornaSemaforiAnagrafica_InDTO aggiornaSemaforiAnagrafica_InDTO);
 	
+	/**
+	 * @param aggiornaFideiussione_InDTO
+	 * @return
+	 */
 	public AggiornaFideiussione_OutDTO aggiornaFideiussione(AggiornaFideiussione_InDTO aggiornaFideiussione_InDTO);
 }

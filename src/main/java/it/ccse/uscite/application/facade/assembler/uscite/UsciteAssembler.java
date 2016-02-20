@@ -33,24 +33,44 @@ import it.ccse.uscite.domain.filter.PraticaFilter;
 @Component
 public class UsciteAssembler extends Assembler {
 	
+	/**
+	 * @param searchPratiche_InDTO
+	 * @return
+	 */
 	public PraticaFilter toPraticaFilter(SearchPratiche_InDTO searchPratiche_InDTO){
 		return mapper.map(searchPratiche_InDTO,PraticaFilter.class);
 	}
 
+	/**
+	 * @param pratiche
+	 * @return
+	 */
 	public SearchPratiche_OutDTO toSearchPratiche_OutDTO(Page<PraticaErogazione> pratiche) {
 		return mapper.map(pratiche, SearchPratiche_OutDTO.class);
 	}
 	
+	/**
+	 * @param pratiche
+	 * @return
+	 */
 	public AggiornaSemaforiAnagrafica_OutDTO toAggiornaSemaforiAnagrafica_OutDTO(List<PraticaErogazione> pratiche) {	
 		return mapper.map(new PraticaErogazioneListContainer(pratiche),AggiornaSemaforiAnagrafica_OutDTO.class);
 	}
 
+	/**
+	 * @param aggiornaSemaforiAnagrafica_InDTO
+	 * @return
+	 */
 	public List<SettoreAttivita> toSettoriAttivita(AggiornaSemaforiAnagrafica_InDTO aggiornaSemaforiAnagrafica_InDTO) {
 		ListContainer<SettoreAttivita> container = new SettoreAttivitaListContainer();
 		mapper.map(aggiornaSemaforiAnagrafica_InDTO,container);
 		return container.getContent();
 	}
 	
+	/**
+	 * @param aggiornaFideiussione_InDTO
+	 * @return
+	 */
 	public Map<String, FideiussionePratica> toPratiche(AggiornaFideiussione_InDTO aggiornaFideiussione_InDTO) {
 		Map<String, FideiussionePratica> map = null;
 		if (aggiornaFideiussione_InDTO!=null&&aggiornaFideiussione_InDTO.getContent()!=null){
@@ -59,6 +79,10 @@ public class UsciteAssembler extends Assembler {
 		return map;
 	}
 
+	/**
+	 * @param pratiche
+	 * @return
+	 */
 	public AggiornaFideiussione_OutDTO toAggiornaFideiussione_OutDTO(List<PraticaErogazione> pratiche) {
 		return mapper.map(new PraticaErogazioneListContainer(pratiche), AggiornaFideiussione_OutDTO.class);
 	}

@@ -5,7 +5,12 @@ package it.ccse.uscite.domain.filter;
 
 import it.ccse.uscite.domain.PraticaErogazione;
 import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
+import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
+import it.ccse.uscite.domain.StatoContabile.AutorizzazioneContabile;
 import it.ccse.uscite.domain.QPraticaErogazione;
+import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
+import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
+import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
 import it.ccse.uscite.domain.TipoPeriodo;
 import it.ccse.uscite.domain.util.UsciteProperties;
 
@@ -42,11 +47,11 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	
 	private BigInteger idPosizioneFinanziaria;
 	
-	private String autorizzazioneComitato;
+	private List<AutorizzazioneLegale> listaValoriAutorizzazioneLegale;
 	
-	private String autorizzazioneContabile ;
+	private AutorizzazioneComitato autorizzazioneComitato;
 	
-	private List<String> listaValoriAutorizzazioneLegale ;	
+	private AutorizzazioneContabile autorizzazioneContabile ;
 	
 	private Date dataScadenzaDa;
 	
@@ -68,10 +73,10 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	
 	private Boolean erogabile;
 	
-	private String fideiussione;
+	private FideiussionePratica fideiussione;
 	
-	private String unbundling;
-	
+	private UnbundlingPratica unbundling;
+ 
 	private Integer idProcessoErogazione;
 	
 	private List<String> codiciPratica;
@@ -86,9 +91,9 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		QPraticaErogazione pratica = QPraticaErogazione.praticaErogazione;
 		BooleanExpression hasAnnoDa = getAnnoDa() !=null ? pratica.anno.goe(getAnnoDa()):null; 
 		BooleanExpression hasAnnoA = getAnnoA()!=null ? pratica.anno.loe(getAnnoA()):null;
-		BooleanExpression hasAutorizzazioneComitato = getAutorizzazioneComitato()!=null ? pratica.statoComitato.id.eq(getAutorizzazioneComitato()):null;
-		BooleanExpression hasAutorizzazioneContabile = getAutorizzazioneContabile()!=null ? pratica.statoContabile.id.eq(getAutorizzazioneContabile()):null;
-		BooleanExpression hasAutorizzazioniLegale = getListaValoriAutorizzazioneLegale()!=null ? pratica.statoLegale.id.in(getListaValoriAutorizzazioneLegale()):null;
+		BooleanExpression hasAutorizzazioneComitato = getAutorizzazioneComitato()!=null ? pratica.statoComitato.valore.eq(getAutorizzazioneComitato()):null;
+		BooleanExpression hasAutorizzazioneContabile = getAutorizzazioneContabile()!=null ? pratica.statoContabile.valore.eq(getAutorizzazioneContabile()):null;
+		BooleanExpression hasAutorizzazioniLegale = getListaValoriAutorizzazioneLegale()!=null ? pratica.statoLegale.valore.in(getListaValoriAutorizzazioneLegale()):null;
 		BooleanExpression hasDatacomitatoA = getDataComitatoA()!=null ? pratica.processoErogazione.ordineDelGiorno.dataComitato.loe(getDataComitatoA()):null;
 		BooleanExpression hasDatacomitatoDa = getDataComitatoDa()!=null ? pratica.processoErogazione.ordineDelGiorno.dataComitato.goe(getDataComitatoDa()):null;
 
@@ -99,7 +104,7 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		BooleanExpression hasDataFideiussioneA = getDataFideiussioneA()!=null ? pratica.dataFideiussione.loe(getDataFideiussioneA()):null;
 		BooleanExpression hasDataFideiussioneDa = getDataFideiussioneDa()!=null ? pratica.dataFideiussione.goe(getDataFideiussioneDa()):null;
 		
-		BooleanExpression hasFideiussione = getFideiussione()!=null ? pratica.statoFideiussione.id.eq(getFideiussione()):null;
+		BooleanExpression hasFideiussione = getFideiussione()!=null ? pratica.statoFideiussione.valore.eq(getFideiussione()):null;
 		BooleanExpression hasIdComponenteTariffaria = getIdComponenteTariffaria()!=null?pratica.idComponenteTariffariaAc.eq(getIdComponenteTariffaria()):null;
 		BooleanExpression hasIdPosizioneFinanziaria = getIdPosizioneFinanziaria()!=null?pratica.idPosizioneFinanziariaAc.eq(getIdPosizioneFinanziaria()):null;
 		BooleanExpression hasImportoA = getImportoA()!=null?pratica.impegno.loe(getImportoA()):null;
@@ -110,7 +115,7 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		BooleanExpression hasPeriodo = getPeriodo()!=null?pratica.periodo.eq(getPeriodo()):null;
 		BooleanExpression hasStato = getStatiPratica()!=null?pratica.lavorazioneContabile.in(getStatiPratica()):null; 			
 		BooleanExpression hasTipoPeriodo = getTipoPeriodo()!=null?pratica.tipoPeriodo.eq(getTipoPeriodo()):null;
-		BooleanExpression hasUnbundling = getUnbundling()!=null?pratica.statoUnbundling.id.eq(getUnbundling()):null;
+		BooleanExpression hasUnbundling = getUnbundling()!=null?pratica.statoUnbundling.valore.eq(getUnbundling()):null;
 		BooleanExpression hasProcessoErogazione = getIdProcessoErogazione()!=null?pratica.processoErogazione.id.eq(getIdProcessoErogazione()):null;
 		BooleanExpression hasCodicePratica = getCodiciPratica()!=null?pratica.codicePratica.in(getCodiciPratica()):null;
 		
@@ -246,38 +251,6 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		this.idPosizioneFinanziaria = idPosizioneFinanziaria;
 	}
 
-
-	/**
-	 * @return the autorizzazioneComitato
-	 */
-	public String getAutorizzazioneComitato() {
-		return autorizzazioneComitato;
-	}
-
-	/**
-	 * @param autorizzazioneComitato the autorizzazioneComitato to set
-	 */
-	public void setAutorizzazioneComitato(
-			String autorizzazioneComitato) {
-		this.autorizzazioneComitato = autorizzazioneComitato;
-	}
-
-	/**
-	 * @return the autorizzazioneContabile
-	 */
-	public String getAutorizzazioneContabile() {
-		return autorizzazioneContabile;
-	}
-
-	/**
-	 * @param autorizzazioneContabile the autorizzazioneContabile to set
-	 */
-	public void setAutorizzazioneContabile(
-			String autorizzazioneContabile) {
-		this.autorizzazioneContabile = autorizzazioneContabile;
-	}
-
-
 	/**
 	 * @return the statiPratica
 	 */
@@ -361,36 +334,6 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	public void setErogabile(Boolean erogabile) {
 		this.erogabile = erogabile;
 	}
-
-	/**
-	 * @return the fideiussione
-	 */
-	public String getFideiussione() {
-		return fideiussione;
-	}
-
-	/**
-	 * @param fideiussione the fideiussione to set
-	 */
-	public void setFideiussione(String fideiussione) {
-		this.fideiussione = fideiussione;
-	}
-
-	/**
-	 * @return the unbundling
-	 */
-	public String getUnbundling() {
-		return unbundling;
-	}
-
-	/**
-	 * @param unbundling the unbundling to set
-	 */
-	public void setUnbundling(String unbundling) {
-		this.unbundling = unbundling;
-	}
-
-	
 	
 	
 	
@@ -420,21 +363,7 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * @return the listaValoriAutorizzazioneLegale
-	 */
-	public List<String> getListaValoriAutorizzazioneLegale() {
-		return listaValoriAutorizzazioneLegale;
-	}
-
-	/**
-	 * @param listaValoriAutorizzazioneLegale the listaValoriAutorizzazioneLegale to set
-	 */
-	public void setListaValoriAutorizzazioneLegale(
-			List<String> listaValoriAutorizzazioneLegale) {
-		this.listaValoriAutorizzazioneLegale = listaValoriAutorizzazioneLegale;
-	}
-
+	
 	/**
 	 * @return the idProcessoErogazione
 	 */
@@ -503,6 +432,46 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 
 	public void setDataFideiussioneA(Date dataFideiussioneA) {
 		this.dataFideiussioneA = dataFideiussioneA;
+	}
+
+	public FideiussionePratica getFideiussione() {
+		return fideiussione;
+	}
+
+	public void setFideiussione(FideiussionePratica fideiussione) {
+		this.fideiussione = fideiussione;
+	}
+
+	public List<AutorizzazioneLegale> getListaValoriAutorizzazioneLegale() {
+		return listaValoriAutorizzazioneLegale;
+	}
+
+	public void setListaValoriAutorizzazioneLegale(List<AutorizzazioneLegale> listaValoriAutorizzazioneLegale) {
+		this.listaValoriAutorizzazioneLegale = listaValoriAutorizzazioneLegale;
+	}
+
+	public AutorizzazioneComitato getAutorizzazioneComitato() {
+		return autorizzazioneComitato;
+	}
+
+	public void setAutorizzazioneComitato(AutorizzazioneComitato autorizzazioneComitato) {
+		this.autorizzazioneComitato = autorizzazioneComitato;
+	}
+
+	public AutorizzazioneContabile getAutorizzazioneContabile() {
+		return autorizzazioneContabile;
+	}
+
+	public void setAutorizzazioneContabile(AutorizzazioneContabile autorizzazioneContabile) {
+		this.autorizzazioneContabile = autorizzazioneContabile;
+	}
+
+	public UnbundlingPratica getUnbundling() {
+		return unbundling;
+	}
+
+	public void setUnbundling(UnbundlingPratica unbundling) {
+		this.unbundling = unbundling;
 	}
 	
 	

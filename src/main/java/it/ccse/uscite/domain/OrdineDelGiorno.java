@@ -19,7 +19,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
@@ -37,7 +36,6 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 @AttributeOverride(name = "id", column = @Column(name = "id_ordine_del_giorno"))
 @Table(name = "ordine_del_giorno")
 @Audited
-@AuditTable(value="ordine_del_giorno")
 public class OrdineDelGiorno extends DomainEntity<Integer> implements Serializable {
 	public enum StatoComitato{
 		APERTO,CHIUSO
