@@ -289,7 +289,9 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<compilerArgs><compilerArg>-Xlint</compilerArg></compilerArgs>
 				</configuration>
+				
 			</plugin>
 			
 			<plugin>
@@ -405,4 +407,9 @@
 			</plugin>
 		</plugins>
 	</build>
+<!-- 	<scm> -->
+<!-- 		<url>https://github.com/valcom/WS_Uscite</url> -->
+<!-- 		<connection>scm:git:git://github.com/valcom/WS_Uscite.git</connection> -->
+<!-- 		<developerConnection>scm:git:git@github.com:valcom/WS_Uscite.git</developerConnection> -->
+<!-- 	</scm> -->
 </project>
