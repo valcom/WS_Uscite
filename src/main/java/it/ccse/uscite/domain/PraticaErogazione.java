@@ -1550,14 +1550,10 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	 * @param fideiussione
 	 * @return
 	 */
-	public void aggiornaStatoFideiussione(FideiussionePratica fideiussione) {
-		FideiussionePratica nuovaFideiussione = getFideiussione();
+	public void aggiornaStatoFideiussione(StatoFideiussione statoFideiussione) {
 		if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_FIDEIUSSIONE.contains(getIdComponenteTariffariaAc().toString())){
-			nuovaFideiussione = fideiussione;
-		}else{
-			nuovaFideiussione = FideiussionePratica.DONT_CARE;
+			this.statoFideiussione = statoFideiussione;
 		}
-		setStatoFideiussione(new StatoFideiussione(nuovaFideiussione));
 	}
 
 }

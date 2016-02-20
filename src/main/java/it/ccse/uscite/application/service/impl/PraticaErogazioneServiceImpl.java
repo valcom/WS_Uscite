@@ -166,10 +166,11 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			
 			List<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
 			List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
+			List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 			for(PraticaErogazione pratica:pratiche){
 				StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(pratica.getSettoreAttivita().getStatoAntimafia().getAutorizzazioneLegale())).findFirst().orElseThrow(()->new RuntimeException("stato legale non valido per la pratica "+pratica.getCodicePratica()));
 				StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(su->su.getUnbundling().equals(calcolaUnbundlingPratica(pratica.getSettoreAttivita().getUnbundling(),pratica.getIdComponenteTariffariaAc()))).findFirst().orElseThrow(()->new RuntimeException("stato unbundling non valido per la pratica "+pratica.getCodicePratica()));
-				pratica.aggiornaStatoFideiussione(statoFideiussioneIniziale.getFideiussione());
+				pratica.setStatoFideiussione(statiFideiussione.stream().filter(sf->sf.equals(statoFideiussioneIniziale.getFideiussione().getFideiussionePraticaByCT(pratica.getIdComponenteTariffariaAc()))).findFirst().orElseThrow(()->new RuntimeException("stato fideiussione non valido per la pratica "+pratica.getCodicePratica())));
 				pratica.setStatoLegale(statoLegale);
 				pratica.setStatoUnbundling(statoUnbundling);
 				pratica.associaANota(processo);
@@ -336,10 +337,12 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			Page<PraticaErogazione> page = searchPraticheErogazione(filter);
 			if(page!=null){
 				List<PraticaErogazione> praticheEsistenti = page.getContent();
+				List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 				for(PraticaErogazione pratica:praticheEsistenti){
 					StatoFideiussione fideiussioneEsistente = pratica.getStatoFideiussione();
 					FideiussionePratica nuovaFideiussione = mappaCodiciPraticaFideiussioni.get(pratica.getCodicePratica());
-					pratica.aggiornaStatoFideiussione(nuovaFideiussione );
+					StatoFideiussione nuovoStatoFideiussione = statiFideiussione.stream().filter(sf->sf.getFideiussione().equals(nuovaFideiussione.getFideiussionePraticaByCT(pratica.getIdComponenteTariffariaAc()))).findFirst().get(); 
+					pratica.setStatoFideiussione(nuovoStatoFideiussione );
 					if(!nuovaFideiussione.equals(fideiussioneEsistente)){
 						praticheModificate.add(pratica);
 					}
