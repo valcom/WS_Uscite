@@ -15,10 +15,10 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/application-context.xml,
-			/WEB-INF/ws-context.xml,
-			/WEB-INF/security-context.xml,
-			/WEB-INF/jndi.xml
+			classpath:/spring/application-context.xml,
+			classpath:/spring/ws-context.xml,
+			classpath:/spring/security-context.xml,
+			classpath:/spring/jndi.xml
 		</param-value>
 	</context-param>
 	
