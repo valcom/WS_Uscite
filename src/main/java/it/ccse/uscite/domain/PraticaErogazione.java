@@ -52,20 +52,17 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	private String autorizzazioneAutorizzante;
 	
 	@ManyToOne(optional=false)
-	@JoinColumn(name="autorizzazione_comitato",referencedColumnName="valore")
-	@Enumerated(EnumType.STRING)
+	@JoinColumn(name="autorizzazione_comitato",referencedColumnName="id")
 	@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
 	private StatoComitato statoComitato = new StatoComitato();
 
 	@ManyToOne(optional=false)
-	@JoinColumn(name="autorizzazione_contabile",referencedColumnName="valore")
-	@Enumerated(EnumType.STRING)
+	@JoinColumn(name="autorizzazione_contabile",referencedColumnName="id")
 	@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
 	private StatoContabile statoContabile = new StatoContabile();
 
 	@ManyToOne(optional=false)
-	@JoinColumn(name="autorizzazione_legale",referencedColumnName="valore")
-	@Enumerated(EnumType.STRING)
+	@JoinColumn(name="autorizzazione_legale",referencedColumnName="id")
 	@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
 	private StatoLegale statoLegale = new StatoLegale();
 
@@ -199,14 +196,12 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	private Integer idSoggetto; 
 	
 	@ManyToOne(optional=false)
-	@JoinColumn(name="unbundling",referencedColumnName="valore")
-	@Enumerated(EnumType.STRING)
+	@JoinColumn(name="unbundling",referencedColumnName="id")
 	@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
 	private StatoUnbundling statoUnbundling = new StatoUnbundling();
 	
 	@ManyToOne(optional=false)
-	@JoinColumn(name="fideiussione",referencedColumnName="valore")
-	@Enumerated(EnumType.STRING)
+	@JoinColumn(name="fideiussione",referencedColumnName="id")
 	@Audited(targetAuditMode=RelationTargetAuditMode.NOT_AUDITED)
 	private StatoFideiussione statoFideiussione = new StatoFideiussione();
 	
