@@ -7,8 +7,12 @@ import javax.persistence.Cacheable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 
 import org.hibernate.envers.Audited;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 /**
  * @author vcompagnone
@@ -81,6 +85,10 @@ public abstract class DomainEntity<ID> extends DomainObject{
 		this.username = username;
 	}
 
+	@PreUpdate
+	@PreRemove
+	private void setUsername() {
+		username = (String) RequestContextHolder.currentRequestAttributes().getAttribute("username", RequestAttributes.SCOPE_REQUEST);
+	}
 
-	
 }

@@ -33,7 +33,7 @@ public class StatoFideiussione extends StatoPratica<StatoFideiussione.Fideiussio
 		 */
 		public FideiussionePratica getFideiussionePraticaByCT(BigInteger idComponenteTariffaria) {
 			FideiussionePratica fideiussione = null;
-			if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_FIDEIUSSIONE.contains(idComponenteTariffaria)){
+			if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_FIDEIUSSIONE.contains(idComponenteTariffaria.toString())){
 				switch(this){
 				case ASSENTE:
 					fideiussione = FideiussionePratica.ASSENTE;

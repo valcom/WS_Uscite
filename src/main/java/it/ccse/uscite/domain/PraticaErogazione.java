@@ -1540,15 +1540,6 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 		setLavorazioneContabile(StatoPratica.LAVORABILE);
 	}    
 	
-	/**
-	 * 
-	 * @param fideiussione
-	 * @return
-	 */
-	public void aggiornaStatoFideiussione(StatoFideiussione statoFideiussione) {
-		if(UsciteProperties.LISTA_COMPONENTI_TARIFFARIE_FIDEIUSSIONE.contains(getIdComponenteTariffariaAc().toString())){
-			this.statoFideiussione = statoFideiussione;
-		}
-	}
+	
 
 }

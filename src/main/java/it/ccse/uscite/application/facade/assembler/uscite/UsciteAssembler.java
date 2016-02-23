@@ -74,7 +74,7 @@ public class UsciteAssembler extends Assembler {
 	public Map<String, FideiussionePratica> toPratiche(AggiornaFideiussione_InDTO aggiornaFideiussione_InDTO) {
 		Map<String, FideiussionePratica> map = null;
 		if (aggiornaFideiussione_InDTO!=null&&aggiornaFideiussione_InDTO.getContent()!=null){
-			map = aggiornaFideiussione_InDTO.getContent().stream().collect(Collectors.toMap(AggiornaFideiussioneDTO::getCodicePratica,AggiornaFideiussioneDTO::getFideiussione));
+			map = aggiornaFideiussione_InDTO.getContent().stream().filter(p->p.getFideiussione()!=null&&p.getCodicePratica()!=null).collect(Collectors.toMap(AggiornaFideiussioneDTO::getCodicePratica,AggiornaFideiussioneDTO::getFideiussione));
 		}
 		return map;
 	}

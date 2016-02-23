@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import it.ccse.uscite.application.service.MailService;
 import it.ccse.uscite.application.service.PraticaErogazioneService;
@@ -338,12 +340,15 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			if(page!=null){
 				List<PraticaErogazione> praticheEsistenti = page.getContent();
 				List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
+				String username = (String) RequestContextHolder.currentRequestAttributes().getAttribute("username",RequestAttributes.SCOPE_REQUEST);
+
 				for(PraticaErogazione pratica:praticheEsistenti){
 					StatoFideiussione fideiussioneEsistente = pratica.getStatoFideiussione();
 					FideiussionePratica nuovaFideiussione = mappaCodiciPraticaFideiussioni.get(pratica.getCodicePratica());
 					StatoFideiussione nuovoStatoFideiussione = statiFideiussione.stream().filter(sf->sf.getFideiussione().equals(nuovaFideiussione.getFideiussionePraticaByCT(pratica.getIdComponenteTariffariaAc()))).findFirst().get(); 
 					pratica.setStatoFideiussione(nuovoStatoFideiussione );
 					if(!nuovaFideiussione.equals(fideiussioneEsistente)){
+						pratica.setUsername(username);
 						praticheModificate.add(pratica);
 					}
 				}
