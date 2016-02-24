@@ -17,5 +17,4 @@ public class Assembler{
 	@Autowired
 	protected Mapper mapper;
 	
-	
 }

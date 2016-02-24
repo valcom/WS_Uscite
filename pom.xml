@@ -43,11 +43,12 @@
 		<slf4j.version>1.7.15</slf4j.version>
 		<logback.version>1.1.5</logback.version>
 		<logback-ext-spring.version>0.1.4</logback-ext-spring.version>
-		
-		
+
+
 
 		<commons-lang.version>2.2</commons-lang.version>
 		<dozer.version>5.5.1</dozer.version>
+		<org.mapstruct.version>1.0.0.Final</org.mapstruct.version>
 
 		<!-- Test -->
 		<junit.version>4.12</junit.version>
@@ -63,7 +64,6 @@
 		<maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
 		<tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
 		<hibernate4-maven-plugin.version>1.1.0</hibernate4-maven-plugin.version>
-
 	</properties>
 
 	<profiles>
@@ -170,7 +170,7 @@
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
-<!-- Logging -->
+		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -200,6 +200,12 @@
 			<groupId>net.sf.dozer</groupId>
 			<artifactId>dozer</artifactId>
 			<version>${dozer.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
 
 		<!-- Mail -->
@@ -234,7 +240,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate.version}</version>
-			<scope>compile</scope>			
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -290,16 +296,15 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-					<compilerArgs><compilerArg>-Xlint</compilerArg></compilerArgs>
 				</configuration>
-				
+
 			</plugin>
-			
+
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
 				<version>${apt-maven-plugin.version}</version>
-			<dependencies>
+				<dependencies>
 					<dependency>
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-jpamodelgen</artifactId>
@@ -332,7 +337,7 @@
 				<version>${maven-processor-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>process</id>
+						<id>process-metamodel</id>
 						<goals>
 							<goal>process</goal>
 						</goals>
@@ -345,9 +350,28 @@
 							<additionalSourceDirectories>
 								<additionalSourceDirectory>target/generated-sources/querydsl</additionalSourceDirectory>
 							</additionalSourceDirectories>
-							<outputDirectory>target/generated-sources/metamodel</outputDirectory>
+							<outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
 						</configuration>
 					</execution>
+
+					<execution>
+						<id>process-mapper</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.mapstruct.ap.MappingProcessor</processor>
+							</processors>
+							<additionalSourceDirectories>
+								<additionalSourceDirectory>${project.build.directory}/generated-sources/querydsl</additionalSourceDirectory>
+							</additionalSourceDirectories>
+							<outputDirectory>${project.build.directory}/generated-sources/mapper</outputDirectory>
+						</configuration>
+
+					</execution>
+
 				</executions>
 				<dependencies>
 					<dependency>
@@ -359,6 +383,11 @@
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-envers</artifactId>
 						<version>${hibernate.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.mapstruct</groupId>
+						<artifactId>mapstruct-processor</artifactId>
+						<version>${org.mapstruct.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -375,8 +404,9 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>target/generated-sources/querydsl</source>
-								<source>target/generated-sources/metamodel</source>
+								<source>${project.build.directory}/generated-sources/querydsl</source>
+								<source>${project.build.directory}/generated-sources/metamodel</source>
+								<source>${project.build.directory}/generated-sources/mapper</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -417,32 +447,33 @@
 					<update>true</update>
 				</configuration>
 			</plugin>
-			 <plugin>
-                <groupId>de.juplo</groupId>
-                <artifactId>hibernate4-maven-plugin</artifactId>
-                <version>${hibernate4-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <envers>true</envers>
-                    <format>true</format>
-                    <delimiter>;</delimiter>
-                    <force>false</force>
-                    <type>CREATE</type>
-                    <target>SCRIPT</target>
-                    <hibernateDialect>org.hibernate.dialect.MySQLDialect</hibernateDialect>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>de.juplo</groupId>
+				<artifactId>hibernate4-maven-plugin</artifactId>
+				<version>${hibernate4-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>export</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<envers>true</envers>
+					<format>true</format>
+					<delimiter>;</delimiter>
+					<force>false</force>
+					<type>CREATE</type>
+					<target>SCRIPT</target>
+					<hibernateDialect>org.hibernate.dialect.MySQLDialect</hibernateDialect>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
-<!-- 	<scm> -->
-<!-- 		<url>https://github.com/valcom/WS_Uscite</url> -->
-<!-- 		<connection>scm:git:git://github.com/valcom/WS_Uscite.git</connection> -->
-<!-- 		<developerConnection>scm:git:git@github.com:valcom/WS_Uscite.git</developerConnection> -->
-<!-- 	</scm> -->
+	<!-- <scm> -->
+	<!-- <url>https://github.com/valcom/WS_Uscite</url> -->
+	<!-- <connection>scm:git:git://github.com/valcom/WS_Uscite.git</connection> -->
+	<!-- <developerConnection>scm:git:git@github.com:valcom/WS_Uscite.git</developerConnection> -->
+	<!-- </scm> -->
 </project>
