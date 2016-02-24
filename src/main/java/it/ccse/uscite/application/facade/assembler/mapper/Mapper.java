@@ -4,8 +4,6 @@
 package it.ccse.uscite.application.facade.assembler.mapper;
 
 
-import org.springframework.stereotype.Component;
-
 import it.ccse.uscite.application.facade.dto.ComitatoDTO;
 import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneFullDTO;
 import it.ccse.uscite.application.facade.dto.NotaPagamentoDTO;
@@ -22,7 +20,6 @@ import it.ccse.uscite.domain.TipoPeriodo;
  * @author Valerio
  *
  */
-@SuppressWarnings("unused")
 @org.mapstruct.Mapper
 public interface Mapper {
 	
