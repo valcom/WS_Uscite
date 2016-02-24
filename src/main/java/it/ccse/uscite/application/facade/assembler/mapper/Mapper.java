@@ -20,9 +20,9 @@ import it.ccse.uscite.domain.TipoPeriodo;
  * @author Valerio
  *
  */
-@org.mapstruct.Mapper
+@org.mapstruct.Mapper(componentModel="spring")
 public interface Mapper {
-	
+		
 	public PraticaErogazioneDTO mapToPraticaErogazioneDTO(PraticaErogazione pratica);
 	
 	public PraticaErogazione mapToPraticaErogazione(PraticaErogazioneDTO pratica);
