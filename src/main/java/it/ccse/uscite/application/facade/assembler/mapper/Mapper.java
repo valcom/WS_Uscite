@@ -22,7 +22,7 @@ import it.ccse.uscite.domain.TipoPeriodo;
  * @author Valerio
  *
  */
-@Component
+@SuppressWarnings("unused")
 @org.mapstruct.Mapper
 public interface Mapper {
 	
