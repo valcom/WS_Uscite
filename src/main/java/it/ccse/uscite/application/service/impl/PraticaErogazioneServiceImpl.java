@@ -5,6 +5,7 @@ package it.ccse.uscite.application.service.impl;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +123,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public List<PraticaErogazione> getPraticheLavorabili(ProcessoErogazione processo) {
 		PraticaFilter filter = new PraticaFilter();
 		filter.setIdProcessoErogazione(processo.getId());
-		filter.setStatiPratica(StatoPratica.LAVORABILE);
+		filter.setStatiPratica(Arrays.asList(StatoPratica.LAVORABILE));
 		Page<PraticaErogazione> pratiche =  searchPraticheErogazione(filter);
 		return pratiche != null ? pratiche.getContent() : null;
 	}
@@ -202,7 +203,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Transactional(readOnly=true)
 	public List<PraticaErogazione> getPraticheAutorizzabiliComitato(ProcessoErogazione processo) {
 		PraticaFilter filter = new PraticaFilter();
-		filter.setStatiPratica(StatoPratica.ASSEGNATO);
+		filter.setStatiPratica(Arrays.asList(StatoPratica.ASSEGNATO));
 		filter.setIdProcessoErogazione(processo.getId());
 		Page<PraticaErogazione> pratiche = searchPraticheErogazione(filter);
 		return pratiche!= null ? pratiche.getContent() : null;
@@ -235,7 +236,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 
 		for(SettoreAttivita settoreAttivita:settoriAttivita){
 			PraticaFilter filter = new PraticaFilter();
-			filter.setListaIdSettoriAttivita(settoreAttivita.getId());
+			filter.setListaIdSettoriAttivita(Arrays.asList(settoreAttivita.getId()));
 			filter.setStatiPratica(StatoPratica.STATI_PRATICA_MODIFICABILE);
 			Page<PraticaErogazione> pagePratiche = searchPraticheErogazione(filter);
 			if(pagePratiche!=null){
@@ -296,7 +297,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Override
 	@Transactional(readOnly=true)
 	public Page<PraticaErogazione> searchPraticheInSospeso(PraticaFilter filter) {
-		filter.setStatiPratica(StatoPratica.IN_SOSPESO);
+		filter.setStatiPratica(Arrays.asList(StatoPratica.IN_SOSPESO));
 		return searchPraticheErogazione(filter);
 	}
 

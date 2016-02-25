@@ -16,7 +16,6 @@ import it.ccse.uscite.domain.util.UsciteProperties;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -345,18 +344,10 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		this.listaIdSettoriAttivita=listaIdSettoriAttivita;
 	}
 	
-	public void setListaIdSettoriAttivita(BigInteger... idSettoriAttivita){
-		this.listaIdSettoriAttivita=Arrays.asList(idSettoriAttivita);
-	}
-	
 	public List<BigInteger> getListaIdSettoriAttivita(){
 		return listaIdSettoriAttivita;
 	}
 
-	
-	public void setStatiPratica(StatoPratica... stati) {
-		statiPratica = Arrays.asList(stati);
-	}
 
 	@Override
 	public Specification<PraticaErogazione> getSpecification() {
