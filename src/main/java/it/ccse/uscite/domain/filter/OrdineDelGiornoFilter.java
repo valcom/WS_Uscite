@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.domain.filter;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -19,7 +20,7 @@ import it.ccse.uscite.domain.OrdineDelGiorno.StatoComitato;
  */
 public class OrdineDelGiornoFilter extends PageableFilter<OrdineDelGiorno> {
 
-	private Integer idComitato;
+	private BigInteger idComitato;
 	private Date dataComitatoDa;
 	private Date dataComitatoA;
 	private StatoComitato stato;
@@ -43,14 +44,14 @@ public class OrdineDelGiornoFilter extends PageableFilter<OrdineDelGiorno> {
 	/**
 	 * @return the idComitato
 	 */
-	public Integer getIdComitato() {
+	public BigInteger getIdComitato() {
 		return idComitato;
 	}
 
 	/**
 	 * @param idComitato the idComitato to set
 	 */
-	public void setIdComitato(Integer idComitato) {
+	public void setIdComitato(BigInteger idComitato) {
 		this.idComitato = idComitato;
 	}
 

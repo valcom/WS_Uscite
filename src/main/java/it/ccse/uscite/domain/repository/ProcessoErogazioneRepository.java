@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.domain.repository;
 
+import java.math.BigInteger;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +18,7 @@ import it.ccse.uscite.domain.ProcessoErogazione.StatoProcesso;
  * @author vcompagnone
  *
  */
-public interface ProcessoErogazioneRepository extends JpaRepository<ProcessoErogazione, Integer>,QueryDslPredicateExecutor<ProcessoErogazione> {
+public interface ProcessoErogazioneRepository extends JpaRepository<ProcessoErogazione, BigInteger>,QueryDslPredicateExecutor<ProcessoErogazione> {
 	
 	public Set<ProcessoErogazione> findByOrdineDelGiorno(OrdineDelGiorno ordine);
 	

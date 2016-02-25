@@ -43,7 +43,7 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 @Table(name="pratica_erogazione")
 @AttributeOverride(name = "id", column = @Column(name = "id_pratica_erogazione"))
 @Audited
-public class PraticaErogazione extends DomainEntity<Integer> implements Serializable {
+public class PraticaErogazione extends DomainEntity<BigInteger> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer anno;
@@ -820,14 +820,14 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return
 	 */
-	public Integer getIdPraticaErogazione(){
+	public BigInteger getIdPraticaErogazione(){
 		return getId();
 	}
 	
 	/**
 	 * @param id
 	 */
-	public void setIdPraticaErogazione(Integer id){
+	public void setIdPraticaErogazione(BigInteger id){
 		setId(id);
 	}
 	
@@ -1240,7 +1240,7 @@ public class PraticaErogazione extends DomainEntity<Integer> implements Serializ
 	/**
 	 * @return
 	 */
-	public Integer getIdSettoreAttivita(){
+	public BigInteger getIdSettoreAttivita(){
 		return settoreAttivita!=null?settoreAttivita.getId():null;
 	}
 

@@ -10,6 +10,7 @@ import it.ccse.uscite.domain.SettoreAttivita;
 import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
 import it.ccse.uscite.domain.filter.PraticaFilter;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ import org.springframework.data.domain.Page;
  */
 public interface PraticaErogazioneService {
 	
-	public PraticaErogazione getById(Integer id) ;
+	public PraticaErogazione getById(BigInteger id) ;
 	
 	public void createPraticaErogazione(PraticaErogazione praticaErogazione);
 	

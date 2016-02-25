@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.domain;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -16,7 +17,7 @@ import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
  */
 @Embeddable
 public class SettoreAttivita extends ValueObject {
-	private Integer id;
+	private BigInteger id;
 	@Transient
 	private String ragioneSociale;
 	@Transient
@@ -125,14 +126,14 @@ public class SettoreAttivita extends ValueObject {
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

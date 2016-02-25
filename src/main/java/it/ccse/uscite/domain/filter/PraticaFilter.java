@@ -31,7 +31,7 @@ import com.mysema.query.types.expr.BooleanExpression;
  */
 public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	
-	private List<Integer> listaIdSettoriAttivita;
+	private List<BigInteger> listaIdSettoriAttivita;
 	
 	private Date dataComitatoDa;
 	
@@ -77,7 +77,7 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	
 	private UnbundlingPratica unbundling;
  
-	private Integer idProcessoErogazione;
+	private BigInteger idProcessoErogazione;
 	
 	private List<String> codiciPratica;
 	
@@ -337,19 +337,19 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	
 	
 	
-	public void setIdNota(Integer idNota){
+	public void setIdNota(BigInteger idNota){
 		idProcessoErogazione = idNota;
 	}
 	
-	public void setListaIdSettoriAttivita(List<Integer> listaIdSettoriAttivita){
+	public void setListaIdSettoriAttivita(List<BigInteger> listaIdSettoriAttivita){
 		this.listaIdSettoriAttivita=listaIdSettoriAttivita;
 	}
 	
-	public void setListaIdSettoriAttivita(Integer... idSettoriAttivita){
+	public void setListaIdSettoriAttivita(BigInteger... idSettoriAttivita){
 		this.listaIdSettoriAttivita=Arrays.asList(idSettoriAttivita);
 	}
 	
-	public List<Integer> getListaIdSettoriAttivita(){
+	public List<BigInteger> getListaIdSettoriAttivita(){
 		return listaIdSettoriAttivita;
 	}
 
@@ -367,14 +367,14 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	/**
 	 * @return the idProcessoErogazione
 	 */
-	public Integer getIdProcessoErogazione() {
+	public BigInteger getIdProcessoErogazione() {
 		return idProcessoErogazione;
 	}
 
 	/**
 	 * @param idProcessoErogazione the idProcessoErogazione to set
 	 */
-	public void setIdProcessoErogazione(Integer idProcessoErogazione) {
+	public void setIdProcessoErogazione(BigInteger idProcessoErogazione) {
 		this.idProcessoErogazione = idProcessoErogazione;
 	}
 

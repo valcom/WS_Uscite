@@ -75,7 +75,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public PraticaErogazione getById(Integer id) {
+	public PraticaErogazione getById(BigInteger id) {
 		return praticaErogazioneRepository.findOne(id);
 	}
 
@@ -130,7 +130,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Override
 	public ProcessoErogazione associaPraticheANota(
 			List<PraticaErogazione> pratiche, ProcessoErogazione processo) {
-		Integer idProcesso = processo.getId();
+		BigInteger idProcesso = processo.getId();
 		processo = processoErogazioneRepository.findOne(idProcesso);
 		if(processo == null){
 			throw new ApplicationException("error.nota.notFound.associazionePraticaNota");
@@ -184,7 +184,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public void dissociaPraticheDaNota(
 			List<PraticaErogazione> pratiche) {	
 		int nPratiche = pratiche.size();
-		List<Integer> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
+		List<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 		pratiche = praticaErogazioneRepository.findAll(ids);
 		if(pratiche==null || pratiche.size()<nPratiche){
 			throw new ApplicationException("error.pratica.notFound.dissociazionePraticaNota");
@@ -212,7 +212,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public LavorazioneContabile lavorazioneContabile(List<PraticaErogazione> pratiche) {
 		LavorazioneContabile lavorazioneContabile = new LavorazioneContabile();
 		
-		List<Integer> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
+		List<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 		pratiche = praticaErogazioneRepository.findAll(ids);
 		pratiche.stream().forEach(PraticaErogazione::lavorazioneContabile);
 		lavorazioneContabile.addErogazioni(pratiche.stream().filter(PraticaErogazione.IS_IN_EROGAZIONE).collect(Collectors.toList()));
@@ -304,7 +304,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	public void autorizzaComitato(List<PraticaErogazione> pratiche) {
 
 		if(pratiche != null && !pratiche.isEmpty()){
-			List<Integer> ids = pratiche.parallelStream().map(PraticaErogazione::getId).collect(Collectors.toList());
+			List<BigInteger> ids = pratiche.parallelStream().map(PraticaErogazione::getId).collect(Collectors.toList());
 			pratiche = praticaErogazioneRepository.findAll(ids);
 			StatoComitato statoComitato = statoComitatoService.getStatoAutorizzazioneComitato();
 			pratiche.stream().forEach(p->p.aggiornaAutorizzazioneComitato(statoComitato));
@@ -316,7 +316,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Override
 	public void rifiutaAutorizzazioneComitato(List<PraticaErogazione> pratiche) {
 		if(pratiche != null && !pratiche.isEmpty()){
-			List<Integer> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
+			List<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 			pratiche = praticaErogazioneRepository.findAll(ids);
 			StatoComitato statoComitato = statoComitatoService.getStatoRifiutoComitato();
 			pratiche.stream().forEach(p->p.aggiornaAutorizzazioneComitato(statoComitato));

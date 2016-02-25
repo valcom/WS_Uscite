@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.application.service.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Set;
 
@@ -59,8 +60,8 @@ public class ProcessoErogazioneServiceImpl implements ProcessoErogazioneService{
 	@Override
 	public ProcessoErogazione aggiornaProcessoErogazione(
 			ProcessoErogazione processo) {
-		Integer idProcesso = processo.getId();
-		Integer numeroNota = processo.getNumeroNota();
+		BigInteger idProcesso = processo.getId();
+	    Integer numeroNota = processo.getNumeroNota();
 		String causale = processo.getCausale();
 		String owner = processo.getOwner();
 		processo = processoErogazioneRepository.findOne(idProcesso);
@@ -101,8 +102,8 @@ public class ProcessoErogazioneServiceImpl implements ProcessoErogazioneService{
 
 	@Override
 	public ProcessoErogazione rinviaProcessoErogazione(ProcessoErogazione processo,OrdineDelGiorno ordine) {
-		Integer idProcesso = processo.getId();
-		Integer idOrdine = ordine.getId();
+		BigInteger idProcesso = processo.getId();
+		BigInteger idOrdine = ordine.getId();
 		processo = processoErogazioneRepository.findOne(idProcesso);
 		ordine = ordineDelGiornoRepository.findOne(idOrdine);
 		if(processo == null){

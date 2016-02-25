@@ -2,6 +2,7 @@ package it.ccse.uscite.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
@@ -36,7 +37,7 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 @AttributeOverride(name = "id", column = @Column(name = "id_ordine_del_giorno"))
 @Table(name = "ordine_del_giorno")
 @Audited
-public class OrdineDelGiorno extends DomainEntity<Integer> implements Serializable {
+public class OrdineDelGiorno extends DomainEntity<BigInteger> implements Serializable {
 	public enum StatoComitato{
 		APERTO,CHIUSO
 	}
@@ -194,11 +195,11 @@ public class OrdineDelGiorno extends DomainEntity<Integer> implements Serializab
 		return this.descrizione;
 	}
 
-	public Integer getIdComitato(){
+	public BigInteger getIdComitato(){
 		return getId();
 	}
 	
-	public Integer getIdOrdineDelGiorno(){
+	public BigInteger getIdOrdineDelGiorno(){
 		return getId();
 	}
 	
@@ -237,11 +238,11 @@ public class OrdineDelGiorno extends DomainEntity<Integer> implements Serializab
 		this.descrizione = descrizione;
 	}
 	
-	public void setIdComitato(Integer id){
+	public void setIdComitato(BigInteger id){
 		setId(id);
 	}
 
-	public void setIdOrdineDelGiorno(Integer id){
+	public void setIdOrdineDelGiorno(BigInteger id){
 		setId(id);
 	}
 

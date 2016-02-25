@@ -365,8 +365,12 @@
 								<processor>org.mapstruct.ap.MappingProcessor</processor>
 							</processors>
 							<additionalSourceDirectories>
-								<additionalSourceDirectory>${project.build.directory}/generated-sources/querydsl</additionalSourceDirectory>
+								<additionalSourceDirectory>target/generated-sources/querydsl</additionalSourceDirectory>
 							</additionalSourceDirectories>
+							<options>
+								<mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel>
+								<mapstruct.unmappedTargetPolicy>IGNORE</mapstruct.unmappedTargetPolicy>
+							</options>
 							<outputDirectory>${project.build.directory}/generated-sources/mapper</outputDirectory>
 						</configuration>
 

@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.application.service;
 
+import java.math.BigInteger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +34,13 @@ public class PraticaErogazioneServiceTest {
 	
 	@Test
 	public void testLoadByID(){
-		Integer id = 4733;
+		BigInteger id = BigInteger.valueOf(4733);
 		PraticaErogazione pratica = praticaErogazioneService.getById(id);
 		Assert.notNull(pratica);
 	}
 	@Test
 	public void testDelete(){
-		Integer id = 11037;
+		BigInteger id = BigInteger.valueOf(11037);
 		PraticaErogazione pratica = praticaErogazioneService.getById(id);
 		praticaErogazioneService.delete(pratica);
 		pratica = praticaErogazioneService.getById(id);
@@ -48,7 +50,7 @@ public class PraticaErogazioneServiceTest {
 	
 	@Test
 	public void testInsert(){
-		Integer id = 11037;
+		BigInteger id = BigInteger.valueOf(11037);
 		PraticaErogazione pratica = praticaErogazioneService.getById(id);
 		praticaErogazioneService.delete(pratica);
 		pratica.setLavorazioneContabile(StatoPratica.UNDEFINED);
@@ -58,7 +60,7 @@ public class PraticaErogazioneServiceTest {
 	
 	@Test
 	public void testUpdate(){
-		Integer id = 4733;
+		BigInteger id = BigInteger.valueOf(4733);
 		PraticaErogazione pratica = praticaErogazioneService.getById(id);
 		Integer annoDaInserire = 2013;
 		pratica.setAnno(annoDaInserire);

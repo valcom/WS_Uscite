@@ -28,7 +28,7 @@ public class SearchPratiche_InDTO extends PageableDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private List<Integer> listaIdSettoriAttivita;
+	private List<BigInteger> listaIdSettoriAttivita;
 	
 	private Date dataComitatoDa;
 	
@@ -72,7 +72,7 @@ public class SearchPratiche_InDTO extends PageableDTO {
 	
 	private BigInteger idComponenteTariffaria;
 	
-	private Integer idNota;
+	private BigInteger idNota;
 	
 	private Boolean erogabile;
 	
@@ -330,18 +330,18 @@ public class SearchPratiche_InDTO extends PageableDTO {
 	/**
 	 * @return the idNota
 	 */
-	public Integer getIdNota() {
+	public BigInteger getIdNota() {
 		return idNota;
 	}
 
 	/**
 	 * @param idNota the idNota to set
 	 */
-	public void setIdNota(Integer idNota) {
+	public void setIdNota(BigInteger idNota) {
 		this.idNota = idNota;
 	}
 
-	public Integer getIdProcessoErogazione(){
+	public BigInteger getIdProcessoErogazione(){
 		return idNota;
 	}
 
@@ -350,14 +350,14 @@ public class SearchPratiche_InDTO extends PageableDTO {
 	/**
 	 * @return the listaIdSettoriAttivita
 	 */
-	public List<Integer> getListaIdSettoriAttivita() {
+	public List<BigInteger> getListaIdSettoriAttivita() {
 		return listaIdSettoriAttivita;
 	}
 
 	/**
 	 * @param listaIdSettoriAttivita the listaIdSettoriAttivita to set
 	 */
-	public void setListaIdSettoriAttivita(List<Integer> listaIdSettoriAttivita) {
+	public void setListaIdSettoriAttivita(List<BigInteger> listaIdSettoriAttivita) {
 		this.listaIdSettoriAttivita = listaIdSettoriAttivita;
 	}
 

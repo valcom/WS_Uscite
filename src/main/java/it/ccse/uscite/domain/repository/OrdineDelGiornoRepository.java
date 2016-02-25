@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.domain.repository;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import it.ccse.uscite.domain.OrdineDelGiorno.StatoComitato;
  * @author vcompagnone
  *
  */
-public interface OrdineDelGiornoRepository extends JpaRepository<OrdineDelGiorno, Integer>,QueryDslPredicateExecutor<OrdineDelGiorno>{
+public interface OrdineDelGiornoRepository extends JpaRepository<OrdineDelGiorno, BigInteger>,QueryDslPredicateExecutor<OrdineDelGiorno>{
 	
 	public OrdineDelGiorno findByDataComitato(Date dataComitato);
 

@@ -2,6 +2,7 @@ package it.ccse.uscite.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
@@ -32,7 +33,7 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
 @Table(name="processo_erogazione")
 @AttributeOverride(name = "id", column = @Column(name = "id_processo_erogazione"))
 @Audited
-public class ProcessoErogazione extends DomainEntity<Integer> implements Serializable {
+public class ProcessoErogazione extends DomainEntity<BigInteger> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Lob
@@ -134,19 +135,19 @@ public class ProcessoErogazione extends DomainEntity<Integer> implements Seriali
 		this.ordineDelGiorno = ordineDelGiorno;
 	}
 	
-	public Integer getIdProcessoErogazione(){
+	public BigInteger getIdProcessoErogazione(){
 		return getId();
 	}
 	
-	public void setIdProcessoErogazione(Integer id){
+	public void setIdProcessoErogazione(BigInteger id){
 		setId(id);
 	}
 	
-	public Integer getIdNota(){
+	public BigInteger getIdNota(){
 		return getId();
 	}
 	
-	public void setIdNota(Integer id){
+	public void setIdNota(BigInteger id){
 		setId(id);
 	}
 

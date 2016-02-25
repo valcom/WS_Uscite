@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.domain.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  * @author vcompagnone
  *
  */
-public interface PraticaErogazioneRepository extends JpaRepository<PraticaErogazione, Integer>,QueryDslPredicateExecutor<PraticaErogazione>{
+public interface PraticaErogazioneRepository extends JpaRepository<PraticaErogazione, BigInteger>,QueryDslPredicateExecutor<PraticaErogazione>{
 	public List<PraticaErogazione> findByProcessoErogazione(ProcessoErogazione processoErogazione);
 	public PraticaErogazione findByCodicePratica(String codicePratica);
 	public List<PraticaErogazione> findByCodicePraticaIn(List<String> codiciPratica);

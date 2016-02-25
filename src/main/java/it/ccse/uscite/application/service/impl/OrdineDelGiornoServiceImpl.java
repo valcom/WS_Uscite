@@ -11,6 +11,7 @@ import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
 import it.ccse.uscite.domain.repository.OrdineDelGiornoRepository;
 import it.ccse.uscite.infrastructure.exception.ApplicationException;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -77,7 +78,7 @@ public class OrdineDelGiornoServiceImpl implements OrdineDelGiornoService{
 		String descrizione = ordineDelGiorno.getDescrizione();
 		Integer numeroComitato = ordineDelGiorno.getNumeroComitato();
 		TipologiaComitato tipologia = ordineDelGiorno.getTipologia();
-		Integer idComitato = ordineDelGiorno.getId();
+		BigInteger idComitato = ordineDelGiorno.getId();
 		ordineDelGiorno = ordineDelGiornoRepository.findOne(idComitato);
 		if(ordineDelGiorno==null){
 			throw new RuntimeException("Comitato non trovato id:"+idComitato);

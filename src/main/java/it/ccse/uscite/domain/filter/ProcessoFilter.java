@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.domain.filter;
 
+import java.math.BigInteger;
+
 import org.springframework.data.jpa.domain.Specification;
 
 import com.mysema.query.types.expr.BooleanExpression;
@@ -25,7 +27,7 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 	
 	private Integer numeroNota;
 	
-	private Integer idNota;
+	private BigInteger idNota;
 	
 	private StatoLavorazioneContabile[] statiLavorazioneContabile;
 	
@@ -119,28 +121,28 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 		this.stati = stati;
 	}
 	
-	public void setIdOrdineDelGiorno(Integer idOrdineDelGiorno){
+	public void setIdOrdineDelGiorno(BigInteger idOrdineDelGiorno){
 		if(idOrdineDelGiorno!=null){
 			ordineDelGiorno = new OrdineDelGiorno();
 			ordineDelGiorno.setId(idOrdineDelGiorno);
 		}
 	}
 	
-	public void setIdComitato(Integer idOrdineDelGiorno){
+	public void setIdComitato(BigInteger idOrdineDelGiorno){
 		setIdOrdineDelGiorno(idOrdineDelGiorno);
 	}
 
 	/**
 	 * @return the idNota
 	 */
-	public Integer getIdNota() {
+	public BigInteger getIdNota() {
 		return idNota;
 	}
 
 	/**
 	 * @param idNota the idNota to set
 	 */
-	public void setIdNota(Integer idNota) {
+	public void setIdNota(BigInteger idNota) {
 		this.idNota = idNota;
 	}
 
