@@ -6,6 +6,7 @@ package it.ccse.uscite.application.facade.dto;
 import it.ccse.uscite.domain.OrdineDelGiorno.StatoComitato;
 import it.ccse.uscite.domain.OrdineDelGiorno.TipologiaComitato;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -19,7 +20,7 @@ public class ComitatoDTO extends DomainDTO{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idOrdineDelGiorno;
+	private BigInteger idOrdineDelGiorno;
 
 	private Date dataComitato;
 
@@ -36,14 +37,14 @@ public class ComitatoDTO extends DomainDTO{
 	/**
 	 * @return the idOrdineDelGiorno
 	 */
-	public Integer getId() {
+	public BigInteger getId() {
 		return idOrdineDelGiorno;
 	}
 
 	/**
 	 * @param idOrdineDelGiorno the idOrdineDelGiorno to set
 	 */
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.idOrdineDelGiorno = id;
 	}
 

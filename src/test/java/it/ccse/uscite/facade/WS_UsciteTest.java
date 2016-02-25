@@ -52,6 +52,7 @@ import it.ccse.uscite.domain.OrdineDelGiorno.TipologiaComitato;
 import it.ccse.uscite.domain.SettoreAttivita.StatoAntimafia;
 import it.ccse.uscite.domain.SettoreAttivita.Unbundling;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -184,7 +185,7 @@ public class WS_UsciteTest {
 	public void testAggiungiNota(){
 		String causale = "pippo";
 		Integer numeroNota = 2;
-		Integer idOrdine = gestionaleWS.searchComitati(new SearchComitati_InDTO()).getContent().get(0).getId();
+		BigInteger idOrdine = gestionaleWS.searchComitati(new SearchComitati_InDTO()).getContent().get(0).getId();
 		String idUnita = "PC";
 		String username = "topogigio";
 		ComitatoDTO ordine = new ComitatoDTO(); 
@@ -349,7 +350,7 @@ public class WS_UsciteTest {
 	}
 	
 	@Test
-	public void testDissociaPraticheANota(){
+	public void testDissociaPraticheDaNota(){
 		
 	}
 	

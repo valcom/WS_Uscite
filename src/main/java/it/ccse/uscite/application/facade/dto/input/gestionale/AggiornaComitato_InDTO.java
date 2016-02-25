@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.application.facade.dto.input.gestionale;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import it.ccse.uscite.application.facade.dto.input.Base_InDTO;
@@ -19,7 +20,7 @@ public class AggiornaComitato_InDTO extends Base_InDTO{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idOrdineDelGiorno;
+	private BigInteger idOrdineDelGiorno;
 	
 	private Date dataComitato;
 	
@@ -32,14 +33,14 @@ public class AggiornaComitato_InDTO extends Base_InDTO{
 	/**
 	 * @return the idOrdineDelGiorno
 	 */
-	public Integer getIdOrdineDelGiorno() {
+	public BigInteger getIdOrdineDelGiorno() {
 		return idOrdineDelGiorno;
 	}
 
 	/**
 	 * @param idOrdineDelGiorno the idOrdineDelGiorno to set
 	 */
-	public void setIdOrdineDelGiorno(Integer idOrdineDelGiorno) {
+	public void setIdOrdineDelGiorno(BigInteger idOrdineDelGiorno) {
 		this.idOrdineDelGiorno = idOrdineDelGiorno;
 	}
 
