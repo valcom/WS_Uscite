@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.application.facade.dto;
 
+import java.math.BigInteger;
+
 import it.ccse.uscite.domain.ProcessoErogazione.StatoLavorazioneContabile;
 import it.ccse.uscite.domain.ProcessoErogazione.StatoProcesso;
 
@@ -18,7 +20,7 @@ public class NotaPagamentoDTO extends DomainDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idProcessoErogazione;
+	private BigInteger idProcessoErogazione;
 
 	private String causale;
 
@@ -33,14 +35,14 @@ public class NotaPagamentoDTO extends DomainDTO {
 	/**
 	 * @return the idProcessoErogazione
 	 */
-	public Integer getId() {
+	public BigInteger getId() {
 		return idProcessoErogazione;
 	}
 
 	/**
 	 * @param idProcessoErogazione the idProcessoErogazione to set
 	 */
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.idProcessoErogazione = id;
 	}
 

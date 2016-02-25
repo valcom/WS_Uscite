@@ -29,7 +29,7 @@ public class PraticaErogazioneDTO extends DomainDTO{
 	private static final long serialVersionUID = 1L;
 
 	
-	private Integer idPraticaErogazione;
+	private BigInteger idPraticaErogazione;
 
 	private Integer anno;
 
@@ -146,14 +146,14 @@ public class PraticaErogazioneDTO extends DomainDTO{
 	/**
 	 * @return the idPraticaErogazione
 	 */
-	public Integer getId() {
+	public BigInteger getId() {
 		return idPraticaErogazione;
 	}
 
 	/**
 	 * @param idPraticaErogazione the idPraticaErogazione to set
 	 */
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.idPraticaErogazione = id;
 	}
 
