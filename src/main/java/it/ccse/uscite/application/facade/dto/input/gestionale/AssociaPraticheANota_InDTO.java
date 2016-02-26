@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.application.facade.dto.input.gestionale;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,21 +22,21 @@ public class AssociaPraticheANota_InDTO extends Base_InDTO implements ListContai
 	 */
 	private static final long serialVersionUID = 1743491840256048170L;
 
-	private Integer idNota;
+	private BigInteger idNota;
 	
 	private List<DettaglioPraticaErogazioneFullDTO> content = new ArrayList<DettaglioPraticaErogazioneFullDTO>();
 
 	/**
 	 * @return the idNota
 	 */
-	public Integer getIdNota() {
+	public BigInteger getIdNota() {
 		return idNota;
 	}
 
 	/**
 	 * @param idNota the idNota to set
 	 */
-	public void setIdNota(Integer idNota) {
+	public void setIdNota(BigInteger idNota) {
 		this.idNota = idNota;
 	}
 

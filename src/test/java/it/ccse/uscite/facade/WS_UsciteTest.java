@@ -335,7 +335,7 @@ public class WS_UsciteTest {
 		
 		AssociaPraticheANota_InDTO inDTO = new AssociaPraticheANota_InDTO();
 		inDTO.setUsername("pippo");
-		inDTO.setIdNota(585);
+		inDTO.setIdNota(BigInteger.valueOf(585));
 		List<DettaglioPraticaErogazioneFullDTO> content = new ArrayList<DettaglioPraticaErogazioneFullDTO>();
 		DettaglioPraticaErogazioneFullDTO praticaDTO = new DettaglioPraticaErogazioneFullDTO();
 		praticaDTO.setAnno(2014);

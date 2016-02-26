@@ -15,5 +15,8 @@ import it.ccse.uscite.domain.SettoreAttivita;
 @Mapper
 public interface MapperSettoreAttivitaDTO {
 	public SettoreAttivitaDTO map(SettoreAttivita settoreAttivita);
+	
+	public SettoreAttivita map(SettoreAttivitaDTO settoreAttivitaDTO);
+
 
 }

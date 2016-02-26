@@ -15,4 +15,6 @@ import it.ccse.uscite.domain.PraticaErogazione;
 @Mapper(uses={MapperTipoPeriodoDTO.class,MapperNotaPagamentoDTO.class,MapperSettoreAttivitaDTO.class})
 public interface MapperDettaglioPraticaErogazioneFullDTO {
 	public DettaglioPraticaErogazioneFullDTO map(PraticaErogazione pratica);
+	public PraticaErogazione map(DettaglioPraticaErogazioneFullDTO dettaglioPraticaErogazioneFullDTO);
+
 }
