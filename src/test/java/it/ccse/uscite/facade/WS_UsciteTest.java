@@ -213,7 +213,7 @@ public class WS_UsciteTest {
 	@Test
 	public void testEliminaNota(){
 		EliminaNota_InDTO eliminaNota_InDTO = new EliminaNota_InDTO();
-		Integer id = 35;
+		BigInteger id = BigInteger.valueOf(35);
 		eliminaNota_InDTO.setIdProcessoErogazione(id);
 		EliminaNota_OutDTO output = gestionaleWS.eliminaNota(eliminaNota_InDTO);
 		
@@ -246,7 +246,7 @@ public class WS_UsciteTest {
 	
 	@Test
 	public void testChiudiNota(){
-		Integer id = 414; 
+		BigInteger id = BigInteger.valueOf(414); 
 		ChiudiNota_InDTO chiudiNotaInDTO = new ChiudiNota_InDTO();
 		chiudiNotaInDTO.setIdProcessoErogazione(id);
 		ChiudiNota_OutDTO output = gestionaleWS.chiudiNota(chiudiNotaInDTO);
@@ -258,8 +258,8 @@ public class WS_UsciteTest {
 	public void testRinviaNota(){
 		RinviaNota_InDTO rinviaNota_InDTO = new RinviaNota_InDTO();
 		String username = "pippo";
-		Integer idComitato = 49;
-		Integer idNota = 413;
+		BigInteger idComitato = BigInteger.valueOf(49);
+		BigInteger idNota = BigInteger.valueOf(413);
 		rinviaNota_InDTO.setIdComitato(idComitato);
 		rinviaNota_InDTO.setIdNota(idNota);
 		rinviaNota_InDTO.setUsername(username);
@@ -274,7 +274,7 @@ public class WS_UsciteTest {
 	@Test
 	public void testLavorazioneContabileNota(){
 		LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO = new LavorazioneContabileNota_InDTO();
-		Integer idNota = 390;
+		BigInteger idNota = BigInteger.valueOf(390);
 		lavorazioneContabileNota_InDTO.setIdNota(idNota);
 		LavorazioneContabile_OutDTO output = gestionaleWS.lavorazioneContabileNota(lavorazioneContabileNota_InDTO);
 		Assert.assertTrue(output.getEsito() == Esito.SUCCESS || output.getEsito() == Esito.APPLICATION_ERROR);		

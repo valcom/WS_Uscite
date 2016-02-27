@@ -3,6 +3,7 @@
  */
 package it.ccse.uscite.application.facade.dto.input.gestionale;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import it.ccse.uscite.application.facade.dto.input.PageableDTO;
@@ -19,7 +20,7 @@ public class SearchComitati_InDTO extends PageableDTO{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idComitato;
+	private BigInteger idComitato;
 	
 	private Date dataComitatoDa;
 	
@@ -30,14 +31,14 @@ public class SearchComitati_InDTO extends PageableDTO{
 	/**
 	 * @return the idComitato
 	 */
-	public Integer getIdComitato() {
+	public BigInteger getIdComitato() {
 		return idComitato;
 	}
 
 	/**
 	 * @param idComitato the idComitato to set
 	 */
-	public void setIdComitato(Integer idComitato) {
+	public void setIdComitato(BigInteger idComitato) {
 		this.idComitato = idComitato;
 	}
 

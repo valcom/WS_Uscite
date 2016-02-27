@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.application.facade.dto.input.gestionale;
 
+import java.math.BigInteger;
+
 import it.ccse.uscite.application.facade.dto.input.Base_InDTO;
 
 
@@ -17,35 +19,35 @@ public class RinviaNota_InDTO extends Base_InDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idNota;
+	private BigInteger idNota;
 	
-	private Integer idComitato;
+	private BigInteger idComitato;
 
 	/**
 	 * @return the idNota
 	 */
-	public Integer getIdNota() {
+	public BigInteger getIdNota() {
 		return idNota;
 	}
 
 	/**
 	 * @param idNota the idNota to set
 	 */
-	public void setIdNota(Integer idNota) {
+	public void setIdNota(BigInteger idNota) {
 		this.idNota = idNota;
 	}
 
 	/**
 	 * @return the idComitato
 	 */
-	public Integer getIdComitato() {
+	public BigInteger getIdComitato() {
 		return idComitato;
 	}
 
 	/**
 	 * @param idComitato the idComitato to set
 	 */
-	public void setIdComitato(Integer idComitato) {
+	public void setIdComitato(BigInteger idComitato) {
 		this.idComitato = idComitato;
 	}
 

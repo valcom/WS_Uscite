@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.uscite;
+package it.ccse.uscite.infrastructure.mapper.facade.dto;
 
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Sort.Direction;

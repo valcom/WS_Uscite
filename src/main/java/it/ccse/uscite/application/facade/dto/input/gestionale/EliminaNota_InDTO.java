@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.application.facade.dto.input.gestionale;
 
+import java.math.BigInteger;
+
 import it.ccse.uscite.application.facade.dto.input.Base_InDTO;
 
 /**
@@ -16,19 +18,19 @@ public class EliminaNota_InDTO extends Base_InDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer idProcessoErogazione;
+	private BigInteger idProcessoErogazione;
 
 	/**
 	 * @return the idProcessoErogazione
 	 */
-	public Integer getIdProcessoErogazione() {
+	public BigInteger getIdProcessoErogazione() {
 		return idProcessoErogazione;
 	}
 
 	/**
 	 * @param idProcessoErogazione the idProcessoErogazione to set
 	 */
-	public void setIdProcessoErogazione(Integer idProcessoErogazione) {
+	public void setIdProcessoErogazione(BigInteger idProcessoErogazione) {
 		this.idProcessoErogazione = idProcessoErogazione;
 	}
 

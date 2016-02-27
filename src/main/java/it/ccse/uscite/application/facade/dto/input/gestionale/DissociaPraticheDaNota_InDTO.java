@@ -7,6 +7,7 @@ import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneFullDTO;
 import it.ccse.uscite.application.facade.dto.ListContainerDTO;
 import it.ccse.uscite.application.facade.dto.input.Base_InDTO;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,21 +21,21 @@ public class DissociaPraticheDaNota_InDTO extends Base_InDTO implements ListCont
 	 */
 	private static final long serialVersionUID = 5410795341012845492L;
 
-	private Integer idNota;
+	private BigInteger idNota;
 	
 	private List<DettaglioPraticaErogazioneFullDTO> content = new ArrayList<DettaglioPraticaErogazioneFullDTO>();
 
 	/**
 	 * @return the idNota
 	 */
-	public Integer getIdNota() {
+	public BigInteger getIdNota() {
 		return idNota;
 	}
 
 	/**
 	 * @param idNota the idNota to set
 	 */
-	public void setIdNota(Integer idNota) {
+	public void setIdNota(BigInteger idNota) {
 		this.idNota = idNota;
 	}
 
