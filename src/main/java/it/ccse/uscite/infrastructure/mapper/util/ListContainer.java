@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.domain;
+package it.ccse.uscite.infrastructure.mapper.util;
 
 import java.util.ArrayList;
 import java.util.List;

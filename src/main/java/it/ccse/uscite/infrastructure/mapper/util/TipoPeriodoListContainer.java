@@ -1,9 +1,11 @@
 /**
  * 
  */
-package it.ccse.uscite.domain;
+package it.ccse.uscite.infrastructure.mapper.util;
 
 import java.util.List;
+
+import it.ccse.uscite.domain.TipoPeriodo;
 
 /**
  * @author vcompagnone

@@ -9,8 +9,8 @@ import org.mapstruct.Mapper;
 
 import it.ccse.uscite.application.facade.dto.input.gestionale.LavorazioneContabilePratica_InDTO;
 import it.ccse.uscite.domain.PraticaErogazione;
-import it.ccse.uscite.domain.PraticaErogazioneListContainer;
 import it.ccse.uscite.infrastructure.mapper.facade.dto.MapperPraticaErogazioneDTO;
+import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
 
 /**
  * @author Valerio

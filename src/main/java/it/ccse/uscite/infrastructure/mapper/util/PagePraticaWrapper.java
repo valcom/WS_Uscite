@@ -6,7 +6,6 @@ package it.ccse.uscite.infrastructure.mapper.util;
 import org.springframework.data.domain.Page;
 
 import it.ccse.uscite.domain.PraticaErogazione;
-import it.ccse.uscite.domain.PraticaErogazioneListContainer;
 
 /**
  * @author Valerio

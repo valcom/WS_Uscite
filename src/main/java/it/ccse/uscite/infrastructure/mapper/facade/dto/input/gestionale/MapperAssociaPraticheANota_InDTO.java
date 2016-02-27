@@ -10,9 +10,9 @@ import org.mapstruct.Mapping;
 
 import it.ccse.uscite.application.facade.dto.input.gestionale.AssociaPraticheANota_InDTO;
 import it.ccse.uscite.domain.PraticaErogazione;
-import it.ccse.uscite.domain.PraticaErogazioneListContainer;
 import it.ccse.uscite.domain.ProcessoErogazione;
 import it.ccse.uscite.infrastructure.mapper.facade.dto.MapperDettaglioPraticaErogazioneFullDTO;
+import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
 
 /**
  * @author Valerio

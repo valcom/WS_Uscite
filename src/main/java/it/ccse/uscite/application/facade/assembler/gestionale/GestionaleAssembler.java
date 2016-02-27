@@ -43,19 +43,19 @@ import it.ccse.uscite.application.facade.dto.output.gestionale.RifiutaAutorizzaz
 import it.ccse.uscite.application.facade.dto.output.gestionale.RinviaNota_OutDTO;
 import it.ccse.uscite.application.facade.dto.output.gestionale.SearchComitati_OutDTO;
 import it.ccse.uscite.application.facade.dto.output.gestionale.SearchNote_OutDTO;
-import it.ccse.uscite.domain.Container;
 import it.ccse.uscite.domain.LavorazioneContabile;
-import it.ccse.uscite.domain.ListContainer;
 import it.ccse.uscite.domain.OrdineDelGiorno;
 import it.ccse.uscite.domain.PraticaErogazione;
-import it.ccse.uscite.domain.PraticaErogazioneListContainer;
 import it.ccse.uscite.domain.ProcessoErogazione;
 import it.ccse.uscite.domain.StatoLegale;
-import it.ccse.uscite.domain.StatoLegaleListContainer;
 import it.ccse.uscite.domain.TipoPeriodo;
-import it.ccse.uscite.domain.TipoPeriodoListContainer;
 import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
 import it.ccse.uscite.domain.filter.ProcessoFilter;
+import it.ccse.uscite.infrastructure.mapper.util.Container;
+import it.ccse.uscite.infrastructure.mapper.util.ListContainer;
+import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
+import it.ccse.uscite.infrastructure.mapper.util.StatoLegaleListContainer;
+import it.ccse.uscite.infrastructure.mapper.util.TipoPeriodoListContainer;
 
 import java.util.List;
 

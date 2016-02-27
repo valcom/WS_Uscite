@@ -18,13 +18,13 @@ import it.ccse.uscite.application.facade.dto.input.uscite.SearchPratiche_InDTO;
 import it.ccse.uscite.application.facade.dto.output.uscite.AggiornaFideiussione_OutDTO;
 import it.ccse.uscite.application.facade.dto.output.uscite.AggiornaSemaforiAnagrafica_OutDTO;
 import it.ccse.uscite.application.facade.dto.output.uscite.SearchPratiche_OutDTO;
-import it.ccse.uscite.domain.ListContainer;
 import it.ccse.uscite.domain.PraticaErogazione;
-import it.ccse.uscite.domain.PraticaErogazioneListContainer;
 import it.ccse.uscite.domain.SettoreAttivita;
-import it.ccse.uscite.domain.SettoreAttivitaListContainer;
 import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
 import it.ccse.uscite.domain.filter.PraticaFilter;
+import it.ccse.uscite.infrastructure.mapper.util.ListContainer;
+import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
+import it.ccse.uscite.infrastructure.mapper.util.SettoreAttivitaListContainer;
 
 /**
  * @author Valerio

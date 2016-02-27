@@ -1,28 +1,30 @@
 /**
  * 
  */
-package it.ccse.uscite.domain;
+package it.ccse.uscite.infrastructure.mapper.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.ccse.uscite.domain.PraticaErogazione;
 
 /**
  * @author vcompagnone
  *
  */
-public class SettoreAttivitaListContainer extends ListContainer<SettoreAttivita>{
+public class PraticaErogazioneListContainer extends ListContainer<PraticaErogazione>{
 
 	/**
 	 * 
 	 */
-	public SettoreAttivitaListContainer() {
-		super(new ArrayList<SettoreAttivita>());
+	public PraticaErogazioneListContainer() {
+		super(new ArrayList<PraticaErogazione>());
 	}
 
 	/**
 	 * @param content
 	 */
-	public SettoreAttivitaListContainer(List<SettoreAttivita> content) {
+	public PraticaErogazioneListContainer(List<PraticaErogazione> content) {
 		super(content);
 		// TODO Auto-generated constructor stub
 	}
@@ -31,8 +33,7 @@ public class SettoreAttivitaListContainer extends ListContainer<SettoreAttivita>
 	 * @see it.ccse.uscite.domain.Container#getContent()
 	 */
 	@Override
-	public List<SettoreAttivita> getContent() {
-		// TODO Auto-generated method stub
+	public List<PraticaErogazione> getContent() {
 		return super.getContent();
 	}
 
@@ -40,8 +41,7 @@ public class SettoreAttivitaListContainer extends ListContainer<SettoreAttivita>
 	 * @see it.ccse.uscite.domain.Container#setContent(java.lang.Object)
 	 */
 	@Override
-	public void setContent(List<SettoreAttivita> content) {
-		// TODO Auto-generated method stub
+	public void setContent(List<PraticaErogazione> content) {
 		super.setContent(content);
 	}
 
