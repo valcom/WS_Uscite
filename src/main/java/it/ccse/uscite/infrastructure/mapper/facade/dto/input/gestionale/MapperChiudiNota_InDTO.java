@@ -15,6 +15,6 @@ import it.ccse.uscite.domain.ProcessoErogazione;
 @Mapper
 public interface MapperChiudiNota_InDTO {
 
-	public ProcessoErogazione mao(ChiudiNota_InDTO chiudiNota_InDTO);
+	public ProcessoErogazione map(ChiudiNota_InDTO chiudiNota_InDTO);
 
 }

@@ -3,17 +3,16 @@
  */
 package it.ccse.uscite.infrastructure.mapper.util;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
 import it.ccse.uscite.domain.PraticaErogazione;
+import it.ccse.uscite.domain.PraticaErogazioneListContainer;
 
 /**
  * @author Valerio
  *
  */
-public class PagePraticaWrapper  {
+public class PagePraticaWrapper extends PraticaErogazioneListContainer{
 
 	private Page<PraticaErogazione> page;
 
@@ -57,13 +56,5 @@ public class PagePraticaWrapper  {
 		return page.getNumberOfElements();
 	}
 
-	/**
-	 * @return
-	 * @see org.springframework.data.domain.Slice#getContent()
-	 */
-	public List<PraticaErogazione> getContent() {
-		return page.getContent();
-	}
-	
 	
 }
