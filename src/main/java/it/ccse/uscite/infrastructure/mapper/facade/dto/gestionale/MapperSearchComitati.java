@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import org.mapstruct.Mapper;
 
@@ -14,6 +14,6 @@ import it.ccse.uscite.infrastructure.mapper.facade.dto.MapperDirection;
  *
  */
 @Mapper(uses=MapperDirection.class)
-public interface MapperSearchComitati_InDTO {
+public interface MapperSearchComitati {
 	public OrdineDelGiornoFilter map(SearchComitati_InDTO searchComitati_InDTO);
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
  *
  */
 @Mapper(uses=MapperDettaglioPraticaErogazioneFullDTO.class)
-public abstract class MapperDissociaPraticheDaNota_InDTO {
+public abstract class MapperDissociaPraticheDaNota {
 
 	public List<PraticaErogazione> mapToListaPratiche(DissociaPraticheDaNota_InDTO dissociaPraticheDaNota_InDTO){	
 		PraticaErogazioneListContainer container = mapToListaPraticheContainer(dissociaPraticheDaNota_InDTO);

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
  *
  */
 @Mapper(uses=MapperPraticaErogazioneDTO.class)
-public abstract class MapperAutorizzaComitato_InDTO {
+public abstract class MapperAutorizzaComitato {
 	
 	public abstract PraticaErogazioneListContainer mapToContainer(AutorizzaComitato_InDTO autorizzaComitato_InDTO);
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import org.mapstruct.Mapper;
 
@@ -14,7 +14,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  *
  */
 @Mapper
-public interface MapperRinviaNota_InDTO {
+public interface MapperRinviaNota {
 	public OrdineDelGiorno mapToOrdineDelGiorno(RinviaNota_InDTO rinviaNota_InDTO);
 	public ProcessoErogazione mapToProcessoErogazione(RinviaNota_InDTO rinviaNota_InDTO);
 }

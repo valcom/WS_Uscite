@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import org.mapstruct.Mapper;
 
@@ -13,7 +13,7 @@ import it.ccse.uscite.domain.OrdineDelGiorno;
  *
  */
 @Mapper
-public interface MapperRifiutaAutorizzazioneComitato_InDTO {
+public interface MapperRifiutaAutorizzazioneComitato {
 	
 	public OrdineDelGiorno map(RifiutaAutorizzazioneComitato_InDTO rifiutaAutorizzazioneComitato_InDTO);
 

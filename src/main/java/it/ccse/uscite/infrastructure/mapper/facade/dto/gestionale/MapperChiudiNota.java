@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import org.mapstruct.Mapper;
 
@@ -13,7 +13,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  *
  */
 @Mapper
-public interface MapperChiudiNota_InDTO {
+public interface MapperChiudiNota {
 
 	public ProcessoErogazione map(ChiudiNota_InDTO chiudiNota_InDTO);
 

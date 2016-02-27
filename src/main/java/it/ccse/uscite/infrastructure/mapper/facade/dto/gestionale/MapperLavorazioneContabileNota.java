@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import org.mapstruct.Mapper;
 
@@ -13,6 +13,6 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  *
  */
 @Mapper
-public interface MapperLavorazioneContabileNota_InDTO {
+public interface MapperLavorazioneContabileNota {
 	public ProcessoErogazione map(LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO);
 }

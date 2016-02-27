@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.input.gestionale;
+package it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale;
 
 import org.mapstruct.Mapper;
 
@@ -13,7 +13,7 @@ import it.ccse.uscite.domain.OrdineDelGiorno;
  *
  */
 @Mapper
-public interface MapperEliminaComitato_InDTO {
+public interface MapperEliminaComitato {
 	
 	public OrdineDelGiorno map(EliminaComitato_InDTO eliminaComitato_InDTO);
 
