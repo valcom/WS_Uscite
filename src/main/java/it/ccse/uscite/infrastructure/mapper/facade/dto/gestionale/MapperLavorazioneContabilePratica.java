@@ -8,6 +8,8 @@ import java.util.List;
 import org.mapstruct.Mapper;
 
 import it.ccse.uscite.application.facade.dto.input.gestionale.LavorazioneContabilePratica_InDTO;
+import it.ccse.uscite.application.facade.dto.output.gestionale.LavorazioneContabile_OutDTO;
+import it.ccse.uscite.domain.LavorazioneContabile;
 import it.ccse.uscite.domain.PraticaErogazione;
 import it.ccse.uscite.infrastructure.mapper.facade.dto.MapperPraticaErogazioneDTO;
 import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
@@ -26,5 +28,6 @@ public abstract class MapperLavorazioneContabilePratica {
 	
 	public abstract PraticaErogazioneListContainer mapToContainer(LavorazioneContabilePratica_InDTO lavorazioneContabilePratica_InDTO);
 
+	public abstract LavorazioneContabile_OutDTO map(LavorazioneContabile lavorazioneContabile);
 
 }
