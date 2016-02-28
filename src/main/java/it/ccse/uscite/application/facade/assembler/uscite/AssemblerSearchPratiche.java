@@ -1,4 +1,4 @@
-package it.ccse.uscite.infrastructure.mapper.facade.dto.uscite;
+package it.ccse.uscite.application.facade.assembler.uscite;
 
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
@@ -13,15 +13,15 @@ import it.ccse.uscite.infrastructure.mapper.facade.dto.MapperTipoPeriodoDTO;
 import it.ccse.uscite.infrastructure.mapper.util.PagePraticaWrapper;
 
 @Mapper(uses={MapperDettaglioPraticaErogazioneDTO.class,MapperDirection.class,MapperTipoPeriodoDTO.class})
-public abstract class MapperSearchPratiche {
+public abstract class AssemblerSearchPratiche {
 
-	public SearchPratiche_OutDTO map(Page<PraticaErogazione> pratiche){
+	public SearchPratiche_OutDTO assemble(Page<PraticaErogazione> pratiche){
 		return map(new PagePraticaWrapper(pratiche));
 
 	}
 
-	public abstract SearchPratiche_OutDTO map(PagePraticaWrapper wrapperPage)  ;
+	protected abstract SearchPratiche_OutDTO map(PagePraticaWrapper wrapperPage)  ;
 
-	public abstract PraticaFilter map(SearchPratiche_InDTO searchPratiche_InDTO);
+	public abstract PraticaFilter assemble(SearchPratiche_InDTO searchPratiche_InDTO);
 
 }

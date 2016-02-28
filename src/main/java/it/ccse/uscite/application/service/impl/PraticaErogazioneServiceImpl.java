@@ -344,7 +344,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 					FideiussionePratica nuovaFideiussione = mappaCodiciPraticaFideiussioni.get(pratica.getCodicePratica());
 					StatoFideiussione nuovoStatoFideiussione = statiFideiussione.stream().filter(sf->sf.getFideiussione().equals(nuovaFideiussione.getFideiussionePraticaByCT(pratica.getIdComponenteTariffariaAc()))).findFirst().get(); 
 					pratica.setStatoFideiussione(nuovoStatoFideiussione );
-					if(!nuovaFideiussione.equals(fideiussioneEsistente)){
+					if(!fideiussioneEsistente.equals(nuovoStatoFideiussione)){
 						praticheModificate.add(pratica);
 					}
 				}

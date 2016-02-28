@@ -51,6 +51,8 @@ import it.ccse.uscite.domain.StatoLegale;
 import it.ccse.uscite.domain.TipoPeriodo;
 import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
 import it.ccse.uscite.domain.filter.ProcessoFilter;
+import it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale.MapperAggiornaComitato;
+import it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale.MapperAggiungiComitato;
 import it.ccse.uscite.infrastructure.mapper.util.Container;
 import it.ccse.uscite.infrastructure.mapper.util.ListContainer;
 import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
@@ -59,6 +61,7 @@ import it.ccse.uscite.infrastructure.mapper.util.TipoPeriodoListContainer;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -69,12 +72,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class GestionaleAssembler extends Assembler {
 	
+	
+	@Autowired
+	private MapperAggiornaComitato mapperAggiornaComitato;
+	
+	@Autowired
+	private MapperAggiungiComitato mapperAggiungiComitato;
+	
 	/**
 	 * @param aggiungiComitato_InDTO
 	 * @return
 	 */
 	public OrdineDelGiorno toOrdineDelGiorno(AggiungiComitato_InDTO aggiungiComitato_InDTO){
-		return mapper.map(aggiungiComitato_InDTO, OrdineDelGiorno.class);
+		return mapperAggiungiComitato.map(aggiungiComitato_InDTO);
 	}
 
 	/**
@@ -82,7 +92,7 @@ public class GestionaleAssembler extends Assembler {
 	 * @return
 	 */
 	public AggiungiComitato_OutDTO toAggiungiComitato_OutDTO(OrdineDelGiorno ordineDelGiorno) {
-		return mapper.map(new Container<OrdineDelGiorno>(ordineDelGiorno), AggiungiComitato_OutDTO.class);
+		return mapperAggiungiComitato.map(ordineDelGiorno);
 	}
 	
 	/**
@@ -90,7 +100,7 @@ public class GestionaleAssembler extends Assembler {
 	 * @return
 	 */
 	public OrdineDelGiorno toOrdineDelGiorno(AggiornaComitato_InDTO updateComitato_InDTO){
-		return mapper.map(updateComitato_InDTO, OrdineDelGiorno.class);
+		return mapperAggiornaComitato.map(updateComitato_InDTO);
 	}
 
 	/**
@@ -98,7 +108,7 @@ public class GestionaleAssembler extends Assembler {
 	 * @return
 	 */
 	public AggiornaComitato_OutDTO toAggiornaComitato_OutDTO(OrdineDelGiorno ordineDelGiorno) {
-		return mapper.map(new Container<OrdineDelGiorno>(ordineDelGiorno),AggiornaComitato_OutDTO.class);
+		return mapperAggiornaComitato.map(ordineDelGiorno);
 	}
 	
 	/**

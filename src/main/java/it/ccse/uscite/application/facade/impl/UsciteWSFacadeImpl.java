@@ -4,7 +4,9 @@
 package it.ccse.uscite.application.facade.impl;
 
 import it.ccse.uscite.application.facade.UsciteWSFacade;
-import it.ccse.uscite.application.facade.assembler.uscite.UsciteAssembler;
+import it.ccse.uscite.application.facade.assembler.uscite.AssemblerAggiornaSemaforiAnagrafica;
+import it.ccse.uscite.application.facade.assembler.uscite.AssemblerSearchPratiche;
+import it.ccse.uscite.application.facade.assembler.uscite.AssemblerAggiornaFideiussione;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaFideiussione_InDTO;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaSemaforiAnagrafica_InDTO;
 import it.ccse.uscite.application.facade.dto.input.uscite.SearchPratiche_InDTO;
@@ -37,7 +39,13 @@ import org.springframework.stereotype.Component;
 public class UsciteWSFacadeImpl implements UsciteWSFacade {
 
 	@Autowired
-	private UsciteAssembler assembler;
+	private AssemblerSearchPratiche assemblerSearchPratiche;
+	
+	@Autowired
+	private AssemblerAggiornaSemaforiAnagrafica assemblerAggiornaSemaforiAnagrafica;
+	
+	@Autowired
+	private AssemblerAggiornaFideiussione assemblerAggiornaFideiussione;
 	
 	@Autowired
 	private PraticaErogazioneService praticaErogazioneService;
@@ -45,26 +53,26 @@ public class UsciteWSFacadeImpl implements UsciteWSFacade {
 	@Override
 	public AggiornaSemaforiAnagrafica_OutDTO aggiornaSemaforiAnagrafica(
 			AggiornaSemaforiAnagrafica_InDTO aggiornaSemaforiAnagrafica_InDTO) {
-		List<SettoreAttivita> settoriAttivita = assembler.toSettoriAttivita(aggiornaSemaforiAnagrafica_InDTO);
-		return assembler.toAggiornaSemaforiAnagrafica_OutDTO(praticaErogazioneService.aggiornaSemaforiAnagrafica(settoriAttivita));
+		List<SettoreAttivita> settoriAttivita = assemblerAggiornaSemaforiAnagrafica.assemble(aggiornaSemaforiAnagrafica_InDTO);
+		return assemblerAggiornaSemaforiAnagrafica.assemble(praticaErogazioneService.aggiornaSemaforiAnagrafica(settoriAttivita));
 	}
 
 	@Override
 	public SearchPratiche_OutDTO searchPratiche(
 			SearchPratiche_InDTO searchPratiche_InDTO) {
-		PraticaFilter filter = assembler.toPraticaFilter(searchPratiche_InDTO);
+		PraticaFilter filter = assemblerSearchPratiche.assemble(searchPratiche_InDTO);
 		Page<PraticaErogazione> pratiche = praticaErogazioneService.searchPraticheErogazione(filter);
-		return assembler.toSearchPratiche_OutDTO(pratiche);
+		return assemblerSearchPratiche.assemble(pratiche);
 	}
 
 	@Override
 	public AggiornaFideiussione_OutDTO aggiornaFideiussione(
 			AggiornaFideiussione_InDTO aggiornaFideiussione_InDTO) {
 		
-		Map<String,FideiussionePratica> mappaCodiciPraticaFideiussioni = assembler.toPratiche(aggiornaFideiussione_InDTO);
+		Map<String,FideiussionePratica> mappaCodiciPraticaFideiussioni = assemblerAggiornaFideiussione.assemble(aggiornaFideiussione_InDTO);
 		
 		List<PraticaErogazione>pratiche = praticaErogazioneService.aggiornaFideiussione(mappaCodiciPraticaFideiussioni);
 	 
-		return assembler.toAggiornaFideiussione_OutDTO(pratiche);
+		return assemblerAggiornaFideiussione.assemble(pratiche);
 	}
 }

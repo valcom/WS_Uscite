@@ -19,7 +19,7 @@ public class PagePraticaWrapper extends PraticaErogazioneListContainer{
 	 * @param page
 	 */
 	public PagePraticaWrapper(Page<PraticaErogazione> page) {
-		super();
+		super(page.getContent());
 		this.page = page;
 	}
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.facade.dto.uscite;
+package it.ccse.uscite.application.facade.assembler.uscite;
 
 import java.util.List;
 
@@ -21,18 +21,18 @@ import it.ccse.uscite.infrastructure.mapper.util.SettoreAttivitaListContainer;
  *
  */
 @Mapper(uses={MapperSettoreAttivitaDTO.class,MapperPraticaErogazioneDTO.class})
-public abstract class MapperAggiornaSemaforiAnagrafica {
-	public List<SettoreAttivita> map(AggiornaSemaforiAnagrafica_InDTO inDTO){
+public abstract class AssemblerAggiornaSemaforiAnagrafica {
+	public List<SettoreAttivita> assemble(AggiornaSemaforiAnagrafica_InDTO inDTO){
 		List<SettoreAttivita> container = mapToContainer(inDTO).getContent();
 		return container!=null?container:null;
 	}
 	
-	public abstract SettoreAttivitaListContainer mapToContainer(AggiornaSemaforiAnagrafica_InDTO inDTO);
+	protected abstract SettoreAttivitaListContainer mapToContainer(AggiornaSemaforiAnagrafica_InDTO inDTO);
 	
-	public AggiornaSemaforiAnagrafica_OutDTO map(List<PraticaErogazione> pratiche){
+	public AggiornaSemaforiAnagrafica_OutDTO assemble(List<PraticaErogazione> pratiche){
 		return map(new PraticaErogazioneListContainer(pratiche));
 	}
 
 	
-	public abstract AggiornaSemaforiAnagrafica_OutDTO map(PraticaErogazioneListContainer praticheContainer);
+	protected abstract AggiornaSemaforiAnagrafica_OutDTO map(PraticaErogazioneListContainer praticheContainer);
 }
