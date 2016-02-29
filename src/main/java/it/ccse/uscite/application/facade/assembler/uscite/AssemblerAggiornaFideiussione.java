@@ -9,19 +9,19 @@ import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
 
+import it.ccse.uscite.application.facade.assembler.AssemblerPraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.dto.AggiornaFideiussioneDTO;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaFideiussione_InDTO;
 import it.ccse.uscite.application.facade.dto.output.uscite.AggiornaFideiussione_OutDTO;
 import it.ccse.uscite.domain.PraticaErogazione;
 import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
-import it.ccse.uscite.infrastructure.mapper.facade.dto.MapperPraticaErogazioneDTO;
 import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
 
 /**
  * @author Valerio
  *
  */
-@Mapper(uses=MapperPraticaErogazioneDTO.class)
+@Mapper(uses=AssemblerPraticaErogazioneDTO.class)
 public abstract class AssemblerAggiornaFideiussione {
 	public AggiornaFideiussione_OutDTO assemble(List<PraticaErogazione> pratiche){
 		return map(new PraticaErogazioneListContainer(pratiche));

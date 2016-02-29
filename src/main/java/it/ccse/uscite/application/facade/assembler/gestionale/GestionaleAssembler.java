@@ -51,8 +51,6 @@ import it.ccse.uscite.domain.StatoLegale;
 import it.ccse.uscite.domain.TipoPeriodo;
 import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
 import it.ccse.uscite.domain.filter.ProcessoFilter;
-import it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale.MapperAggiornaComitato;
-import it.ccse.uscite.infrastructure.mapper.facade.dto.gestionale.MapperAggiungiComitato;
 import it.ccse.uscite.infrastructure.mapper.util.Container;
 import it.ccse.uscite.infrastructure.mapper.util.ListContainer;
 import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
@@ -74,10 +72,10 @@ public class GestionaleAssembler extends Assembler {
 	
 	
 	@Autowired
-	private MapperAggiornaComitato mapperAggiornaComitato;
+	private AssemblerAggiornaComitato mapperAggiornaComitato;
 	
 	@Autowired
-	private MapperAggiungiComitato mapperAggiungiComitato;
+	private AssemblerAggiungiComitato mapperAggiungiComitato;
 	
 	/**
 	 * @param aggiungiComitato_InDTO
