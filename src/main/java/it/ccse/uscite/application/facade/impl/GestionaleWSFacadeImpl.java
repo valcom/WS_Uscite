@@ -4,7 +4,27 @@
 package it.ccse.uscite.application.facade.impl;
 
 import it.ccse.uscite.application.facade.GestionaleWSFacade;
-import it.ccse.uscite.application.facade.assembler.gestionale.GestionaleAssembler;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiornaComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiornaNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiungiComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiungiNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerApriComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerApriNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAssociaPraticheANota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAutorizzaComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerChiudiComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerChiudiNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerDissociaPraticheDaNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerEliminaComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerEliminaNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerGetStatiLegali;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerGetTipiPeriodo;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerLavorazioneContabileNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerLavorazioneContabilePratica;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerRifiutaAutorizzazioneComitato;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerRinviaNota;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerSearchComitati;
+import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerSearchNote;
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiornaComitato_InDTO;
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiornaNota_InDTO;
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiungiComitato_InDTO;
@@ -76,9 +96,49 @@ import org.springframework.stereotype.Component;
 @WebService(targetNamespace = "it.ccse.uscite",portName="GestionaleWSFacadeImplPort" ,serviceName = "GestionaleWSFacade")
 @Component
 public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
-
+	
 	@Autowired
-	private GestionaleAssembler assembler;
+ 	private AssemblerAggiungiComitato assemblerAggiungiComitato;
+	@Autowired
+	private AssemblerAggiornaComitato assemblerAggiornaComitato;
+	@Autowired
+	private AssemblerAggiornaNota assemblerAggiornaNota;
+	@Autowired
+	private AssemblerAggiungiNota assemblerAggiungiNota;
+	@Autowired
+	private AssemblerApriComitato assemblerApriComitato;
+	@Autowired
+	private AssemblerApriNota assemblerApriNota;
+	@Autowired
+	private AssemblerAssociaPraticheANota assemblerAssociaPraticheANota;
+	@Autowired
+	private AssemblerAutorizzaComitato assemblerAutorizzaComitato;
+	@Autowired
+	private AssemblerChiudiComitato assemblerChiudiComitato;
+	@Autowired
+	private AssemblerChiudiNota assemblerChiudiNota;
+	@Autowired
+	private AssemblerDissociaPraticheDaNota assemblerDissociaPraticheDaNota;
+	@Autowired
+	private AssemblerEliminaComitato assemblerEliminaComitato;
+	@Autowired
+	private AssemblerEliminaNota assemblerEliminaNota;
+	@Autowired
+	private AssemblerGetStatiLegali assemblerGetStatiLegali;
+	@Autowired
+	private AssemblerGetTipiPeriodo assemblerGetTipiPeriodo;
+	@Autowired
+	private AssemblerLavorazioneContabileNota assemblerLavorazioneContabileNota;
+	@Autowired
+	private AssemblerLavorazioneContabilePratica assemblerLavorazioneContabilePratica;
+	@Autowired
+	private AssemblerRifiutaAutorizzazioneComitato assemblerRifiutaAutorizzazioneComitato;
+	@Autowired
+	private AssemblerRinviaNota assemblerRinviaNota;
+	@Autowired
+	private AssemblerSearchComitati assemblerSearchComitati;
+	@Autowired
+	private AssemblerSearchNote assemblerSearchNote;
 	
 	@Autowired
 	private OrdineDelGiornoService ordineDelGiornoService;
@@ -98,154 +158,154 @@ public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
 	@Override
 	public AggiungiComitato_OutDTO aggiungiComitato(
 			AggiungiComitato_InDTO comitato_InDTO) {
-		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(comitato_InDTO);
+		OrdineDelGiorno ordineDelGiorno = assemblerAggiungiComitato.assemble(comitato_InDTO);
 		OrdineDelGiorno nuovoOrdineDelGiorno = ordineDelGiornoService.createOrdineDelGiorno(ordineDelGiorno);
-		return assembler.toAggiungiComitato_OutDTO(nuovoOrdineDelGiorno);
+		return assemblerAggiungiComitato.assemble(nuovoOrdineDelGiorno);
 	}
 
 	@Override
 	public AggiornaComitato_OutDTO aggiornaComitato(
 			AggiornaComitato_InDTO updateComitato_InDTO) {
-		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(updateComitato_InDTO);
-		AggiornaComitato_OutDTO outDTO = assembler.toAggiornaComitato_OutDTO(ordineDelGiornoService.updateOrdineDelGiorno(ordineDelGiorno));
+		OrdineDelGiorno ordineDelGiorno = assemblerAggiornaComitato.assemble(updateComitato_InDTO);
+		AggiornaComitato_OutDTO outDTO = assemblerAggiornaComitato.assemble(ordineDelGiornoService.updateOrdineDelGiorno(ordineDelGiorno));
 		return outDTO;
 	}
 
 	@Override
 	public ApriComitato_OutDTO apriComitato(
 			ApriComitato_InDTO apriComitato_InDTO) {
-		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(apriComitato_InDTO);
-		return assembler.toApriComitato_OutDTO(ordineDelGiornoService.apriOrdineDelGiorno(ordineDelGiorno));
+		OrdineDelGiorno ordineDelGiorno = assemblerApriComitato.assemble(apriComitato_InDTO);
+		return assemblerApriComitato.assemble(ordineDelGiornoService.apriOrdineDelGiorno(ordineDelGiorno));
 	}
 
 	@Override
 	public ChiudiComitato_OutDTO chiudiComitato(
 			ChiudiComitato_InDTO chiudiComitato_InDTO) {
-		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(chiudiComitato_InDTO);
-		return assembler.toChiudiComitato_OutDTO(ordineDelGiornoService.chiudiOrdineDelGiorno(ordineDelGiorno));
+		OrdineDelGiorno ordineDelGiorno = assemblerChiudiComitato.assemble(chiudiComitato_InDTO);
+		return assemblerChiudiComitato.assemble(ordineDelGiornoService.chiudiOrdineDelGiorno(ordineDelGiorno));
 	}
 
 	@Override
 	public EliminaComitato_OutDTO deleteComitato(
 			EliminaComitato_InDTO deleteComitato_InDTO) {
-		OrdineDelGiorno ordineDelGiorno = assembler.toOrdineDelGiorno(deleteComitato_InDTO);
+		OrdineDelGiorno ordineDelGiorno = assemblerEliminaComitato.assemble(deleteComitato_InDTO);
 		ordineDelGiornoService.eliminaOrdineDelGiorno(ordineDelGiorno);
-		return assembler.toEliminaComitato_OutDTO();
+		return new EliminaComitato_OutDTO();
 	}
 
 	@Override
 	public AggiungiNota_OutDTO aggiungiNota(
 			AggiungiNota_InDTO aggiungiNotaDTO_InDTO) {
-		ProcessoErogazione processo = assembler.toProcessoErogazione(aggiungiNotaDTO_InDTO);
-		return assembler.toAggiungiNota_OutDTO(processoErogazioneService.createProcessoErogazione(processo));
+		ProcessoErogazione processo = assemblerAggiungiNota.assemble(aggiungiNotaDTO_InDTO);
+		return assemblerAggiungiNota.assemble(processoErogazioneService.createProcessoErogazione(processo));
 	}
 
 	@Override
 	public EliminaNota_OutDTO eliminaNota(EliminaNota_InDTO eliminaNota_InDTO) {
-		ProcessoErogazione processo = assembler.toProcessoErogazione(eliminaNota_InDTO);
+		ProcessoErogazione processo = assemblerEliminaNota.assemble(eliminaNota_InDTO);
 		processoErogazioneService.eliminaProcessoErogazione(processo);
-		return assembler.toEliminaNota_OutDTO();
+		return new EliminaNota_OutDTO();
 	}
 
 	@Override
 	public AggiornaNota_OutDTO aggiornaNota(
 			AggiornaNota_InDTO aggiornaNota_InDTO) {
-		ProcessoErogazione processo = assembler.toProcessoErogazione(aggiornaNota_InDTO);
-		return assembler.toAggiornaNota_OutDTO(processoErogazioneService.aggiornaProcessoErogazione(processo));
+		ProcessoErogazione processo = assemblerAggiornaNota.assemble(aggiornaNota_InDTO);
+		return assemblerAggiornaNota.assemble(processoErogazioneService.aggiornaProcessoErogazione(processo));
 	}
 
 	@Override
 	public ApriNota_OutDTO apriNota(ApriNota_InDTO apriNotaInDTO) {
-		ProcessoErogazione processo = assembler.toProcessoErogazione(apriNotaInDTO);
-		return assembler.toApriNota_OutDTO(processoErogazioneService.apriProcessoErogazione(processo));
+		ProcessoErogazione processo = assemblerApriNota.assemble(apriNotaInDTO);
+		return assemblerApriNota.assemble(processoErogazioneService.apriProcessoErogazione(processo));
 	}
 
 	@Override
 	public ChiudiNota_OutDTO chiudiNota(ChiudiNota_InDTO chiudiNotaInDTO) {
-		ProcessoErogazione processo = assembler.toProcessoErogazione(chiudiNotaInDTO);
-		return assembler.toChiudiNota_OutDTO(processoErogazioneService.chiudiProcessoErogazione(processo));
+		ProcessoErogazione processo = assemblerChiudiNota.assemble(chiudiNotaInDTO);
+		return assemblerChiudiNota.assemble(processoErogazioneService.chiudiProcessoErogazione(processo));
 	}
 
 	@Override
 	public RinviaNota_OutDTO rinviaNota(RinviaNota_InDTO rinviaNota_InDTO) {
-		OrdineDelGiorno ordine = assembler.toOrdineDelGiorno(rinviaNota_InDTO);
-		ProcessoErogazione processo = assembler.toProcessoErogazione(rinviaNota_InDTO);
-		return assembler.toRinviaNota_OutDTO(processoErogazioneService.rinviaProcessoErogazione(processo, ordine));
+		OrdineDelGiorno ordine = assemblerRinviaNota.assembleOrdineDelGiorno(rinviaNota_InDTO);
+		ProcessoErogazione processo = assemblerRinviaNota.assembleProcessoErogazione(rinviaNota_InDTO);
+		return assemblerRinviaNota.assemble(processoErogazioneService.rinviaProcessoErogazione(processo, ordine));
 	}
 
 	@Override
 	public LavorazioneContabile_OutDTO lavorazioneContabileNota(
 			LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO) {
-		ProcessoErogazione processo = assembler.toProcessoErogazione(lavorazioneContabileNota_InDTO);
+		ProcessoErogazione processo = assemblerLavorazioneContabileNota.assemble(lavorazioneContabileNota_InDTO);
 		LavorazioneContabile lavorazioneContabile = processoErogazioneService.lavorazioneContabile(processo);
-		return assembler.toLavorazioneContabile_OutDTO(lavorazioneContabile);
+		return assemblerLavorazioneContabileNota.assemble(lavorazioneContabile);
 	}
 
 	@Override
 	public LavorazioneContabile_OutDTO lavorazioneContabilePratiche(
 			LavorazioneContabilePratica_InDTO lavorazioneContabilePratica_InDTO) {
-		List<PraticaErogazione> pratiche = assembler.toPratiche(lavorazioneContabilePratica_InDTO);
+		List<PraticaErogazione> pratiche = assemblerLavorazioneContabilePratica.assemble(lavorazioneContabilePratica_InDTO);
 		LavorazioneContabile lavorazione = praticaErogazioneService.lavorazioneContabile(pratiche);
-		return assembler.toLavorazioneContabile_OutDTO(lavorazione);
+		return assemblerLavorazioneContabilePratica.assemble(lavorazione);
 	}
 
 	@Override
 	public AutorizzaComitato_OutDTO autorizzaComitato(
 			AutorizzaComitato_InDTO autorizzaComitatoIn_DTO) {
-		List<PraticaErogazione> pratiche = assembler.toPratiche(autorizzaComitatoIn_DTO);
+		List<PraticaErogazione> pratiche = assemblerAutorizzaComitato.assemble(autorizzaComitatoIn_DTO);
 		praticaErogazioneService.autorizzaComitato(pratiche);
-		return assembler.toAutorizzaComitato_OutDTO();
+		return new AutorizzaComitato_OutDTO();
 	}
 
 	@Override
 	public RifiutaAutorizzazioneComitato_OutDTO rifiutaAutorizzazioneComitato(
 			RifiutaAutorizzazioneComitato_InDTO rifiutaAutorizzazioneComitatoIn_DTO) {
-		List<PraticaErogazione> pratiche = assembler.toPratiche(rifiutaAutorizzazioneComitatoIn_DTO);
+		List<PraticaErogazione> pratiche = assemblerRifiutaAutorizzazioneComitato.assemble(rifiutaAutorizzazioneComitatoIn_DTO);
 		praticaErogazioneService.rifiutaAutorizzazioneComitato(pratiche);
-		return assembler.toRifiutaAutorizzazioneComitato_OutDTO();
+		return new RifiutaAutorizzazioneComitato_OutDTO();
 	}
 	
 	@Override
 	public SearchNote_OutDTO searchNote(SearchNote_InDTO searchNote_InDTO) {
-		ProcessoFilter req = assembler.toProcessoFilter(searchNote_InDTO);
-		return assembler.toSearchNote_OutDTO(processoErogazioneService.searchProcessiErogazione(req));
+		ProcessoFilter req = assemblerSearchNote.assemble(searchNote_InDTO);
+		return assemblerSearchNote.assemble(processoErogazioneService.searchProcessiErogazione(req));
 	}
 
 	@Override
 	public SearchComitati_OutDTO searchComitati(
 			SearchComitati_InDTO searchComitati_InDTO) {
-		OrdineDelGiornoFilter req = assembler.toOrdineDelGiornoFilter(searchComitati_InDTO);
-		return  assembler.toSearchComitati_OutDTO(ordineDelGiornoService.searchComitati(req));
+		OrdineDelGiornoFilter req = assemblerSearchComitati.assemble(searchComitati_InDTO);
+		return  assemblerSearchComitati.assemble(ordineDelGiornoService.searchComitati(req));
 	}
 
 	@Override
 	public GetTipiPeriodo_OutDTO getTipiPeriodo(
 			GetTipiPeriodo_InDTO getTipiPeriodo_InDTO) {	
 		List<TipoPeriodo> tipiPeriodo = tipoPeriodoService.getTipiPeriodo();
-		return assembler.toGetTipiPeriodoOutDTO(tipiPeriodo);
+		return assemblerGetTipiPeriodo.assemble(tipiPeriodo);
 	}
 
 	@Override
 	public AssociaPraticheANota_OutDTO associaPraticheANota(
 			AssociaPraticheANota_InDTO associaPraticheANota_InDTO) {
-		List<PraticaErogazione> pratiche = assembler.toPratiche(associaPraticheANota_InDTO);
-		ProcessoErogazione processo = assembler.toProcessoErogazione(associaPraticheANota_InDTO);
+		List<PraticaErogazione> pratiche = assemblerAssociaPraticheANota.assembleListaPratiche(associaPraticheANota_InDTO);
+		ProcessoErogazione processo = assemblerAssociaPraticheANota.assembleProcessoErogazione(associaPraticheANota_InDTO);
 		processo = praticaErogazioneService.associaPraticheANota(pratiche,processo);
-		return assembler.toAssociaPraticheANota_OutDTO(processo);
+		return assemblerAssociaPraticheANota.assemble(processo);
 	}
 
 	@Override
 	public DissociaPraticheDaNota_OutDTO dissociaPraticheDaNota(
 			DissociaPraticheDaNota_InDTO dissociaPraticheDaNota_InDTO) {
-		List<PraticaErogazione> pratiche = assembler.toPratiche(dissociaPraticheDaNota_InDTO);
+		List<PraticaErogazione> pratiche = assemblerDissociaPraticheDaNota.assembleListaPratiche(dissociaPraticheDaNota_InDTO);
 		praticaErogazioneService.dissociaPraticheDaNota(pratiche);
-		return assembler.toDissociaPraticheDaNota_OutDTO();
+		return new DissociaPraticheDaNota_OutDTO();
 	}
 	@Override
 	public GetStatiLegali_OutDTO getStatiLegali(
 			GetStatiLegali_InDTO getStatiLegali_InDTO) {
 		List<StatoLegale> statiLegali = statoLegaleService.getStatiLegali();
-		return assembler.toGetStatiLegali_OutDTO(statiLegali);
+		return assemblerGetStatiLegali.assemble(statiLegali);
 	}
 	
 }

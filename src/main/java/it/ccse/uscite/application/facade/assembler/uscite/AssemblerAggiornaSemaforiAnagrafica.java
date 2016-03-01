@@ -9,12 +9,12 @@ import org.mapstruct.Mapper;
 
 import it.ccse.uscite.application.facade.assembler.AssemblerPraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.assembler.AssemblerSettoreAttivitaDTO;
+import it.ccse.uscite.application.facade.assembler.util.PraticaErogazioneListContainer;
+import it.ccse.uscite.application.facade.assembler.util.SettoreAttivitaListContainer;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaSemaforiAnagrafica_InDTO;
 import it.ccse.uscite.application.facade.dto.output.uscite.AggiornaSemaforiAnagrafica_OutDTO;
 import it.ccse.uscite.domain.PraticaErogazione;
 import it.ccse.uscite.domain.SettoreAttivita;
-import it.ccse.uscite.infrastructure.mapper.util.PraticaErogazioneListContainer;
-import it.ccse.uscite.infrastructure.mapper.util.SettoreAttivitaListContainer;
 
 /**
  * @author Valerio

@@ -21,8 +21,4 @@
 
 	<aop:aspectj-autoproxy />
 
-	<bean class="org.dozer.spring.DozerBeanMapperFactoryBean">
-		<property name="mappingFiles" value="classpath*:/dozer/*mappings.xml"/>
-	</bean>
-
 </beans>

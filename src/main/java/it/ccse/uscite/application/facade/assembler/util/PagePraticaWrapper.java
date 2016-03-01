@@ -1,9 +1,10 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.util;
+package it.ccse.uscite.application.facade.assembler.util;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 import it.ccse.uscite.domain.PraticaErogazione;
 
@@ -53,6 +54,22 @@ public class PagePraticaWrapper extends PraticaErogazioneListContainer{
 	 */
 	public int getNumberOfElements() {
 		return page.getNumberOfElements();
+	}
+
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Slice#getSize()
+	 */
+	public int getSize() {
+		return page.getSize();
+	}
+
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Slice#getSort()
+	 */
+	public Sort getSort() {
+		return page.getSort();
 	}
 
 	

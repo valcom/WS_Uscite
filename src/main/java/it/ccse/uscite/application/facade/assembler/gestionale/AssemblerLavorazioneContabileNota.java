@@ -17,7 +17,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  */
 @Mapper(uses=AssemblerPraticaErogazioneDTO.class)
 public interface AssemblerLavorazioneContabileNota {
-	public ProcessoErogazione map(LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO);
+	public ProcessoErogazione assemble(LavorazioneContabileNota_InDTO lavorazioneContabileNota_InDTO);
 	
-	public LavorazioneContabile_OutDTO map(LavorazioneContabile lavorazioneContabile);
+	public LavorazioneContabile_OutDTO assemble(LavorazioneContabile lavorazioneContabile);
 }

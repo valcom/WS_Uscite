@@ -15,6 +15,6 @@ import it.ccse.uscite.domain.OrdineDelGiorno;
 @Mapper
 public interface AssemblerEliminaComitato {
 	
-	public OrdineDelGiorno map(EliminaComitato_InDTO eliminaComitato_InDTO);
+	public OrdineDelGiorno assemble(EliminaComitato_InDTO eliminaComitato_InDTO);
 
 }

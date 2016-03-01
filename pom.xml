@@ -47,7 +47,9 @@
 
 
 		<commons-lang.version>2.2</commons-lang.version>
-		<dozer.version>5.5.1</dozer.version>
+		<commons-lang3.version>3.4</commons-lang3.version>
+
+
 		<org.mapstruct.version>1.0.0.Final</org.mapstruct.version>
 
 		<!-- Test -->
@@ -191,16 +193,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer-spring</artifactId>
-			<version>${dozer.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>net.sf.dozer</groupId>
-			<artifactId>dozer</artifactId>
-			<version>${dozer.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>

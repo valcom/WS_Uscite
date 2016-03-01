@@ -15,6 +15,6 @@ import it.ccse.uscite.domain.ProcessoErogazione;
 @Mapper
 public interface AssemblerEliminaNota {
 	
-	public ProcessoErogazione map(EliminaNota_InDTO eliminaNota_InDTO);
+	public ProcessoErogazione assemble(EliminaNota_InDTO eliminaNota_InDTO);
 
 }

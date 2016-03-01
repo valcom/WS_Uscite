@@ -4,6 +4,7 @@
 package it.ccse.uscite.domain.filter;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -29,9 +30,9 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 	
 	private BigInteger idNota;
 	
-	private StatoLavorazioneContabile[] statiLavorazioneContabile;
+	private List<StatoLavorazioneContabile> statiLavorazioneContabile;
 	
-	private StatoProcesso[] stati; 
+	private List<StatoProcesso> stati; 
 	
 	@Override
 	public BooleanExpression getBooleanExpression() {
@@ -92,34 +93,7 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 		this.numeroNota = numeroNota;
 	}
 
-	/**
-	 * @return the statiLavorazioneContabile
-	 */
-	public StatoLavorazioneContabile[] getStatiLavorazioneContabile() {
-		return statiLavorazioneContabile;
-	}
-
-	/**
-	 * @param statiLavorazioneContabile the statiLavorazioneContabile to set
-	 */
-	public void setStatiLavorazioneContabile(
-			StatoLavorazioneContabile... statiLavorazioneContabile) {
-		this.statiLavorazioneContabile = statiLavorazioneContabile;
-	}
-
-	/**
-	 * @return the stato
-	 */
-	public StatoProcesso[] getStati() {
-		return stati;
-	}
-
-	/**
-	 * @param stato the stato to set
-	 */
-	public void setStati(StatoProcesso[] stati) {
-		this.stati = stati;
-	}
+	
 	
 	public void setIdOrdineDelGiorno(BigInteger idOrdineDelGiorno){
 		if(idOrdineDelGiorno!=null){
@@ -144,6 +118,34 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 	 */
 	public void setIdNota(BigInteger idNota) {
 		this.idNota = idNota;
+	}
+
+	/**
+	 * @return the statiLavorazioneContabile
+	 */
+	public List<StatoLavorazioneContabile> getStatiLavorazioneContabile() {
+		return statiLavorazioneContabile;
+	}
+
+	/**
+	 * @param statiLavorazioneContabile the statiLavorazioneContabile to set
+	 */
+	public void setStatiLavorazioneContabile(List<StatoLavorazioneContabile> statiLavorazioneContabile) {
+		this.statiLavorazioneContabile = statiLavorazioneContabile;
+	}
+
+	/**
+	 * @return the stati
+	 */
+	public List<StatoProcesso> getStati() {
+		return stati;
+	}
+
+	/**
+	 * @param stati the stati to set
+	 */
+	public void setStati(List<StatoProcesso> stati) {
+		this.stati = stati;
 	}
 
 }

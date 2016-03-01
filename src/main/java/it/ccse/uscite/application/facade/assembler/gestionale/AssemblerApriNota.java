@@ -6,10 +6,10 @@ package it.ccse.uscite.application.facade.assembler.gestionale;
 import org.mapstruct.Mapper;
 
 import it.ccse.uscite.application.facade.assembler.AssemblerNotaPagamentoFullDTO;
+import it.ccse.uscite.application.facade.assembler.util.ProcessoErogazioneContainer;
 import it.ccse.uscite.application.facade.dto.input.gestionale.ApriNota_InDTO;
 import it.ccse.uscite.application.facade.dto.output.gestionale.ApriNota_OutDTO;
 import it.ccse.uscite.domain.ProcessoErogazione;
-import it.ccse.uscite.infrastructure.mapper.util.ProcessoErogazioneContainer;
 
 /**
  * @author Valerio
@@ -17,11 +17,11 @@ import it.ccse.uscite.infrastructure.mapper.util.ProcessoErogazioneContainer;
  */
 @Mapper(uses=AssemblerNotaPagamentoFullDTO.class)
 public abstract class AssemblerApriNota {
-	public abstract ProcessoErogazione map(ApriNota_InDTO apriNota_InDTO);
+	public abstract ProcessoErogazione assemble(ApriNota_InDTO apriNota_InDTO);
 	
-	public ApriNota_OutDTO map(ProcessoErogazione processo){
+	public ApriNota_OutDTO assemble(ProcessoErogazione processo){
 		return mapToApriNota_OutDTO(new ProcessoErogazioneContainer(processo));
 	}
 	
-	public abstract ApriNota_OutDTO mapToApriNota_OutDTO(ProcessoErogazioneContainer processo);
+	protected abstract ApriNota_OutDTO mapToApriNota_OutDTO(ProcessoErogazioneContainer processo);
 }

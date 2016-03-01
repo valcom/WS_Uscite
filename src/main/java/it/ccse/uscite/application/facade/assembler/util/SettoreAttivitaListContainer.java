@@ -1,7 +1,7 @@
 /**
  * 
  */
-package it.ccse.uscite.infrastructure.mapper.util;
+package it.ccse.uscite.application.facade.assembler.util;
 
 import java.util.ArrayList;
 import java.util.List;
