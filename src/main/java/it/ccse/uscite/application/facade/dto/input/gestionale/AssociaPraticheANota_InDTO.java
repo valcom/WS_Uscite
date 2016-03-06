@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneFullDTO;
+import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.dto.ListContainerDTO;
 import it.ccse.uscite.application.facade.dto.input.Base_InDTO;
 
@@ -15,7 +15,7 @@ import it.ccse.uscite.application.facade.dto.input.Base_InDTO;
  * @author vcompagnone
  *
  */
-public class AssociaPraticheANota_InDTO extends Base_InDTO implements ListContainerDTO<DettaglioPraticaErogazioneFullDTO>{
+public class AssociaPraticheANota_InDTO extends Base_InDTO implements ListContainerDTO<DettaglioPraticaErogazioneDTO>{
 	
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class AssociaPraticheANota_InDTO extends Base_InDTO implements ListContai
 
 	private BigInteger idNota;
 	
-	private List<DettaglioPraticaErogazioneFullDTO> content = new ArrayList<DettaglioPraticaErogazioneFullDTO>();
+	private List<DettaglioPraticaErogazioneDTO> content = new ArrayList<DettaglioPraticaErogazioneDTO>();
 
 	/**
 	 * @return the idNota
@@ -40,11 +40,11 @@ public class AssociaPraticheANota_InDTO extends Base_InDTO implements ListContai
 		this.idNota = idNota;
 	}
 
-	public List<DettaglioPraticaErogazioneFullDTO> getContent() {
+	public List<DettaglioPraticaErogazioneDTO> getContent() {
 		return content;
 	}
 
-	public void setContent(List<DettaglioPraticaErogazioneFullDTO> content) {
+	public void setContent(List<DettaglioPraticaErogazioneDTO> content) {
 		this.content = content;
 	}
 

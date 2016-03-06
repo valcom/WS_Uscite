@@ -8,7 +8,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import it.ccse.uscite.application.facade.assembler.AssemblerDettaglioPraticaErogazioneFullDTO;
+import it.ccse.uscite.application.facade.assembler.AssemblerDettaglioPraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.assembler.AssemblerNotaPagamentoFullDTO;
 import it.ccse.uscite.application.facade.assembler.util.PraticaErogazioneListContainer;
 import it.ccse.uscite.application.facade.assembler.util.ProcessoErogazioneContainer;
@@ -21,7 +21,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  * @author Valerio
  *
  */
-@Mapper(uses={AssemblerDettaglioPraticaErogazioneFullDTO.class,AssemblerNotaPagamentoFullDTO.class})
+@Mapper(uses={AssemblerDettaglioPraticaErogazioneDTO.class,AssemblerNotaPagamentoFullDTO.class})
 public abstract class AssemblerAssociaPraticheANota {
 	@Mapping(source="idNota",target="id")
 	public abstract ProcessoErogazione assembleProcessoErogazione(AssociaPraticheANota_InDTO associaPraticheANota_InDTO);

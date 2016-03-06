@@ -30,7 +30,6 @@ public class NotaPagamentoDTO extends DomainDTO {
 
 	private StatoProcesso stato;
 	
-	private ComitatoDTO ordineDelGiorno;
 	
 	/**
 	 * @return the idProcessoErogazione
@@ -44,20 +43,6 @@ public class NotaPagamentoDTO extends DomainDTO {
 	 */
 	public void setId(BigInteger id) {
 		this.idProcessoErogazione = id;
-	}
-
-	/**
-	 * @return the ordineDelGiorno
-	 */
-	public ComitatoDTO getOrdineDelGiorno() {
-		return ordineDelGiorno;
-	}
-
-	/**
-	 * @param ordineDelGiorno the ordineDelGiorno to set
-	 */
-	public void setOrdineDelGiorno(ComitatoDTO ordineDelGiorno) {
-		this.ordineDelGiorno = ordineDelGiorno;
 	}
 
 	

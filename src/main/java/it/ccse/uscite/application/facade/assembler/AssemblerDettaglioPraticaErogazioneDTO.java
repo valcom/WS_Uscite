@@ -12,8 +12,11 @@ import it.ccse.uscite.domain.PraticaErogazione;
  * @author Valerio
  *
  */
-@Mapper(uses={AssemblerNotaPagamentoDTO.class,AssemblerTipoPeriodoDTO.class})
+@Mapper(uses={AssemblerNotaPagamentoDTO.class,AssemblerTipoPeriodoDTO.class,AssemblerSettoreAttivitaDTO.class})
 public interface AssemblerDettaglioPraticaErogazioneDTO {
 	public DettaglioPraticaErogazioneDTO map(PraticaErogazione p);
+	
+	public PraticaErogazione map(DettaglioPraticaErogazioneDTO p);
+
 
 }

@@ -16,6 +16,8 @@ public class DettaglioPraticaErogazioneDTO extends PraticaErogazioneDTO {
 
 	private NotaPagamentoDTO nota;
 	
+	private SettoreAttivitaDTO settoreAttivita;
+
 
 	/**
 	 * @return the nota
@@ -30,5 +32,21 @@ public class DettaglioPraticaErogazioneDTO extends PraticaErogazioneDTO {
 	public void setNota(NotaPagamentoDTO nota) {
 		this.nota = nota;
 	}
+
+	/**
+	 * @return the settoreAttivita
+	 */
+	public SettoreAttivitaDTO getSettoreAttivita() {
+		return settoreAttivita;
+	}
+
+	/**
+	 * @param settoreAttivita the settoreAttivita to set
+	 */
+	public void setSettoreAttivita(SettoreAttivitaDTO settoreAttivita) {
+		this.settoreAttivita = settoreAttivita;
+	}
+
+	
 
 }
