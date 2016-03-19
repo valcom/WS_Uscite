@@ -14,7 +14,9 @@
 	<context:component-scan base-package="it.ccse.uscite" />
 
 	<context:annotation-config />
-
+	
+	<context:property-placeholder location="classpath:properties/mail.properties" />
+	
 	<bean id="loggingAspect" class="it.ccse.uscite.infrastructure.aop.LoggingAspect" />
 
 	<bean id="FacadeAspect" class="it.ccse.uscite.infrastructure.aop.FacadeAspect" />

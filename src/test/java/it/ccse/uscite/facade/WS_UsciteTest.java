@@ -76,7 +76,7 @@ import org.springframework.web.context.request.RequestContextHolder;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations =  {"classpath:/spring/application-context.xml","classpath:/spring/datasource.xml","classpath:/spring/mail.xml"} )
+@ContextConfiguration(locations =  {"classpath:/spring/application-context.xml","classpath:/spring/datasource.xml"} )
 @Transactional
 public class WS_UsciteTest {
 	

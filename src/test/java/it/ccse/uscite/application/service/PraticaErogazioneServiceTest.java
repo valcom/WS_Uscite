@@ -24,7 +24,7 @@ import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations =  {"classpath:/spring/application-context.xml","classpath:/spring/datasource.xml","classpath:/spring/mail.xml"} )
+@ContextConfiguration(locations =  {"classpath:/spring/application-context.xml","classpath:/spring/datasource.xml"} )
 @WebAppConfiguration
 @Transactional
 public class PraticaErogazioneServiceTest {

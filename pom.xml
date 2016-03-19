@@ -70,6 +70,26 @@
 
 	<profiles>
 		<profile>
+			<id>locale</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<webserver>webserver-locale</webserver>
+				<tomcat.url>http://localhost:8080/manager/text</tomcat.url>
+				<mail.host>smtp.mail.yahoo.it</mail.host>
+				<mail.port>465</mail.port>
+				<mail.protocol>smtps</mail.protocol>
+				<mail.username>asso_mazzo82@yahoo.it</mail.username>
+				<mail.password>S@gittario82</mail.password>
+				<mail.from>asso_mazzo82@yahoo.it</mail.from>
+				<mail.to>asso_mazzo82@yahoo.it</mail.to>
+				<mail.cc>vcompagnone@inmatica.com</mail.cc>
+				<mail.bcc>vcompagnone@inmatica.com</mail.bcc>
+				<mail.replyTo>vcompagnone@inmatica.com</mail.replyTo>
+			</properties>
+		</profile>
+		<profile>
 			<id>collaudo</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
@@ -82,7 +102,7 @@
 		<profile>
 			<id>sviluppo</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<webserver>webserver-sviluppo</webserver>
@@ -284,7 +304,12 @@
 	</dependencies>
 
 	<build>
-
+	 <resources>
+	 <resource> 
+	 	<directory>src/main/resources</directory> 
+	 	<filtering>true</filtering>
+	 </resource>
+	 </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

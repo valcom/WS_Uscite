@@ -60,7 +60,6 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 	
 	<resource-ref>
 		<description>datasource</description>
@@ -68,26 +67,7 @@
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	<resource-env-ref>
-		<description>Mail To</description>
-		<resource-env-ref-name>uscite/mail.to</resource-env-ref-name>
-		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
-		<lookup-name>mail.to</lookup-name>
-	</resource-env-ref>
-	<resource-env-ref>
-		<description>Mail Reply To</description>
-		<resource-env-ref-name>uscite/mail.replyTo</resource-env-ref-name>
-		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
-	</resource-env-ref>
-	<resource-env-ref>
-		<description>Mail Cc</description>
-		<resource-env-ref-name>uscite/mail.cc</resource-env-ref-name>
-	</resource-env-ref>
-	<resource-env-ref>
-		<description>Mail Bcc</description>
-		<resource-env-ref-name>uscite/mail.bcc</resource-env-ref-name>
-		<resource-env-ref-type>java.lang.String</resource-env-ref-type>
-	</resource-env-ref>
+	
 	<resource-env-ref>
 		<description>Environment Name</description>
 		<resource-env-ref-name>uscite/environmentName</resource-env-ref-name>

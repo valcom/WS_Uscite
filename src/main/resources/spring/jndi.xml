@@ -9,9 +9,6 @@
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/ccse/uscite" expected-type="javax.sql.DataSource" />
 	
 	<!-- Mail -->
-	<jee:jndi-lookup id="to" jndi-name="uscite/mail.to" expected-type="java.lang.String" />
-	<jee:jndi-lookup id="cc" jndi-name="uscite/mail.cc" expected-type="java.lang.String" />
-	<jee:jndi-lookup id="bcc" jndi-name="uscite/mail.bcc" expected-type="java.lang.String" />
-	<jee:jndi-lookup id="replyTo" jndi-name="uscite/mail.replyTo" expected-type="java.lang.String" />
+	
 	<jee:jndi-lookup id="environment" jndi-name="uscite/environmentName" expected-type="java.lang.String"/>
 </beans>

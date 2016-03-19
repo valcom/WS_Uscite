@@ -11,11 +11,11 @@
      
     	<!-- CCSE -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" >
-		<property name="host" value="smtp.mail.yahoo.it" />
-		<property name="port" value="465" />
+		<property name="host" value="${mail.host}" />
+		<property name="port" value="${mail.port}" />
 		<property name="protocol" value="smtps" />
-		<property name="username" value="asso_mazzo82@yahoo.it" />
-		<property name="password" value="S@gittario82" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
 		<property name="javaMailProperties">
         <props>
             <prop key="mail.smtps.auth">true</prop>
@@ -26,12 +26,12 @@
 	</bean>
 <!-- messaggio sblocco pratiche Template -->
 	<bean id="msgSbloccoPratiche" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
-		<property name="from" value="asso_mazzo82@yahoo.it" />
-		<property name="to" ref="to" />
-		<property name="cc" ref="cc" />
-		<property name="bcc" ref="bcc" />
+		<property name="from" value="${mail.from}" />
+		<property name="to" value="${mail.to}" />
+		<property name="cc" value="${mail.cc}" />
+		<property name="bcc" value="${mail.bcc}" />
 		<property name="subject" value="#{'Erogazioni in Sospeso Sbloccate '+@environment}" />
-		<property name="replyTo" ref="replyTo" />
+		<property name="replyTo" value="${mail.replyTo}" />
 		<property name="text">
 			<value><![CDATA[
 La Pratica di Erogazione Istituzionale Codice Pratica %s,
@@ -53,12 +53,12 @@ e' provvista di tutte le autorizzazioni ed e' pronta all' erogazione.
 	
 <!-- messaggio autorizzazione pratiche Template -->
 	<bean id="msgAutorizzazioneComitato" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
-		<property name="from" value="dbusciteservice@ccse.cc" />
-		<property name="to" ref="to" />
-		<property name="cc" ref="cc" />
-		<property name="bcc" ref="bcc" />
+		<property name="from" value="${mail.from}" />
+		<property name="to" value="${mail.to}" />
+		<property name="cc" value="${mail.cc}" />
+		<property name="bcc" value="${mail.bcc}" />
 		<property name="subject" value="#{'Autorizzazione Comitato Concessa '+@environment}" />
-		<property name="replyTo" ref="replyTo" />
+		<property name="replyTo" value="${mail.replyTo}" />
 		<property name="text">
 			<value><![CDATA[
 La Pratica di Erogazione Istituzionale Codice Pratica %s,
