@@ -8,7 +8,4 @@
 	<!-- Datasource -->
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/ccse/uscite" expected-type="javax.sql.DataSource" />
 	
-	<!-- Mail -->
-	
-	<jee:jndi-lookup id="environment" jndi-name="uscite/environmentName" expected-type="java.lang.String"/>
 </beans>

@@ -87,6 +87,7 @@
 				<mail.cc>vcompagnone@inmatica.com</mail.cc>
 				<mail.bcc>vcompagnone@inmatica.com</mail.bcc>
 				<mail.replyTo>vcompagnone@inmatica.com</mail.replyTo>
+				<environmentName><![CDATA[[LOCALE]]]></environmentName>
 			</properties>
 		</profile>
 		<profile>

@@ -30,7 +30,7 @@
 		<property name="to" value="${mail.to}" />
 		<property name="cc" value="${mail.cc}" />
 		<property name="bcc" value="${mail.bcc}" />
-		<property name="subject" value="#{'Erogazioni in Sospeso Sbloccate '+@environment}" />
+		<property name="subject" value="#{'Erogazioni in Sospeso Sbloccate '+'${environmentName}'}" />
 		<property name="replyTo" value="${mail.replyTo}" />
 		<property name="text">
 			<value><![CDATA[
@@ -57,7 +57,7 @@ e' provvista di tutte le autorizzazioni ed e' pronta all' erogazione.
 		<property name="to" value="${mail.to}" />
 		<property name="cc" value="${mail.cc}" />
 		<property name="bcc" value="${mail.bcc}" />
-		<property name="subject" value="#{'Autorizzazione Comitato Concessa '+@environment}" />
+		<property name="subject" value="#{'Autorizzazione Comitato Concessa '+'${environmentName}'}" />
 		<property name="replyTo" value="${mail.replyTo}" />
 		<property name="text">
 			<value><![CDATA[
