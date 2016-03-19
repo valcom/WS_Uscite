@@ -24,7 +24,7 @@ public class DettaglioNotaPagamentoDTO extends NotaPagamentoDTO {
 	
 	private String owner;
 		
-	//private List<PraticaErogazioneDTO> praticheErogazione;
+	private ComitatoDTO ordineDelGiorno;
 
 	
 	/**
@@ -69,7 +69,20 @@ public class DettaglioNotaPagamentoDTO extends NotaPagamentoDTO {
 		this.owner = owner;
 	}
 
-	
+	/**
+	 * @return the ordineDelGiorno
+	 */
+	public ComitatoDTO getOrdineDelGiorno() {
+		return ordineDelGiorno;
+	}
+
+	/**
+	 * @param ordineDelGiorno the ordineDelGiorno to set
+	 */
+	public void setOrdineDelGiorno(ComitatoDTO ordineDelGiorno) {
+		this.ordineDelGiorno = ordineDelGiorno;
+	}
+
 
 	
 

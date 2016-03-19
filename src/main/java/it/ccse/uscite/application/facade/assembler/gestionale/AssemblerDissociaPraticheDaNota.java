@@ -8,7 +8,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import it.ccse.uscite.application.facade.assembler.AssemblerDettaglioPraticaErogazioneFullDTO;
+import it.ccse.uscite.application.facade.assembler.AssemblerDettaglioPraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.assembler.util.PraticaErogazioneListContainer;
 import it.ccse.uscite.application.facade.dto.input.gestionale.DissociaPraticheDaNota_InDTO;
 import it.ccse.uscite.domain.PraticaErogazione;
@@ -18,7 +18,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
  * @author Valerio
  *
  */
-@Mapper(uses=AssemblerDettaglioPraticaErogazioneFullDTO.class)
+@Mapper(uses=AssemblerDettaglioPraticaErogazioneDTO.class)
 public abstract class AssemblerDissociaPraticheDaNota {
 
 	public List<PraticaErogazione> assembleListaPratiche(DissociaPraticheDaNota_InDTO dissociaPraticheDaNota_InDTO){	

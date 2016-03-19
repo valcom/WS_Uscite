@@ -3,12 +3,30 @@
  */
 package it.ccse.uscite.facade;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.time.DateUtils;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+
 import it.ccse.uscite.application.facade.GestionaleWSFacade;
 import it.ccse.uscite.application.facade.UsciteWSFacade;
 import it.ccse.uscite.application.facade.dto.ComitatoDTO;
 import it.ccse.uscite.application.facade.dto.DettaglioComitatoDTO;
 import it.ccse.uscite.application.facade.dto.DettaglioNotaPagamentoDTO;
-import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneFullDTO;
+import it.ccse.uscite.application.facade.dto.DettaglioPraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.dto.PraticaErogazioneDTO;
 import it.ccse.uscite.application.facade.dto.SettoreAttivitaDTO;
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiornaComitato_InDTO;
@@ -51,24 +69,6 @@ import it.ccse.uscite.application.facade.dto.output.uscite.SearchPratiche_OutDTO
 import it.ccse.uscite.domain.OrdineDelGiorno.TipologiaComitato;
 import it.ccse.uscite.domain.SettoreAttivita.StatoAntimafia;
 import it.ccse.uscite.domain.SettoreAttivita.Unbundling;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.time.DateUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
 /**
  * @author vcompagnone
@@ -336,8 +336,8 @@ public class WS_UsciteTest {
 		AssociaPraticheANota_InDTO inDTO = new AssociaPraticheANota_InDTO();
 		inDTO.setUsername("pippo");
 		inDTO.setIdNota(BigInteger.valueOf(585));
-		List<DettaglioPraticaErogazioneFullDTO> content = new ArrayList<DettaglioPraticaErogazioneFullDTO>();
-		DettaglioPraticaErogazioneFullDTO praticaDTO = new DettaglioPraticaErogazioneFullDTO();
+		List<DettaglioPraticaErogazioneDTO> content = new ArrayList<DettaglioPraticaErogazioneDTO>();
+		DettaglioPraticaErogazioneDTO praticaDTO = new DettaglioPraticaErogazioneDTO();
 		praticaDTO.setAnno(2014);
 		//praticaDTO.set
 		//content.add(praticaDTO );
