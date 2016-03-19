@@ -31,57 +31,45 @@ public class MailServiceImpl implements MailService {
 	private SimpleMailMessage msgAutorizzazioneComitato;
 	
 	@Autowired
-	private SimpleMailMessage msgSbloccoPratiche;;
+	private SimpleMailMessage msgSbloccoPratiche;
 
 	
 
 
 	@Override
 	public void sendMailAutorizzazioneComitato(List<PraticaErogazione> pratiche) {
-		SimpleMailMessage newMailMessage = creaMailSbloccoPratiche(pratiche,msgAutorizzazioneComitato);
+		SimpleMailMessage newMailMessage = creaMail(pratiche,msgAutorizzazioneComitato);
 		mailSender.send(newMailMessage);
 	}
 
 	@Override
 	public void sendMailSbloccoAnagraficaPratiche(List<PraticaErogazione> pratiche) {
-		SimpleMailMessage newMailMessage = creaMailSbloccoPratiche(pratiche,msgSbloccoPratiche);		
+		SimpleMailMessage newMailMessage = creaMail(pratiche,msgSbloccoPratiche);		
 		mailSender.send(newMailMessage);
 	}
 
 
 	
-	private static SimpleMailMessage creaMailSbloccoPratiche(List<PraticaErogazione> pratiche,SimpleMailMessage template) {
+	private static SimpleMailMessage creaMail(List<PraticaErogazione> pratiche,SimpleMailMessage template) {
 		SimpleMailMessage newMailMessage = new SimpleMailMessage(template);
 		String testoMail = "";
 		
 		for(PraticaErogazione pratica:pratiche){
-			SimpleMailMessage msg = creaMailSbloccoPratica(pratica,template);
-			testoMail += msg.getText();	
+			testoMail += getTestoMail(template.getText(),pratica);	
 		}		
 		
 		newMailMessage.setText(testoMail);
 		return newMailMessage;
 	}
-	
-	private static SimpleMailMessage creaMailSbloccoPratica(
-			PraticaErogazione pratica,SimpleMailMessage template) {
-		SimpleMailMessage msg = null;
-		if(pratica!=null){
-			msg = creaMail(template,
-					pratica.getCodicePratica(),
-					pratica.getSettoreAttivita().getRagioneSociale() != null ? pratica.getSettoreAttivita().getRagioneSociale():"",
-					pratica.getImpegno(),
-					pratica.getNota().getNumeroNota(),
-					DateFormat.getDateInstance(DateFormat.SHORT).format(pratica.getNota().getOrdineDelGiorno().getDataComitato()));
-		}
 
-		return msg;
+	private static String getTestoMail(String template , PraticaErogazione pratica){
+		
+		return String.format(template, pratica.getCodicePratica(),
+				pratica.getSettoreAttivita().getRagioneSociale() != null ? pratica.getSettoreAttivita().getRagioneSociale():"",
+				pratica.getImpegno(),
+				pratica.getNota().getNumeroNota(),
+				DateFormat.getDateInstance(DateFormat.SHORT).format(pratica.getNota().getOrdineDelGiorno().getDataComitato()));
+		
 	}
 	
-	private static SimpleMailMessage creaMail(SimpleMailMessage template,Object... params) {
-		SimpleMailMessage msg = new SimpleMailMessage(template);
-		msg.setText(String.format(msg.getText(), params));
-		return msg;
-	}
-
 }
