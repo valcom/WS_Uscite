@@ -103,6 +103,11 @@ public class OrdineDelGiornoServiceImpl implements OrdineDelGiornoService{
 	public Page<OrdineDelGiorno> searchComitati(OrdineDelGiornoFilter req) {
 		return ordineDelGiornoRepository.findAll(req.getBooleanExpression(), req.getPageable());
 	}
+
+	@Override
+	public OrdineDelGiorno getOrdineDelGiorno(BigInteger idOrdineDelGiorno) {
+		return ordineDelGiornoRepository.findOne(idOrdineDelGiorno);
+	}
 	
 
 }

@@ -14,6 +14,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,7 +35,21 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
  * 
  */
 @Entity
-@NamedEntityGraph(name="ordine.processi", attributeNodes={ @NamedAttributeNode(value = "processiErogazione")})
+@NamedEntityGraphs({
+	@NamedEntityGraph(name="ordine.processi", attributeNodes={ @NamedAttributeNode(value = "processiErogazione")}),
+	@NamedEntityGraph(name="ordine.processi.pratiche", attributeNodes= @NamedAttributeNode(subgraph="processiErogazione", value = "processiErogazione"), 
+            subgraphs = {
+            		@NamedSubgraph(name = "processiErogazione", attributeNodes = @NamedAttributeNode(subgraph="praticheErogazione",value="praticheErogazione")),
+            		@NamedSubgraph(name = "praticheErogazione", attributeNodes = {
+            				@NamedAttributeNode("statoComitato"),
+            				@NamedAttributeNode("tipoPeriodo"),
+            				@NamedAttributeNode("statoLegale"),
+            				@NamedAttributeNode("statoContabile"),
+            				@NamedAttributeNode("statoUnbundling"),
+            				@NamedAttributeNode("statoFideiussione")
+            				})
+            		})
+	})
 @AttributeOverride(name = "id", column = @Column(name = "id_ordine_del_giorno"))
 @Table(name = "ordine_del_giorno")
 @Audited

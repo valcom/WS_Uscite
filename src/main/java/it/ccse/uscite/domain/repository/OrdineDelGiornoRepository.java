@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.Set;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
@@ -23,5 +24,8 @@ public interface OrdineDelGiornoRepository extends JpaRepository<OrdineDelGiorno
 	public OrdineDelGiorno findByDataComitato(Date dataComitato);
 
 	public Set<OrdineDelGiorno> findByDataComitatoLessThanEqualAndStato(Date today, StatoComitato chiuso);
+
+	@EntityGraph(value="ordine.processi.pratiche")
+	public OrdineDelGiorno findOne(BigInteger arg0);
 
 }

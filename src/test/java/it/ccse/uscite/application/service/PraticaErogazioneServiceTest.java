@@ -37,6 +37,8 @@ public class PraticaErogazioneServiceTest {
 		BigInteger id = BigInteger.valueOf(4733);
 		PraticaErogazione pratica = praticaErogazioneService.getById(id);
 		Assert.notNull(pratica);
+		boolean test = pratica.getId().equals(id);
+		Assert.isTrue(test);
 	}
 	@Test
 	public void testDelete(){
