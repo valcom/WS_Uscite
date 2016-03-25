@@ -100,16 +100,7 @@
 				<tomcat.url>http://192.168.40.14:8080/manager/text</tomcat.url>
 			</properties>
 		</profile>
-		<profile>
-			<id>sviluppo</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<webserver>webserver-sviluppo</webserver>
-				<tomcat.url>http://localhost:8080/manager/text</tomcat.url>
-			</properties>
-		</profile>
+		
 	</profiles>
 
 	<dependencies>
