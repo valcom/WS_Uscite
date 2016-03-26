@@ -18,6 +18,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,6 +43,17 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
  * 
  */
 @Entity
+@NamedEntityGraph(name = "praticaErogazione", attributeNodes = {
+		@NamedAttributeNode("statoComitato"),
+		@NamedAttributeNode("tipoPeriodo"),
+		@NamedAttributeNode("statoLegale"),
+		@NamedAttributeNode("statoContabile"),
+		@NamedAttributeNode("statoUnbundling"),
+		@NamedAttributeNode("statoFideiussione"),
+		@NamedAttributeNode(subgraph="processoErogazione", value = "processoErogazione")
+		},subgraphs=@NamedSubgraph(name = "processoErogazione", attributeNodes = @NamedAttributeNode("ordineDelGiorno"))
+
+		)
 @Table(name="pratica_erogazione")
 @AttributeOverride(name = "id", column = @Column(name = "id_pratica_erogazione"))
 @Audited

@@ -89,20 +89,26 @@ public class WS_UsciteTest {
 	@Test
 	public void testSearchPratiche(){
 		SearchPratiche_InDTO searchPratiche_InDTO = new SearchPratiche_InDTO();
-		
-		searchPratiche_InDTO.setAnnoDa(2014);
-		searchPratiche_InDTO.setAnnoA(2014);
+		Integer annoDa = 2014,annoA =2014;
+		Boolean erogabile = true;
+		searchPratiche_InDTO.setAnnoDa(annoDa);
+		searchPratiche_InDTO.setAnnoA(annoA);
+		searchPratiche_InDTO.setErogabile(true);
 //		List<Integer> listaIdSettoreAttivita = new ArrayList<Integer>();
 //		listaIdSettoreAttivita.add(1261);
 //		listaIdSettoreAttivita.add(1264);
 //		listaIdSettoreAttivita.add(1401);
 		searchPratiche_InDTO.setPageSize(100);
-		searchPratiche_InDTO.setPageNumber(2);
+		searchPratiche_InDTO.setPageNumber(5);
 		//searchPratiche_InDTO.setListaIdSettoreAttivita(listaIdSettoreAttivita );;
 		
 		SearchPratiche_OutDTO output = usciteWS.searchPratiche(searchPratiche_InDTO);
 		
 		Assert.assertTrue(output.getEsito() == Esito.SUCCESS);
+		
+		Assert.assertFalse(output.getContent().stream().filter(p->!p.getAnno().equals(annoA)).findAny().isPresent());
+		Assert.assertFalse(output.getContent().stream().filter(p->!p.getErogabile().equals(erogabile)).findAny().isPresent());
+
 	}
 	@Test
 	public void testGetOrdiniDelGiorno(){

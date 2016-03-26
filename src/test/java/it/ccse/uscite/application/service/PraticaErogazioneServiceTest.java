@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -17,6 +18,7 @@ import org.springframework.util.Assert;
 import it.ccse.uscite.application.service.PraticaErogazioneService;
 import it.ccse.uscite.domain.PraticaErogazione;
 import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
+import it.ccse.uscite.domain.filter.PraticaFilter;
 
 /**
  * @author vcompagnone
@@ -79,4 +81,16 @@ public class PraticaErogazioneServiceTest {
 		Assert.notNull(pratica);
 		Assert.isTrue(pratica.getCodicePratica().equals(codicePratica));
 	}
+	
+	@Test
+	public void testSearchPraticheErogazione(){
+		PraticaFilter filter = new PraticaFilter();
+		filter.setAnnoDa(2013);
+		filter.setAnnoA(2014);
+		filter.setErogabile(true);
+		
+		Page<PraticaErogazione> pratiche = praticaErogazioneService.searchPraticheErogazione(filter );
+		Assert.notNull(pratiche);
+	}
+	
 }

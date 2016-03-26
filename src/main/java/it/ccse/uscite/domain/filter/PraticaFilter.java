@@ -12,15 +12,15 @@ import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
 import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
 import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
 import it.ccse.uscite.domain.TipoPeriodo;
-import it.ccse.uscite.domain.util.UsciteProperties;
+import it.ccse.uscite.domain.specification.PraticaErogazioneSpecifications;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
@@ -118,28 +118,13 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		BooleanExpression hasProcessoErogazione = getIdProcessoErogazione()!=null?pratica.processoErogazione.id.eq(getIdProcessoErogazione()):null;
 		BooleanExpression hasCodicePratica = getCodiciPratica()!=null?pratica.codicePratica.in(getCodiciPratica()):null;
 		
-		
-		BooleanExpression isErogabile =  null;
-		if(getErogabile()!=null){
-			BooleanExpression autorizzazioneComitato = pratica.statoComitato.bloccante.isFalse();
-			BooleanExpression autorizzazioneContabile = pratica.statoContabile.bloccante.isFalse();
-			BooleanExpression unbundling = pratica.statoUnbundling.bloccante.isFalse();
-			BooleanExpression autorizzazioneLegale = pratica.statoLegale.bloccante.isFalse();
-			BooleanExpression fideiussione = pratica.statoFideiussione.bloccante.isFalse();	
-		
-			BooleanExpression dataScadenzaPresente = pratica.dataScadenza.isNotNull();
-			BooleanExpression sbloccoDataRegolazione = dataScadenzaPresente.and(pratica.dataScadenza.after(DateUtils.addDays(new Date(),UsciteProperties.SOGLIA_GIORNI_SBLOCCO_DATA_REGOLAZIONE)).not()).or(dataScadenzaPresente.not().and(pratica.dataInteressi.after(DateUtils.addDays(new Date(),UsciteProperties.SOGLIA_GIORNI_SBLOCCO_DATA_REGOLAZIONE)).not()));
-			BooleanExpression autorizzabile = BooleanExpression.allOf(autorizzazioneComitato,autorizzazioneContabile,unbundling,autorizzazioneLegale,fideiussione,sbloccoDataRegolazione);
-			isErogabile = getErogabile()?autorizzabile:autorizzabile.not();
-		}
-		
 		return BooleanExpression.allOf(hasAnnoA, hasAnnoDa,
 				hasAutorizzazioneComitato, hasAutorizzazioneContabile,
 				hasDatacomitatoA, hasDatacomitatoDa, hasDataInteressiA,
 				hasDataInteressiDa, hasDataScadenzaA, hasDataScadenzaDa,
 				hasIdComponenteTariffaria, hasIdPosizioneFinanziaria,
 				hasImportoA, hasImportoDa, hasIdSettoreAttivita, hasNumeroNota,
-				hasIdNota, hasPeriodo, hasStato, hasTipoPeriodo, isErogabile,
+				hasIdNota, hasPeriodo, hasStato, hasTipoPeriodo,
 				hasAutorizzazioniLegale, hasFideiussione, hasUnbundling,
 				hasProcessoErogazione, hasCodicePratica, hasDataFideiussioneA,
 				hasDataFideiussioneDa);
@@ -351,7 +336,33 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 
 	@Override
 	public Specification<PraticaErogazione> getSpecification() {
-		throw new UnsupportedOperationException();
+		
+		return Specifications.where(PraticaErogazioneSpecifications.hasAnnoA(getAnnoA()))
+				.and(PraticaErogazioneSpecifications.hasAnnoDa(getAnnoDa()))
+				.and(PraticaErogazioneSpecifications.hasAutorizzazioneComitato(getAutorizzazioneComitato()))
+				.and(PraticaErogazioneSpecifications.hasAutorizzazioneContabile(getAutorizzazioneContabile()))
+				.and(PraticaErogazioneSpecifications.hasAutorizzazioneLegale(getListaValoriAutorizzazioneLegale()))
+				.and(PraticaErogazioneSpecifications.hasCodicePratica(getCodiciPratica()))
+				.and(PraticaErogazioneSpecifications.hasComponenteTariffaria(getIdComponenteTariffaria()))
+				.and(PraticaErogazioneSpecifications.hasDataComitatoA(getDataComitatoA()))
+				.and(PraticaErogazioneSpecifications.hasDataComitatoDa(getDataComitatoDa()))
+				.and(PraticaErogazioneSpecifications.hasDataFideiussioneA(getDataFideiussioneA()))
+				.and(PraticaErogazioneSpecifications.hasDataFideiussioneDa(getDataFideiussioneDa()))
+				.and(PraticaErogazioneSpecifications.hasDataInteressiA(getDataInteressiA()))
+				.and(PraticaErogazioneSpecifications.hasDataInteressiDa(getDataInteressiDa()))
+				.and(PraticaErogazioneSpecifications.hasDataScadenzaA(getDataScadenzaA()))
+				.and(PraticaErogazioneSpecifications.hasDataScadenzaDa(getDataScadenzaDa()))
+				.and(PraticaErogazioneSpecifications.hasFideiussione(getFideiussione()))
+				.and(PraticaErogazioneSpecifications.hasImportoA(getImportoA()))
+				.and(PraticaErogazioneSpecifications.hasImportoDa(getImportoDa()))
+				.and(PraticaErogazioneSpecifications.hasNumeroNota(getNumeroNota()))
+				.and(PraticaErogazioneSpecifications.hasPeriodo(getPeriodo()))
+				.and(PraticaErogazioneSpecifications.hasPosizioneFinanziaria(getIdPosizioneFinanziaria()))
+				.and(PraticaErogazioneSpecifications.hasProcessoErogazione(getIdProcessoErogazione()))
+				.and(PraticaErogazioneSpecifications.hasSettoreAttivita(getListaIdSettoriAttivita()))
+				.and(PraticaErogazioneSpecifications.hasStatoPratica(getStatiPratica()))
+				.and(PraticaErogazioneSpecifications.hasTipoPeriodo(getTipoPeriodo()))
+				.and(PraticaErogazioneSpecifications.hasUnbundling(getUnbundling()));
 	}
 
 	

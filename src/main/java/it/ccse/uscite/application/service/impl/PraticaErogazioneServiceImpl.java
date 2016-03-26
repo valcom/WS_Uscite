@@ -14,8 +14,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import it.ccse.uscite.application.service.MailService;
 import it.ccse.uscite.application.service.PraticaErogazioneService;
 import it.ccse.uscite.application.service.StatoComitatoService;
@@ -102,7 +105,16 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Override
 	@Transactional(readOnly=true)
 	public Page<PraticaErogazione> searchPraticheErogazione(PraticaFilter filter) {
-		return praticaErogazioneRepository.findAll(filter.getBooleanExpression(),filter.getPageable());
+		Page<PraticaErogazione> pratiche = null;
+		Pageable pageable = filter.getPageable();
+		if(filter.getErogabile()==null){
+			pratiche = praticaErogazioneRepository.findAll(filter.getBooleanExpression(),pageable);
+		}else{
+			List<PraticaErogazione> listaPraticheErogabili = praticaErogazioneRepository.findAll(filter.getSpecification()).stream().filter(p->p.isErogabile().equals(filter.getErogabile())).collect(Collectors.toList());
+			pratiche = new PageImpl<PraticaErogazione>(listaPraticheErogabili,pageable,listaPraticheErogabili.size());
+		}
+		
+		return pratiche ;
 	}
 
 	@Override

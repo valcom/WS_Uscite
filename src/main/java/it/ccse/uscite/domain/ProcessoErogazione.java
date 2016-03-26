@@ -15,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedSubgraph;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,7 +30,19 @@ import it.ccse.uscite.infrastructure.exception.ApplicationException;
  * 
  */
 @Entity
-@NamedEntityGraph(name="processo.pratiche", attributeNodes={ @NamedAttributeNode(value = "praticheErogazione")})
+@NamedEntityGraph(name="processo.pratiche", attributeNodes={ 
+															@NamedAttributeNode(subgraph="praticheErogazione", value = "praticheErogazione"),
+															@NamedAttributeNode("ordineDelGiorno")
+															},
+											subgraphs = @NamedSubgraph(name = "praticheErogazione", attributeNodes = {
+													@NamedAttributeNode("statoComitato"),
+													@NamedAttributeNode("tipoPeriodo"),
+													@NamedAttributeNode("statoLegale"),
+													@NamedAttributeNode("statoContabile"),
+													@NamedAttributeNode("statoUnbundling"),
+													@NamedAttributeNode("statoFideiussione")
+													})
+		)
 @Table(name="processo_erogazione")
 @AttributeOverride(name = "id", column = @Column(name = "id_processo_erogazione"))
 @Audited
