@@ -14,7 +14,7 @@ public class DettaglioPraticaErogazioneDTO extends PraticaErogazioneDTO {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private NotaPagamentoDTO nota;
+	private DettaglioNotaPagamentoDTO nota;
 	
 	private SettoreAttivitaDTO settoreAttivita;
 
@@ -22,14 +22,14 @@ public class DettaglioPraticaErogazioneDTO extends PraticaErogazioneDTO {
 	/**
 	 * @return the nota
 	 */
-	public NotaPagamentoDTO getNota() {
+	public DettaglioNotaPagamentoDTO getNota() {
 		return nota;
 	}
 
 	/**
 	 * @param nota the nota to set
 	 */
-	public void setNota(NotaPagamentoDTO nota) {
+	public void setNota(DettaglioNotaPagamentoDTO nota) {
 		this.nota = nota;
 	}
 

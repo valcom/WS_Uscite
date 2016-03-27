@@ -309,11 +309,10 @@
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<target>${java.version}</target>					
 				</configuration>
 
 			</plugin>
-
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
@@ -338,13 +337,17 @@
 							<goal>process</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/generated-sources/querydsl</outputDirectory>
+							<includes>
+								<include>it.ccse.uscite.domain</include>
+							</includes>
+							<outputDirectory>${project.build.directory}/generated-sources/querydsl</outputDirectory>
 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 							<logOnlyOnError>true</logOnlyOnError>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+			
 			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
@@ -361,9 +364,8 @@
 								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor </processor>
 							</processors>
 							<compilerArguments>-AaddSuppressWarningsAnnotation=TRUE</compilerArguments>
-							<additionalSourceDirectories>
-								<additionalSourceDirectory>target/generated-sources/querydsl</additionalSourceDirectory>
-							</additionalSourceDirectories>
+							<addCompileSourceRoots>true</addCompileSourceRoots>
+
 							<outputDirectory>${project.build.directory}/generated-sources/metamodel</outputDirectory>
 						</configuration>
 					</execution>
@@ -378,9 +380,7 @@
 							<processors>
 								<processor>org.mapstruct.ap.MappingProcessor</processor>
 							</processors>
-							<additionalSourceDirectories>
-								<additionalSourceDirectory>target/generated-sources/querydsl</additionalSourceDirectory>
-							</additionalSourceDirectories>
+							<addCompileSourceRoots>true</addCompileSourceRoots>
 							<options>
 								<mapstruct.defaultComponentModel>spring</mapstruct.defaultComponentModel>
 								<mapstruct.unmappedTargetPolicy>IGNORE</mapstruct.unmappedTargetPolicy>
@@ -430,6 +430,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${maven-war-plugin.version}</version>

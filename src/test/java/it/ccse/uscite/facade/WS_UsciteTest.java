@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -94,6 +95,8 @@ public class WS_UsciteTest {
 		searchPratiche_InDTO.setAnnoDa(annoDa);
 		searchPratiche_InDTO.setAnnoA(annoA);
 		searchPratiche_InDTO.setErogabile(true);
+		Date dataComitatoA = new GregorianCalendar(2014,3,22).getTime();
+		searchPratiche_InDTO.setDataComitatoA(dataComitatoA );
 //		List<Integer> listaIdSettoreAttivita = new ArrayList<Integer>();
 //		listaIdSettoreAttivita.add(1261);
 //		listaIdSettoreAttivita.add(1264);
@@ -108,7 +111,9 @@ public class WS_UsciteTest {
 		
 		Assert.assertFalse(output.getContent().stream().filter(p->!p.getAnno().equals(annoA)).findAny().isPresent());
 		Assert.assertFalse(output.getContent().stream().filter(p->!p.getErogabile().equals(erogabile)).findAny().isPresent());
+		Assert.assertFalse(output.getContent().stream().filter(p->p.getNota().getOrdineDelGiorno().getDataComitato().after(dataComitatoA)).findAny().isPresent());
 
+		
 	}
 	@Test
 	public void testGetOrdiniDelGiorno(){
