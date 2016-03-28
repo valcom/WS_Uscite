@@ -37,7 +37,7 @@ import it.ccse.uscite.domain.TipoPeriodo;
  * @author valer
  *
  */
-public class PraticaErogazioneSpecifications {
+public class PraticaSpecifications {
 	
 	/**
 	 * 
@@ -49,7 +49,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return listaIdSettoriAttivita!=null ? root.get(PraticaErogazione_.settoreAttivita).get(SettoreAttivita_.id).in(listaIdSettoriAttivita):cb.conjunction();
+				        return listaIdSettoriAttivita!=null ? root.get(PraticaErogazione_.settoreAttivita).get(SettoreAttivita_.id).in(listaIdSettoriAttivita):null;
 			}
 	     
 	    };
@@ -65,7 +65,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataComitatoDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.ordineDelGiorno).get(OrdineDelGiorno_.dataComitato),dataComitatoDa):cb.conjunction();
+				        return dataComitatoDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.ordineDelGiorno).get(OrdineDelGiorno_.dataComitato),dataComitatoDa):null;
 			}
 	     
 	    };
@@ -81,7 +81,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataComitatoA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.ordineDelGiorno).get(OrdineDelGiorno_.dataComitato),dataComitatoA):cb.conjunction();
+				        return dataComitatoA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.ordineDelGiorno).get(OrdineDelGiorno_.dataComitato),dataComitatoA):null;
 			}
 	     
 	    };
@@ -97,7 +97,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return numeroNota !=null ? cb.equal(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.numeroNota),numeroNota):cb.conjunction();
+				        return numeroNota !=null ? cb.equal(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.numeroNota),numeroNota):null;
 			}
 	     
 	    };
@@ -113,7 +113,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return importoDa!=null ? cb.ge(root.get(PraticaErogazione_.impegno),importoDa):cb.conjunction();
+				        return importoDa!=null ? cb.ge(root.get(PraticaErogazione_.impegno),importoDa):null;
 			}
 	     
 	    };
@@ -129,7 +129,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return importoA !=null ? cb.le(root.get(PraticaErogazione_.impegno),importoA):cb.conjunction();
+				        return importoA !=null ? cb.le(root.get(PraticaErogazione_.impegno),importoA):null;
 			}
 	     
 	    };
@@ -144,7 +144,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return idComponenteTariffaria !=null ? cb.equal(root.get(PraticaErogazione_.idComponenteTariffariaAc),idComponenteTariffaria):cb.conjunction();
+				        return idComponenteTariffaria !=null ? cb.equal(root.get(PraticaErogazione_.idComponenteTariffariaAc),idComponenteTariffaria):null;
 			}
 	     
 	    };
@@ -159,7 +159,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return idPosizioneFinanziaria !=null ? cb.equal(root.get(PraticaErogazione_.idPosizioneFinanziariaAc),idPosizioneFinanziaria):cb.conjunction();
+				        return idPosizioneFinanziaria !=null ? cb.equal(root.get(PraticaErogazione_.idPosizioneFinanziariaAc),idPosizioneFinanziaria):null;
 			}
 	     
 	    };
@@ -174,7 +174,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				 return listaValoriAutorizzazioneLegale!=null ? root.get(PraticaErogazione_.statoLegale).get(StatoLegale_.valore).in(listaValoriAutorizzazioneLegale):cb.conjunction();
+				 return listaValoriAutorizzazioneLegale!=null ? root.get(PraticaErogazione_.statoLegale).get(StatoLegale_.valore).in(listaValoriAutorizzazioneLegale):null;
 			}
 	     
 	    };
@@ -189,7 +189,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return autorizzazioneComitato !=null ? cb.equal(root.get(PraticaErogazione_.statoComitato).get(StatoComitato_.valore),autorizzazioneComitato):cb.conjunction();
+				        return autorizzazioneComitato !=null ? cb.equal(root.get(PraticaErogazione_.statoComitato).get(StatoComitato_.valore),autorizzazioneComitato):null;
 			}
 	     
 	    };
@@ -204,7 +204,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return autorizzazioneContabile !=null ? cb.equal(root.get(PraticaErogazione_.statoContabile).get(StatoContabile_.valore),autorizzazioneContabile):cb.conjunction();
+				        return autorizzazioneContabile !=null ? cb.equal(root.get(PraticaErogazione_.statoContabile).get(StatoContabile_.valore),autorizzazioneContabile):null;
 			}
 	     
 	    };
@@ -219,7 +219,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataScadenzaDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.dataScadenza),dataScadenzaDa):cb.conjunction();
+				        return dataScadenzaDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.dataScadenza),dataScadenzaDa):null;
 			}
 	     
 	    };
@@ -235,7 +235,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataScadenzaA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.dataScadenza),dataScadenzaA):cb.conjunction();
+				        return dataScadenzaA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.dataScadenza),dataScadenzaA):null;
 			}
 	     
 	    };
@@ -252,7 +252,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataInteressiDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.dataInteressi),dataInteressiDa):cb.conjunction();
+				        return dataInteressiDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.dataInteressi),dataInteressiDa):null;
 			}
 	     
 	    };
@@ -268,7 +268,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataInteressiA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.dataInteressi),dataInteressiA):cb.conjunction();
+				        return dataInteressiA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.dataInteressi),dataInteressiA):null;
 			}
 	     
 	    };
@@ -283,7 +283,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return statiPratica!=null ? root.get(PraticaErogazione_.lavorazioneContabile).in(statiPratica):cb.conjunction();
+				        return statiPratica!=null ? root.get(PraticaErogazione_.lavorazioneContabile).in(statiPratica):null;
 			}
 	     
 	    };
@@ -298,7 +298,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return annoDa!=null ? cb.ge(root.get(PraticaErogazione_.anno),annoDa):cb.conjunction();
+				        return annoDa!=null ? cb.ge(root.get(PraticaErogazione_.anno),annoDa):null;
 			}
 	     
 	    };
@@ -314,7 +314,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return annoA !=null ? cb.le(root.get(PraticaErogazione_.anno),annoA):cb.conjunction();
+				        return annoA !=null ? cb.le(root.get(PraticaErogazione_.anno),annoA):null;
 			}
 	     
 	    };
@@ -329,7 +329,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return tipoPeriodo !=null ? cb.equal(root.get(PraticaErogazione_.tipoPeriodo),tipoPeriodo):cb.conjunction();
+				        return tipoPeriodo !=null ? cb.equal(root.get(PraticaErogazione_.tipoPeriodo),tipoPeriodo):null;
 			}
 	     
 	    };
@@ -344,7 +344,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return periodo !=null ? cb.equal(root.get(PraticaErogazione_.periodo),periodo):cb.conjunction();
+				        return periodo !=null ? cb.equal(root.get(PraticaErogazione_.periodo),periodo):null;
 			}
 	     
 	    };
@@ -360,7 +360,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return fideiussione !=null ? cb.equal(root.get(PraticaErogazione_.statoFideiussione).get(StatoFideiussione_.valore),fideiussione):cb.conjunction();
+				        return fideiussione !=null ? cb.equal(root.get(PraticaErogazione_.statoFideiussione).get(StatoFideiussione_.valore),fideiussione):null;
 			}
 	     
 	    };
@@ -375,7 +375,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return unbundling !=null ? cb.equal(root.get(PraticaErogazione_.statoUnbundling).get(StatoUnbundling_.valore),unbundling):cb.conjunction();
+				        return unbundling !=null ? cb.equal(root.get(PraticaErogazione_.statoUnbundling).get(StatoUnbundling_.valore),unbundling):null;
 			}
 	     
 	    };
@@ -390,7 +390,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return idProcessoErogazione !=null ? cb.equal(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.id),idProcessoErogazione):cb.conjunction();
+				        return idProcessoErogazione !=null ? cb.equal(root.get(PraticaErogazione_.processoErogazione).get(ProcessoErogazione_.id),idProcessoErogazione):null;
 			}
 	     
 	    };
@@ -405,7 +405,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return codiciPratica!=null ? root.get(PraticaErogazione_.codicePratica).in(codiciPratica):cb.conjunction();
+				        return codiciPratica!=null ? root.get(PraticaErogazione_.codicePratica).in(codiciPratica):null;
 			}
 	     
 	    };
@@ -420,7 +420,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataFideiussioneDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.dataFideiussione),dataFideiussioneDa):cb.conjunction();
+				        return dataFideiussioneDa!=null ? cb.greaterThanOrEqualTo(root.get(PraticaErogazione_.dataFideiussione),dataFideiussioneDa):null;
 			}
 	     
 	    };
@@ -436,7 +436,7 @@ public class PraticaErogazioneSpecifications {
 
 			@Override
 			public Predicate toPredicate(Root<PraticaErogazione> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-				        return dataFideiussioneA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.dataInteressi),dataFideiussioneA):cb.conjunction();
+				        return dataFideiussioneA!=null ? cb.lessThanOrEqualTo(root.get(PraticaErogazione_.dataInteressi),dataFideiussioneA):null;
 			}
 	     
 	    };

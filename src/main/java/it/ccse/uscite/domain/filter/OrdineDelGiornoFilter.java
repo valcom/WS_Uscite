@@ -7,11 +7,13 @@ import java.math.BigInteger;
 import java.util.Date;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
 import it.ccse.uscite.domain.OrdineDelGiorno;
 import it.ccse.uscite.domain.QOrdineDelGiorno;
+import it.ccse.uscite.domain.specification.OrdineDelGiornoSpecifications;
 import it.ccse.uscite.domain.OrdineDelGiorno.StatoComitato;
 
 /**
@@ -38,7 +40,10 @@ public class OrdineDelGiornoFilter extends PageableFilter<OrdineDelGiorno> {
 
 	@Override
 	public Specification<OrdineDelGiorno> getSpecification() {
-		throw new UnsupportedOperationException();
+		return Specifications.where(OrdineDelGiornoSpecifications.hasDataComitatoA(getDataComitatoA())).
+				and(OrdineDelGiornoSpecifications.hasDataComitatoDa(getDataComitatoDa())).
+				and(OrdineDelGiornoSpecifications.hasId(getIdComitato())).
+				and(OrdineDelGiornoSpecifications.hasStato(getStato()));
 	}
 
 	/**

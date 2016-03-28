@@ -12,7 +12,7 @@ import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
 import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
 import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
 import it.ccse.uscite.domain.TipoPeriodo;
-import it.ccse.uscite.domain.specification.PraticaErogazioneSpecifications;
+import it.ccse.uscite.domain.specification.PraticaSpecifications;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -337,32 +337,32 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	@Override
 	public Specification<PraticaErogazione> getSpecification() {
 		
-		return Specifications.where(PraticaErogazioneSpecifications.hasAnnoA(getAnnoA()))
-				.and(PraticaErogazioneSpecifications.hasAnnoDa(getAnnoDa()))
-				.and(PraticaErogazioneSpecifications.hasAutorizzazioneComitato(getAutorizzazioneComitato()))
-				.and(PraticaErogazioneSpecifications.hasAutorizzazioneContabile(getAutorizzazioneContabile()))
-				.and(PraticaErogazioneSpecifications.hasAutorizzazioneLegale(getListaValoriAutorizzazioneLegale()))
-				.and(PraticaErogazioneSpecifications.hasCodicePratica(getCodiciPratica()))
-				.and(PraticaErogazioneSpecifications.hasComponenteTariffaria(getIdComponenteTariffaria()))
-				.and(PraticaErogazioneSpecifications.hasDataComitatoA(getDataComitatoA()))
-				.and(PraticaErogazioneSpecifications.hasDataComitatoDa(getDataComitatoDa()))
-				.and(PraticaErogazioneSpecifications.hasDataFideiussioneA(getDataFideiussioneA()))
-				.and(PraticaErogazioneSpecifications.hasDataFideiussioneDa(getDataFideiussioneDa()))
-				.and(PraticaErogazioneSpecifications.hasDataInteressiA(getDataInteressiA()))
-				.and(PraticaErogazioneSpecifications.hasDataInteressiDa(getDataInteressiDa()))
-				.and(PraticaErogazioneSpecifications.hasDataScadenzaA(getDataScadenzaA()))
-				.and(PraticaErogazioneSpecifications.hasDataScadenzaDa(getDataScadenzaDa()))
-				.and(PraticaErogazioneSpecifications.hasFideiussione(getFideiussione()))
-				.and(PraticaErogazioneSpecifications.hasImportoA(getImportoA()))
-				.and(PraticaErogazioneSpecifications.hasImportoDa(getImportoDa()))
-				.and(PraticaErogazioneSpecifications.hasNumeroNota(getNumeroNota()))
-				.and(PraticaErogazioneSpecifications.hasPeriodo(getPeriodo()))
-				.and(PraticaErogazioneSpecifications.hasPosizioneFinanziaria(getIdPosizioneFinanziaria()))
-				.and(PraticaErogazioneSpecifications.hasProcessoErogazione(getIdProcessoErogazione()))
-				.and(PraticaErogazioneSpecifications.hasSettoreAttivita(getListaIdSettoriAttivita()))
-				.and(PraticaErogazioneSpecifications.hasStatoPratica(getStatiPratica()))
-				.and(PraticaErogazioneSpecifications.hasTipoPeriodo(getTipoPeriodo()))
-				.and(PraticaErogazioneSpecifications.hasUnbundling(getUnbundling()));
+		return Specifications.where(PraticaSpecifications.hasAnnoA(getAnnoA()))
+				.and(PraticaSpecifications.hasAnnoDa(getAnnoDa()))
+				.and(PraticaSpecifications.hasAutorizzazioneComitato(getAutorizzazioneComitato()))
+				.and(PraticaSpecifications.hasAutorizzazioneContabile(getAutorizzazioneContabile()))
+				.and(PraticaSpecifications.hasAutorizzazioneLegale(getListaValoriAutorizzazioneLegale()))
+				.and(PraticaSpecifications.hasCodicePratica(getCodiciPratica()))
+				.and(PraticaSpecifications.hasComponenteTariffaria(getIdComponenteTariffaria()))
+				.and(PraticaSpecifications.hasDataComitatoA(getDataComitatoA()))
+				.and(PraticaSpecifications.hasDataComitatoDa(getDataComitatoDa()))
+				.and(PraticaSpecifications.hasDataFideiussioneA(getDataFideiussioneA()))
+				.and(PraticaSpecifications.hasDataFideiussioneDa(getDataFideiussioneDa()))
+				.and(PraticaSpecifications.hasDataInteressiA(getDataInteressiA()))
+				.and(PraticaSpecifications.hasDataInteressiDa(getDataInteressiDa()))
+				.and(PraticaSpecifications.hasDataScadenzaA(getDataScadenzaA()))
+				.and(PraticaSpecifications.hasDataScadenzaDa(getDataScadenzaDa()))
+				.and(PraticaSpecifications.hasFideiussione(getFideiussione()))
+				.and(PraticaSpecifications.hasImportoA(getImportoA()))
+				.and(PraticaSpecifications.hasImportoDa(getImportoDa()))
+				.and(PraticaSpecifications.hasNumeroNota(getNumeroNota()))
+				.and(PraticaSpecifications.hasPeriodo(getPeriodo()))
+				.and(PraticaSpecifications.hasPosizioneFinanziaria(getIdPosizioneFinanziaria()))
+				.and(PraticaSpecifications.hasProcessoErogazione(getIdProcessoErogazione()))
+				.and(PraticaSpecifications.hasSettoreAttivita(getListaIdSettoriAttivita()))
+				.and(PraticaSpecifications.hasStatoPratica(getStatiPratica()))
+				.and(PraticaSpecifications.hasTipoPeriodo(getTipoPeriodo()))
+				.and(PraticaSpecifications.hasUnbundling(getUnbundling()));
 	}
 
 	

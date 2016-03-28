@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
 import com.mysema.query.types.expr.BooleanExpression;
 
@@ -15,6 +16,7 @@ import it.ccse.uscite.domain.ProcessoErogazione;
 import it.ccse.uscite.domain.ProcessoErogazione.StatoLavorazioneContabile;
 import it.ccse.uscite.domain.ProcessoErogazione.StatoProcesso;
 import it.ccse.uscite.domain.QProcessoErogazione;
+import it.ccse.uscite.domain.specification.ProcessoSpecifications;
 
 /**
  * @author vcompagnone
@@ -48,7 +50,12 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 
 	@Override
 	public Specification<ProcessoErogazione> getSpecification() {
-		throw new UnsupportedOperationException();
+		return Specifications.where(ProcessoSpecifications.hasId(getIdNota())).
+				and(ProcessoSpecifications.hasNumeroNota(getNumeroNota())).
+				and(ProcessoSpecifications.hasOrdineDelGiorno(getOrdineDelGiorno())).
+				and(ProcessoSpecifications.hasOwner(getOwner())).
+				and(ProcessoSpecifications.hasStato(getStati())).
+				and(ProcessoSpecifications.hasStatoLavorazioneContabile(getStatiLavorazioneContabile()));
 	}
 
 	/**
