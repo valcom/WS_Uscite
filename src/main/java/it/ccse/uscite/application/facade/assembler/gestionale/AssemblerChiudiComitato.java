@@ -6,7 +6,7 @@ package it.ccse.uscite.application.facade.assembler.gestionale;
 import org.mapstruct.Mapper;
 
 import it.ccse.uscite.application.facade.assembler.AssemblerComitatoFullDTO;
-import it.ccse.uscite.application.facade.assembler.util.OrdineDelGiornoContainer;
+import it.ccse.uscite.application.facade.assembler.util.Container;
 import it.ccse.uscite.application.facade.dto.input.gestionale.ChiudiComitato_InDTO;
 import it.ccse.uscite.application.facade.dto.output.gestionale.ChiudiComitato_OutDTO;
 import it.ccse.uscite.domain.OrdineDelGiorno;
@@ -22,10 +22,10 @@ public abstract class AssemblerChiudiComitato {
 	
 	public ChiudiComitato_OutDTO assemble(OrdineDelGiorno ordineDelGiorno){
 		
-		return mapToChiudiComitato_OutDTO(new OrdineDelGiornoContainer(ordineDelGiorno));
+		return mapToChiudiComitato_OutDTO(new Container<OrdineDelGiorno>(ordineDelGiorno));
 	}
 	
-	protected abstract ChiudiComitato_OutDTO mapToChiudiComitato_OutDTO(OrdineDelGiornoContainer container);
+	protected abstract ChiudiComitato_OutDTO mapToChiudiComitato_OutDTO(Container<OrdineDelGiorno> container);
 
 
 }

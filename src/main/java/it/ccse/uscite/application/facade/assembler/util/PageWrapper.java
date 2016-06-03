@@ -3,105 +3,71 @@
  */
 package it.ccse.uscite.application.facade.assembler.util;
 
-import java.util.Iterator;
-import java.util.Spliterator;
-import java.util.function.Consumer;
-
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 /**
- * @author valer
+ * @author Valerio
  *
  */
-public abstract class PageWrapper<T> extends ListContainer<T> {
-	
+public class PageWrapper <T>{
+
 	private Page<T> page;
 
-	public PageWrapper() {
-		super();
+	/**
+	 * @param page
+	 */
+	public PageWrapper(Page<T> page) {
+		this.page = page;
 	}
 
-
-	public PageWrapper(Page<T> content) {
-		super(content.getContent());
-		page = content;
-	}
-
-	
-
-	public void forEach(Consumer<? super T> arg0) {
-		page.forEach(arg0);
-	}
-
-
-	public int getNumber() {
-		return page.getNumber();
-	}
-
-	public int getNumberOfElements() {
-		return page.getNumberOfElements();
-	}
-
-	public int getSize() {
-		return page.getSize();
-	}
-
-	public Sort getSort() {
-		return page.getSort();
-	}
-
-	public long getTotalElements() {
-		return page.getTotalElements();
-	}
-
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Page#getTotalPages()
+	 */
 	public int getTotalPages() {
 		return page.getTotalPages();
 	}
 
-	public boolean hasContent() {
-		return page.hasContent();
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Slice#getNumber()
+	 */
+	public int getNumber() {
+		return page.getNumber();
 	}
 
-	public boolean hasNext() {
-		return page.hasNext();
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Page#getTotalElements()
+	 */
+	public long getTotalElements() {
+		return page.getTotalElements();
 	}
 
-	public boolean hasPrevious() {
-		return page.hasPrevious();
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Slice#getNumberOfElements()
+	 */
+	public int getNumberOfElements() {
+		return page.getNumberOfElements();
 	}
 
-	public boolean isFirst() {
-		return page.isFirst();
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Slice#getSize()
+	 */
+	public int getSize() {
+		return page.getSize();
 	}
 
-	public boolean isLast() {
-		return page.isLast();
+	/**
+	 * @return
+	 * @see org.springframework.data.domain.Slice#getSort()
+	 */
+	public Sort getSort() {
+		return page.getSort();
 	}
 
-	public Iterator<T> iterator() {
-		return page.iterator();
-	}
-
-	public <S> Page<S> map(Converter<? super T, ? extends S> arg0) {
-		return page.map(arg0);
-	}
-
-	public Pageable nextPageable() {
-		return page.nextPageable();
-	}
-
-	public Pageable previousPageable() {
-		return page.previousPageable();
-	}
-
-	public Spliterator<T> spliterator() {
-		return page.spliterator();
-	}
 	
-	
-	
-
 }

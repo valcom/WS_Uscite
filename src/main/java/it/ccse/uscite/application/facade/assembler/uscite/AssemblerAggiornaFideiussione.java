@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 
 import it.ccse.uscite.application.facade.assembler.AssemblerPraticaErogazioneDTO;
-import it.ccse.uscite.application.facade.assembler.util.PraticaErogazioneListContainer;
+import it.ccse.uscite.application.facade.assembler.util.Container;
 import it.ccse.uscite.application.facade.dto.AggiornaFideiussioneDTO;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaFideiussione_InDTO;
 import it.ccse.uscite.application.facade.dto.output.uscite.AggiornaFideiussione_OutDTO;
@@ -24,10 +24,10 @@ import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
 @Mapper(uses=AssemblerPraticaErogazioneDTO.class)
 public abstract class AssemblerAggiornaFideiussione {
 	public AggiornaFideiussione_OutDTO assemble(List<PraticaErogazione> pratiche){
-		return map(new PraticaErogazioneListContainer(pratiche));
+		return map(new Container<List<PraticaErogazione>>(pratiche));
 	}
 	
-	protected abstract AggiornaFideiussione_OutDTO map(PraticaErogazioneListContainer containerPratiche);
+	protected abstract AggiornaFideiussione_OutDTO map(Container<List<PraticaErogazione>> containerPratiche);
 
 	public Map<String, FideiussionePratica> assemble(AggiornaFideiussione_InDTO aggiornaFideiussione_InDTO) {
 		Map<String, FideiussionePratica> map = null;

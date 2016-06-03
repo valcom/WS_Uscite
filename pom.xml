@@ -50,7 +50,7 @@
 		<commons-lang3.version>3.4</commons-lang3.version>
 
 
-		<org.mapstruct.version>1.0.0.Final</org.mapstruct.version>
+		<org.mapstruct.version>1.1.0.Beta1</org.mapstruct.version>
 
 		<!-- Test -->
 		<junit.version>4.12</junit.version>
@@ -81,7 +81,7 @@
 				<mail.port>465</mail.port>
 				<mail.protocol>smtps</mail.protocol>
 				<mail.username>asso_mazzo82@yahoo.it</mail.username>
-				<mail.password>S@gittario82</mail.password>
+				<mail.password>qwerty123456</mail.password>
 				<mail.from>asso_mazzo82@yahoo.it</mail.from>
 				<mail.to>asso_mazzo82@yahoo.it</mail.to>
 				<mail.cc>vcompagnone@inmatica.com</mail.cc>
