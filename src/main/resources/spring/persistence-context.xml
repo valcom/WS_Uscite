@@ -27,12 +27,6 @@
 				<entry key="hibernate.default_batch_fetch_size" value="10"/>
 				<entry key="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 				
-				<!-- CACHE -->
-				<entry key="hibernate.cache.use_query_cache" value="true"/>
-				<entry key="hibernate.cache.use_second_level_cache" value="true"/>
-				<entry key="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider"/>
-				<entry key="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
-				<entry key="net.sf.ehcache.configurationResourceName" value="ehcache.xml"/>
 				
 				<!-- ENVERS -->
 				<entry key="org.hibernate.envers.store_data_at_delete" value="true"/>					

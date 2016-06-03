@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.application.facade.assembler.util;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
@@ -10,7 +12,7 @@ import org.springframework.data.domain.Sort;
  * @author Valerio
  *
  */
-public class PageWrapper <T>{
+public class PageWrapper <T> extends Container<List<T>>{
 
 	private Page<T> page;
 
@@ -18,6 +20,7 @@ public class PageWrapper <T>{
 	 * @param page
 	 */
 	public PageWrapper(Page<T> page) {
+		super(page.getContent());
 		this.page = page;
 	}
 
