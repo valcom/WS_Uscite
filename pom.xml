@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.ccse.uscite</groupId>
 	<artifactId>WS_Uscite</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<packaging>war</packaging>
 
 
@@ -18,11 +18,11 @@
 		<validation-api.version>1.1.0.Final</validation-api.version>
 
 		<!-- Spring -->
-		<spring-framework.version>4.2.4.RELEASE</spring-framework.version>
+		<spring-framework.version>4.2.6.RELEASE</spring-framework.version>
 
-		<spring-security.version>3.2.9.RELEASE</spring-security.version>
+		<spring-security.version>4.1.0.RELEASE</spring-security.version>
 
-		<spring-data-jpa.version>1.9.2.RELEASE</spring-data-jpa.version>
+		<spring-data-jpa.version>1.10.1.RELEASE</spring-data-jpa.version>
 
 		<aspectj.version>1.8.8</aspectj.version>
 
@@ -32,16 +32,16 @@
 		<cxf.version>3.1.0</cxf.version>
 
 		<!-- Hibernate / JPA -->
-		<hibernate.version>4.3.11.Final</hibernate.version>
+		<hibernate.version>5.1.0.Final</hibernate.version>
 
-		<querydsl.version>3.7.1</querydsl.version>
+		<querydsl.version>4.1.2</querydsl.version>
 
 		<ehcache.version>2.6.11</ehcache.version>
 
 		<!-- Logging -->
 
-		<slf4j.version>1.7.15</slf4j.version>
-		<logback.version>1.1.5</logback.version>
+		<slf4j.version>1.7.21</slf4j.version>
+		<logback.version>1.1.7</logback.version>
 		<logback-ext-spring.version>0.1.4</logback-ext-spring.version>
 
 
@@ -65,7 +65,7 @@
 		<build-helper-maven-plugin.version>1.10</build-helper-maven-plugin.version>
 		<maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
 		<tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
-		<hibernate4-maven-plugin.version>1.1.0</hibernate4-maven-plugin.version>
+		<hibernate-maven-plugin.version>2.0.0</hibernate-maven-plugin.version>
 	</properties>
 
 	<profiles>
@@ -102,7 +102,6 @@
 		</profile>
 		
 	</profiles>
-
 	<dependencies>
 
 		<dependency>
@@ -174,13 +173,13 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
+			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
+			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
 		</dependency>
@@ -294,7 +293,6 @@
 
 
 	</dependencies>
-
 	<build>
 	 <resources>
 	 <resource> 
@@ -317,18 +315,7 @@
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
 				<version>${apt-maven-plugin.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.hibernate</groupId>
-						<artifactId>hibernate-jpamodelgen</artifactId>
-						<version>${hibernate.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.hibernate</groupId>
-						<artifactId>hibernate-envers</artifactId>
-						<version>${hibernate.version}</version>
-					</dependency>
-				</dependencies>
+				 
 				<executions>
 					<execution>
 						<id>generate-sources</id>
@@ -341,7 +328,7 @@
 								<include>it.ccse.uscite.domain</include>
 							</includes>
 							<outputDirectory>${project.build.directory}/generated-sources/querydsl</outputDirectory>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
 							<logOnlyOnError>true</logOnlyOnError>
 						</configuration>
 					</execution>
@@ -468,12 +455,13 @@
 			</plugin>
 			<plugin>
 				<groupId>de.juplo</groupId>
-				<artifactId>hibernate4-maven-plugin</artifactId>
-				<version>${hibernate4-maven-plugin.version}</version>
+				<artifactId>hibernate-maven-plugin</artifactId>
+				<version>${hibernate-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>export</goal>
+							<goal>drop</goal>
+        					<goal>create</goal>
 						</goals>
 					</execution>
 				</executions>

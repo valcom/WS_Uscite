@@ -9,12 +9,14 @@ import java.util.Date;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 import it.ccse.uscite.domain.OrdineDelGiorno;
+import it.ccse.uscite.domain.OrdineDelGiorno.StatoComitato;
 import it.ccse.uscite.domain.QOrdineDelGiorno;
 import it.ccse.uscite.domain.specification.OrdineDelGiornoSpecifications;
-import it.ccse.uscite.domain.OrdineDelGiorno.StatoComitato;
 
 /**
  * @author vcompagnone
@@ -29,13 +31,13 @@ public class OrdineDelGiornoFilter extends PageableFilter<OrdineDelGiorno> {
 
 	
 	@Override
-	public BooleanExpression getBooleanExpression() {
+	public Predicate getPredicate() {
 		QOrdineDelGiorno odg = QOrdineDelGiorno.ordineDelGiorno;
 		BooleanExpression hasId = idComitato != null ? odg.id.eq(idComitato):null;
 		BooleanExpression hasDataComitatoDa = dataComitatoDa!=null ? odg.dataComitato.goe(dataComitatoDa):null;
 		BooleanExpression hasDataComitatoA = dataComitatoA!=null ? odg.dataComitato.loe(dataComitatoA):null;
 		BooleanExpression hasStato = stato != null ? odg.stato.eq(stato):null;
-		return BooleanExpression.allOf(hasId,hasDataComitatoDa,hasDataComitatoA,hasStato);
+		return new BooleanBuilder().orAllOf(hasId,hasDataComitatoDa,hasDataComitatoA,hasStato);
 	}
 
 	@Override

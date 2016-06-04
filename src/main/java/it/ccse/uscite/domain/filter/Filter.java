@@ -3,11 +3,11 @@
  */
 package it.ccse.uscite.domain.filter;
 
-import it.ccse.uscite.domain.DomainObject;
-
 import org.springframework.data.jpa.domain.Specification;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.querydsl.core.types.Predicate;
+
+import it.ccse.uscite.domain.DomainObject;
 
 /**
  * @author vcompagnone
@@ -15,7 +15,7 @@ import com.mysema.query.types.expr.BooleanExpression;
  */
 public interface Filter<T extends DomainObject> {
 
-	public BooleanExpression getBooleanExpression();
+	public Predicate getPredicate();
 	
 	public Specification<T> getSpecification();
 }

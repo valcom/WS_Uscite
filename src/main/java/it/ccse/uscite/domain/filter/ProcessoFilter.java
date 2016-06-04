@@ -9,7 +9,9 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 import it.ccse.uscite.domain.OrdineDelGiorno;
 import it.ccse.uscite.domain.ProcessoErogazione;
@@ -37,7 +39,7 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 	private List<StatoProcesso> stati; 
 	
 	@Override
-	public BooleanExpression getBooleanExpression() {
+	public Predicate getPredicate() {
 		QProcessoErogazione processo = QProcessoErogazione.processoErogazione;
 		BooleanExpression hasOwner = getOwner() !=null ? processo.owner.eq(getOwner()):null; 
 		BooleanExpression hasOrdineDelGiorno = getOrdineDelGiorno() != null ? processo.ordineDelGiorno.eq(getOrdineDelGiorno()):null;
@@ -45,7 +47,7 @@ public class ProcessoFilter extends PageableFilter<ProcessoErogazione> {
 		BooleanExpression hasStatoLavorazioneContabileIn = getStatiLavorazioneContabile() !=null ? processo.lavorazioneContabile.in(getStatiLavorazioneContabile()):null;
 		BooleanExpression hasStato = getStati() !=null ? processo.stato.in(getStati()):null;
 		BooleanExpression hasId = getIdNota() != null ? processo.id.eq(getIdNota()):null;
-		return BooleanExpression.allOf(hasId,hasOwner,hasOrdineDelGiorno,hasNumeroNota,hasStatoLavorazioneContabileIn,hasStato);
+		return new BooleanBuilder().orAllOf(hasId,hasOwner,hasOrdineDelGiorno,hasNumeroNota,hasStatoLavorazioneContabileIn,hasStato);
 	}
 
 	@Override

@@ -108,7 +108,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 		Page<PraticaErogazione> pratiche = null;
 		Pageable pageable = filter.getPageable();
 		if(filter.getErogabile()==null){
-			pratiche = praticaErogazioneRepository.findAll(filter.getBooleanExpression(),pageable);
+			pratiche = praticaErogazioneRepository.findAll(filter.getPredicate(),pageable);
 		}else{
 			List<PraticaErogazione> listaPraticheErogabili = praticaErogazioneRepository.findAll(filter.getSpecification()).stream().filter(p->p.isErogabile().equals(filter.getErogabile())).collect(Collectors.toList());
 			pratiche = new PageImpl<PraticaErogazione>(listaPraticheErogabili,pageable,listaPraticheErogabili.size());

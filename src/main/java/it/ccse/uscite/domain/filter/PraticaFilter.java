@@ -3,17 +3,6 @@
  */
 package it.ccse.uscite.domain.filter;
 
-import it.ccse.uscite.domain.PraticaErogazione;
-import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
-import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
-import it.ccse.uscite.domain.StatoContabile.AutorizzazioneContabile;
-import it.ccse.uscite.domain.QPraticaErogazione;
-import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
-import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
-import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
-import it.ccse.uscite.domain.TipoPeriodo;
-import it.ccse.uscite.domain.specification.PraticaSpecifications;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -22,7 +11,20 @@ import java.util.List;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+
+import it.ccse.uscite.domain.PraticaErogazione;
+import it.ccse.uscite.domain.PraticaErogazione.StatoPratica;
+import it.ccse.uscite.domain.QPraticaErogazione;
+import it.ccse.uscite.domain.StatoComitato.AutorizzazioneComitato;
+import it.ccse.uscite.domain.StatoContabile.AutorizzazioneContabile;
+import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
+import it.ccse.uscite.domain.StatoLegale.AutorizzazioneLegale;
+import it.ccse.uscite.domain.StatoUnbundling.UnbundlingPratica;
+import it.ccse.uscite.domain.TipoPeriodo;
+import it.ccse.uscite.domain.specification.PraticaSpecifications;
 
 /**
  * @author vcompagnone
@@ -85,7 +87,7 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 	private Date dataFideiussioneA;
 
 	
-	public BooleanExpression getBooleanExpression() {
+	public Predicate getPredicate() {
 
 		QPraticaErogazione pratica = QPraticaErogazione.praticaErogazione;
 		BooleanExpression hasAnnoDa = getAnnoDa() !=null ? pratica.anno.goe(getAnnoDa()):null; 
@@ -118,7 +120,7 @@ public class PraticaFilter extends PageableFilter<PraticaErogazione>{
 		BooleanExpression hasProcessoErogazione = getIdProcessoErogazione()!=null?pratica.processoErogazione.id.eq(getIdProcessoErogazione()):null;
 		BooleanExpression hasCodicePratica = getCodiciPratica()!=null?pratica.codicePratica.in(getCodiciPratica()):null;
 		
-		return BooleanExpression.allOf(hasAnnoA, hasAnnoDa,
+		return new BooleanBuilder().orAllOf(hasAnnoA, hasAnnoDa,
 				hasAutorizzazioneComitato, hasAutorizzazioneContabile,
 				hasDatacomitatoA, hasDatacomitatoDa, hasDataInteressiA,
 				hasDataInteressiDa, hasDataScadenzaA, hasDataScadenzaDa,
