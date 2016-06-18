@@ -6,10 +6,10 @@ package it.ccse.uscite.application.facade.impl;
 import java.util.Collection;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.ccse.uscite.application.facade.GestionaleWSFacade;
 import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiornaComitato;
@@ -93,7 +93,7 @@ import it.ccse.uscite.domain.filter.ProcessoFilter;
  *
  */
 @Transactional
-@Component
+@WebService(endpointInterface="it.ccse.uscite.application.facade.GestionaleWSFacade")
 public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
 	
 	@Autowired

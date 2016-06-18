@@ -6,11 +6,11 @@ package it.ccse.uscite.application.facade.impl;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.transaction.Transactional;
+import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import it.ccse.uscite.application.facade.UsciteWSFacade;
 import it.ccse.uscite.application.facade.assembler.uscite.AssemblerAggiornaFideiussione;
@@ -33,7 +33,7 @@ import it.ccse.uscite.domain.filter.PraticaFilter;
  *
  */
 @Transactional
-@Component
+@WebService(endpointInterface="it.ccse.uscite.application.facade.UsciteWSFacade")
 public class UsciteWSFacadeImpl implements UsciteWSFacade {
 
 	@Autowired

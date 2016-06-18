@@ -3,6 +3,8 @@
  */
 package it.ccse.uscite.application.facade;
 
+import javax.jws.WebService;
+
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiornaComitato_InDTO;
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiornaNota_InDTO;
 import it.ccse.uscite.application.facade.dto.input.gestionale.AggiungiComitato_InDTO;
@@ -44,8 +46,6 @@ import it.ccse.uscite.application.facade.dto.output.gestionale.RifiutaAutorizzaz
 import it.ccse.uscite.application.facade.dto.output.gestionale.RinviaNota_OutDTO;
 import it.ccse.uscite.application.facade.dto.output.gestionale.SearchComitati_OutDTO;
 import it.ccse.uscite.application.facade.dto.output.gestionale.SearchNote_OutDTO;
-
-import javax.jws.WebService;
 
 /**
  * @author vcompagnone

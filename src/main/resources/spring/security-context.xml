@@ -16,11 +16,12 @@
 
 	<http request-matcher="regex" security="none" pattern="\/services\/.*\?wsdl" />
 
-	<http use-expressions="false">
-		<intercept-url pattern="/services/gestionaleWS/**" access="ROLE_GESTIONALE"  />
-		<intercept-url pattern="/services/usciteWS/**" access="ROLE_ESB" />
+	<http>
+		<intercept-url pattern="/services/gestionaleWS/**" access="hasRole('GESTIONALE')"  />
+		<intercept-url pattern="/services/usciteWS/**" access="hasRole('ESB')" />
 		<http-basic/>
   		<logout/>
+  		<csrf disabled="true"/>
 	</http>
 		
 </beans:beans>
