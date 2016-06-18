@@ -4,7 +4,7 @@
 package it.ccse.uscite.application.service.impl;
 
 import java.math.BigInteger;
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +145,7 @@ public class ProcessoErogazioneServiceImpl implements ProcessoErogazioneService{
 	@Override
 	public LavorazioneContabile lavorazioneContabile(ProcessoErogazione processo) {
 		processo = processoErogazioneRepository.findOne(processo.getId());
-		List<PraticaErogazione> pratiche = praticaErogazioneService.getPraticheLavorabili(processo);
+		Collection<PraticaErogazione> pratiche = praticaErogazioneService.getPraticheLavorabili(processo);
 		return (pratiche !=null && !pratiche.isEmpty()) ? praticaErogazioneService.lavorazioneContabile(pratiche):new LavorazioneContabile();
 	}
 

@@ -3,7 +3,7 @@
  */
 package it.ccse.uscite.application.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import it.ccse.uscite.domain.StatoFideiussione;
 
@@ -15,6 +15,6 @@ public interface StatoFideiussioneService {
 
 	StatoFideiussione getStatoFideiussioneIniziale();
 
-	List<StatoFideiussione> getStatiFideiussione();
+	Collection<StatoFideiussione> getStatiFideiussione();
 
 }

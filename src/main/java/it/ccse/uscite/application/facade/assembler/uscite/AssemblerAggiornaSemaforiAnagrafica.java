@@ -3,7 +3,7 @@
  */
 package it.ccse.uscite.application.facade.assembler.uscite;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.mapstruct.Mapper;
 
@@ -21,17 +21,17 @@ import it.ccse.uscite.domain.SettoreAttivita;
  */
 @Mapper(uses={AssemblerSettoreAttivitaDTO.class,AssemblerPraticaErogazioneDTO.class})
 public abstract class AssemblerAggiornaSemaforiAnagrafica {
-	public List<SettoreAttivita> assemble(AggiornaSemaforiAnagrafica_InDTO inDTO){
-		Container<List<SettoreAttivita>> container = mapToContainer(inDTO);
+	public Collection<SettoreAttivita> assemble(AggiornaSemaforiAnagrafica_InDTO inDTO){
+		Container<Collection<SettoreAttivita>> container = mapToContainer(inDTO);
 		return container!=null?container.getContent():null;
 	}
 	
-	protected abstract Container<List<SettoreAttivita>> mapToContainer(AggiornaSemaforiAnagrafica_InDTO inDTO);
+	protected abstract Container<Collection<SettoreAttivita>> mapToContainer(AggiornaSemaforiAnagrafica_InDTO inDTO);
 	
-	public AggiornaSemaforiAnagrafica_OutDTO assemble(List<PraticaErogazione> pratiche){
-		return map(new Container<List<PraticaErogazione>>(pratiche));
+	public AggiornaSemaforiAnagrafica_OutDTO assemble(Collection<PraticaErogazione> pratiche){
+		return map(new Container<Collection<PraticaErogazione>>(pratiche));
 	}
 
 	
-	protected abstract AggiornaSemaforiAnagrafica_OutDTO map(Container<List<PraticaErogazione>> praticheContainer);
+	protected abstract AggiornaSemaforiAnagrafica_OutDTO map(Container<Collection<PraticaErogazione>> praticheContainer);
 }

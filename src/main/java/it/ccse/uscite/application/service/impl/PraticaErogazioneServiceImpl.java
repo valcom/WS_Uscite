@@ -125,14 +125,14 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<PraticaErogazione> getPraticheByProcessoErogazione(
+	public Set<PraticaErogazione> getPraticheByProcessoErogazione(
 			ProcessoErogazione processo) {
 		return praticaErogazioneRepository.findByProcessoErogazione(processo);
 	}
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<PraticaErogazione> getPraticheLavorabili(ProcessoErogazione processo) {
+	public Collection<PraticaErogazione> getPraticheLavorabili(ProcessoErogazione processo) {
 		PraticaFilter filter = new PraticaFilter();
 		filter.setIdProcessoErogazione(processo.getId());
 		filter.setStatiPratica(Arrays.asList(StatoPratica.LAVORABILE));
@@ -142,20 +142,20 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 
 	@Override
 	public ProcessoErogazione associaPraticheANota(
-			List<PraticaErogazione> pratiche, ProcessoErogazione processo) {
+			Collection<PraticaErogazione> pratiche, ProcessoErogazione processo) {
 		BigInteger idProcesso = processo.getId();
 		processo = processoErogazioneRepository.findOne(idProcesso);
 		if(processo == null){
 			throw new ApplicationException("error.nota.notFound.associazionePraticaNota");
 		}
 		if(pratiche!=null&&!pratiche.isEmpty()){
-			List<PraticaErogazione> praticheNuove = pratiche;
-			List<String> codiciPratica = pratiche.stream().map(PraticaErogazione::getCodicePratica).collect(Collectors.toList());
-			List<PraticaErogazione> praticheEsistenti = praticaErogazioneRepository.findByCodicePraticaIn(codiciPratica);
+			Collection<PraticaErogazione> praticheNuove = pratiche;
+			Set<String> codiciPratica = pratiche.stream().map(PraticaErogazione::getCodicePratica).collect(Collectors.toSet());
+			Collection<PraticaErogazione> praticheEsistenti = praticaErogazioneRepository.findByCodicePraticaIn(codiciPratica);
 			praticheEsistenti.stream().forEach(PraticaErogazione::checkModificabilita);
 			if(praticheEsistenti!=null&&!praticheEsistenti.isEmpty()){
-				List<String> codiciPraticaEsistenti = praticheEsistenti.stream().map(PraticaErogazione::getCodicePratica).collect(Collectors.toList());
-				praticheNuove = pratiche.stream().filter(p->!codiciPraticaEsistenti.contains(p.getCodicePratica())).collect(Collectors.toList());
+				Set<String> codiciPraticaEsistenti = praticheEsistenti.stream().map(PraticaErogazione::getCodicePratica).collect(Collectors.toSet());
+				praticheNuove = pratiche.stream().filter(p->!codiciPraticaEsistenti.contains(p.getCodicePratica())).collect(Collectors.toSet());
 				for(PraticaErogazione praticaEsistente:praticheEsistenti){
 					PraticaErogazione pratica = pratiche.stream().filter(p->p.getCodicePratica().equals(praticaEsistente.getCodicePratica())).findFirst().get();
 					pratica.setId(praticaEsistente.getId());
@@ -176,9 +176,9 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 				praticheNuove.stream().forEach(p->{p.checkInit();p.init(statoLegaleIniziale,statoContabile, statoComitato, statoUnbundlingIniziale, statoFideiussioneIniziale);});
 			}
 			
-			List<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
-			List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
-			List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
+			Collection<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
+			Collection<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
+			Collection<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 			for(PraticaErogazione pratica:pratiche){
 				StatoLegale statoLegale = statiLegale.stream().filter(sl->sl.getAutorizzazioneLegale().equals(pratica.getSettoreAttivita().getStatoAntimafia().getAutorizzazioneLegale())).findFirst().orElseThrow(()->new RuntimeException("stato legale non valido per la pratica "+pratica.getCodicePratica()));
 				StatoUnbundling statoUnbundling = statiUnbundling.stream().filter(su->su.getUnbundling().equals(calcolaUnbundlingPratica(pratica.getSettoreAttivita().getUnbundling(),pratica.getIdComponenteTariffariaAc()))).findFirst().orElseThrow(()->new RuntimeException("stato unbundling non valido per la pratica "+pratica.getCodicePratica()));
@@ -195,9 +195,9 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 
 	@Override
 	public void dissociaPraticheDaNota(
-			List<PraticaErogazione> pratiche) {	
+			Collection<PraticaErogazione> pratiche) {	
 		int nPratiche = pratiche.size();
-		List<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
+		Set<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toSet());
 		pratiche = praticaErogazioneRepository.findAll(ids);
 		if(pratiche==null || pratiche.size()<nPratiche){
 			throw new ApplicationException("error.pratica.notFound.dissociazionePraticaNota");
@@ -207,7 +207,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	}
 
 	@Override
-	public void delete(List<PraticaErogazione> pratiche) {
+	public void delete(Collection<PraticaErogazione> pratiche) {
 		praticaErogazioneRepository.delete(pratiche);		
 	}
 
@@ -222,7 +222,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	}
 
 	@Override
-	public LavorazioneContabile lavorazioneContabile(List<PraticaErogazione> pratiche) {
+	public LavorazioneContabile lavorazioneContabile(Collection<PraticaErogazione> pratiche) {
 		LavorazioneContabile lavorazioneContabile = new LavorazioneContabile();
 		
 		List<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
@@ -242,9 +242,9 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	@Override
 	public List<PraticaErogazione> aggiornaSemaforiAnagrafica(Collection<SettoreAttivita> settoriAttivita) {
 		
-		List<PraticaErogazione> pratiche = new ArrayList<PraticaErogazione>();
-		List<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
-		List<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
+		Collection<PraticaErogazione> pratiche = new ArrayList<PraticaErogazione>();
+		Collection<StatoLegale> statiLegale = statoLegaleService.getStatiLegali();
+		Collection<StatoUnbundling> statiUnbundling = statoUnbundlingService.getStatiUnbundling();
 
 		for(SettoreAttivita settoreAttivita:settoriAttivita){
 			PraticaFilter filter = new PraticaFilter();
@@ -314,7 +314,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	}
 
 	@Override
-	public void autorizzaComitato(List<PraticaErogazione> pratiche) {
+	public void autorizzaComitato(Collection<PraticaErogazione> pratiche) {
 
 		if(pratiche != null && !pratiche.isEmpty()){
 			List<BigInteger> ids = pratiche.parallelStream().map(PraticaErogazione::getId).collect(Collectors.toList());
@@ -327,7 +327,7 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 	}
 
 	@Override
-	public void rifiutaAutorizzazioneComitato(List<PraticaErogazione> pratiche) {
+	public void rifiutaAutorizzazioneComitato(Collection<PraticaErogazione> pratiche) {
 		if(pratiche != null && !pratiche.isEmpty()){
 			List<BigInteger> ids = pratiche.stream().map(PraticaErogazione::getIdPraticaErogazione).collect(Collectors.toList());
 			pratiche = praticaErogazioneRepository.findAll(ids);
@@ -348,8 +348,8 @@ public class PraticaErogazioneServiceImpl implements PraticaErogazioneService {
 			filter.setStatiPratica(StatoPratica.STATI_PRATICA_MODIFICABILE);
 			Page<PraticaErogazione> page = searchPraticheErogazione(filter);
 			if(page!=null){
-				List<PraticaErogazione> praticheEsistenti = page.getContent();
-				List<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
+				Collection<PraticaErogazione> praticheEsistenti = page.getContent();
+				Collection<StatoFideiussione> statiFideiussione = statoFideiussioneService.getStatiFideiussione();
 
 				for(PraticaErogazione pratica:praticheEsistenti){
 					StatoFideiussione fideiussioneEsistente = pratica.getStatoFideiussione();

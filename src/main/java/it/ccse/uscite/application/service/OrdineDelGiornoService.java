@@ -3,15 +3,14 @@
  */
 package it.ccse.uscite.application.service;
 
-import it.ccse.uscite.domain.OrdineDelGiorno;
-import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
-
 import java.math.BigInteger;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import it.ccse.uscite.domain.OrdineDelGiorno;
+import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
 
 /**
  * @author vcompagnone
@@ -20,9 +19,9 @@ import org.springframework.data.domain.Pageable;
 public interface OrdineDelGiornoService {
 	public Page<OrdineDelGiorno> getOrdiniDelGiorno(Pageable p);
 	
-	public List<OrdineDelGiorno> getOrdiniDelGiorno();
+	public Collection<OrdineDelGiorno> getOrdiniDelGiorno();
 	
-	public Set<OrdineDelGiorno> getOrdiniDelGiornoAutorizzabili();
+	public Collection<OrdineDelGiorno> getOrdiniDelGiornoAutorizzabili();
 	
 	public OrdineDelGiorno createOrdineDelGiorno(OrdineDelGiorno ordineDelGiorno);
 	

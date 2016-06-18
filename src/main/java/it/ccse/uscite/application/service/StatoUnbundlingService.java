@@ -3,7 +3,7 @@
  */
 package it.ccse.uscite.application.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import it.ccse.uscite.domain.StatoUnbundling;
 
@@ -15,6 +15,6 @@ public interface StatoUnbundlingService {
 
 	StatoUnbundling getStatoUnbundlingIniziale();
 
-	List<StatoUnbundling> getStatiUnbundling();
+	Collection<StatoUnbundling> getStatiUnbundling();
 
 }

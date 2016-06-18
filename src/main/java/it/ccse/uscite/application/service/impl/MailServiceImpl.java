@@ -4,7 +4,7 @@
 package it.ccse.uscite.application.service.impl;
 
 import java.text.DateFormat;
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
@@ -37,20 +37,20 @@ public class MailServiceImpl implements MailService {
 
 
 	@Override
-	public void sendMailAutorizzazioneComitato(List<PraticaErogazione> pratiche) {
+	public void sendMailAutorizzazioneComitato(Collection<PraticaErogazione> pratiche) {
 		SimpleMailMessage newMailMessage = creaMail(pratiche,msgAutorizzazioneComitato);
 		mailSender.send(newMailMessage);
 	}
 
 	@Override
-	public void sendMailSbloccoAnagraficaPratiche(List<PraticaErogazione> pratiche) {
+	public void sendMailSbloccoAnagraficaPratiche(Collection<PraticaErogazione> pratiche) {
 		SimpleMailMessage newMailMessage = creaMail(pratiche,msgSbloccoPratiche);		
 		mailSender.send(newMailMessage);
 	}
 
 
 	
-	private static SimpleMailMessage creaMail(List<PraticaErogazione> pratiche,SimpleMailMessage template) {
+	private static SimpleMailMessage creaMail(Collection<PraticaErogazione> pratiche,SimpleMailMessage template) {
 		SimpleMailMessage newMailMessage = new SimpleMailMessage(template);
 		String testoMail = "";
 		

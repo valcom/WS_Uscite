@@ -3,16 +3,16 @@
  */
 package it.ccse.uscite.application.service;
 
-import it.ccse.uscite.domain.StatoLegale;
+import java.util.Collection;
 
-import java.util.List;
+import it.ccse.uscite.domain.StatoLegale;
 
 /**
  * @author vcompagnone
  *
  */
 public interface StatoLegaleService {
-	public List<StatoLegale> getStatiLegali();
+	public Collection<StatoLegale> getStatiLegali();
 
 	public StatoLegale getStatoLegaleIniziale();
 	

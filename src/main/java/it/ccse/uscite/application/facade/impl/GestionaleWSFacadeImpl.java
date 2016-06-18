@@ -3,6 +3,14 @@
  */
 package it.ccse.uscite.application.facade.impl;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import it.ccse.uscite.application.facade.GestionaleWSFacade;
 import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiornaComitato;
 import it.ccse.uscite.application.facade.assembler.gestionale.AssemblerAggiornaNota;
@@ -80,20 +88,11 @@ import it.ccse.uscite.domain.TipoPeriodo;
 import it.ccse.uscite.domain.filter.OrdineDelGiornoFilter;
 import it.ccse.uscite.domain.filter.ProcessoFilter;
 
-import java.util.List;
-
-import javax.jws.WebService;
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 /**
  * @author vcompagnone
  *
  */
 @Transactional
-@WebService(targetNamespace = "it.ccse.uscite",portName="GestionaleWSFacadeImplPort" ,serviceName = "GestionaleWSFacade")
 @Component
 public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
 	
@@ -281,7 +280,7 @@ public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
 	@Override
 	public GetTipiPeriodo_OutDTO getTipiPeriodo(
 			GetTipiPeriodo_InDTO getTipiPeriodo_InDTO) {	
-		List<TipoPeriodo> tipiPeriodo = tipoPeriodoService.getTipiPeriodo();
+		Collection<TipoPeriodo> tipiPeriodo = tipoPeriodoService.getTipiPeriodo();
 		return assemblerGetTipiPeriodo.assemble(tipiPeriodo);
 	}
 
@@ -304,7 +303,7 @@ public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
 	@Override
 	public GetStatiLegali_OutDTO getStatiLegali(
 			GetStatiLegali_InDTO getStatiLegali_InDTO) {
-		List<StatoLegale> statiLegali = statoLegaleService.getStatiLegali();
+		Collection<StatoLegale> statiLegali = statoLegaleService.getStatiLegali();
 		return assemblerGetStatiLegali.assemble(statiLegali);
 	}
 	

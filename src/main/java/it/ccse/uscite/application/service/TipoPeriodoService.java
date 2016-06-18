@@ -3,14 +3,14 @@
  */
 package it.ccse.uscite.application.service;
 
-import it.ccse.uscite.domain.TipoPeriodo;
+import java.util.Collection;
 
-import java.util.List;
+import it.ccse.uscite.domain.TipoPeriodo;
 
 /**
  * @author vcompagnone
  *
  */
 public interface TipoPeriodoService {
-	public List<TipoPeriodo> getTipiPeriodo();
+	public Collection<TipoPeriodo> getTipiPeriodo();
 }

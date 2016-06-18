@@ -3,9 +3,9 @@
  */
 package it.ccse.uscite.application.service;
 
-import it.ccse.uscite.domain.PraticaErogazione;
+import java.util.Collection;
 
-import java.util.List;
+import it.ccse.uscite.domain.PraticaErogazione;
 
 /**
  * @author vcompagnone
@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface MailService {
 	
-	void sendMailAutorizzazioneComitato(List<PraticaErogazione> pratiche);
+	void sendMailAutorizzazioneComitato(Collection<PraticaErogazione> pratiche);
 	
-	void sendMailSbloccoAnagraficaPratiche(List<PraticaErogazione> pratiche);
+	void sendMailSbloccoAnagraficaPratiche(Collection<PraticaErogazione> pratiche);
 	
 }

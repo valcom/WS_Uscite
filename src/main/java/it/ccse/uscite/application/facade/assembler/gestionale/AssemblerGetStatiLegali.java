@@ -3,7 +3,7 @@
  */
 package it.ccse.uscite.application.facade.assembler.gestionale;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.mapstruct.Mapper;
 
@@ -19,10 +19,10 @@ import it.ccse.uscite.domain.StatoLegale;
 @Mapper(uses=AssemblerStatoLegaleDTO.class)
 public abstract class AssemblerGetStatiLegali {
 
-	protected abstract GetStatiLegali_OutDTO mapToGetStatiLegali_OutDTO(Container<List<StatoLegale>> container);
+	protected abstract GetStatiLegali_OutDTO mapToGetStatiLegali_OutDTO(Container<Collection<StatoLegale>> container);
 	
-	public GetStatiLegali_OutDTO assemble(List<StatoLegale> statiLegale){
+	public GetStatiLegali_OutDTO assemble(Collection<StatoLegale> statiLegale){
 		
-		return mapToGetStatiLegali_OutDTO(new Container<List<StatoLegale>>(statiLegale));
+		return mapToGetStatiLegali_OutDTO(new Container<Collection<StatoLegale>>(statiLegale));
 	}
 }

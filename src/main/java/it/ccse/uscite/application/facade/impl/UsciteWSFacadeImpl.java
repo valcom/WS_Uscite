@@ -3,10 +3,19 @@
  */
 package it.ccse.uscite.application.facade.impl;
 
+import java.util.Collection;
+import java.util.Map;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
+
 import it.ccse.uscite.application.facade.UsciteWSFacade;
+import it.ccse.uscite.application.facade.assembler.uscite.AssemblerAggiornaFideiussione;
 import it.ccse.uscite.application.facade.assembler.uscite.AssemblerAggiornaSemaforiAnagrafica;
 import it.ccse.uscite.application.facade.assembler.uscite.AssemblerSearchPratiche;
-import it.ccse.uscite.application.facade.assembler.uscite.AssemblerAggiornaFideiussione;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaFideiussione_InDTO;
 import it.ccse.uscite.application.facade.dto.input.uscite.AggiornaSemaforiAnagrafica_InDTO;
 import it.ccse.uscite.application.facade.dto.input.uscite.SearchPratiche_InDTO;
@@ -19,22 +28,11 @@ import it.ccse.uscite.domain.SettoreAttivita;
 import it.ccse.uscite.domain.StatoFideiussione.FideiussionePratica;
 import it.ccse.uscite.domain.filter.PraticaFilter;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.jws.WebService;
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
-
 /**
  * @author vcompagnone
  *
  */
 @Transactional
-@WebService(targetNamespace = "it.ccse.uscite",serviceName = "UsciteWS")
 @Component
 public class UsciteWSFacadeImpl implements UsciteWSFacade {
 
@@ -53,7 +51,7 @@ public class UsciteWSFacadeImpl implements UsciteWSFacade {
 	@Override
 	public AggiornaSemaforiAnagrafica_OutDTO aggiornaSemaforiAnagrafica(
 			AggiornaSemaforiAnagrafica_InDTO aggiornaSemaforiAnagrafica_InDTO) {
-		List<SettoreAttivita> settoriAttivita = assemblerAggiornaSemaforiAnagrafica.assemble(aggiornaSemaforiAnagrafica_InDTO);
+		Collection<SettoreAttivita> settoriAttivita = assemblerAggiornaSemaforiAnagrafica.assemble(aggiornaSemaforiAnagrafica_InDTO);
 		return assemblerAggiornaSemaforiAnagrafica.assemble(praticaErogazioneService.aggiornaSemaforiAnagrafica(settoriAttivita));
 	}
 
@@ -71,7 +69,7 @@ public class UsciteWSFacadeImpl implements UsciteWSFacade {
 		
 		Map<String,FideiussionePratica> mappaCodiciPraticaFideiussioni = assemblerAggiornaFideiussione.assemble(aggiornaFideiussione_InDTO);
 		
-		List<PraticaErogazione>pratiche = praticaErogazioneService.aggiornaFideiussione(mappaCodiciPraticaFideiussioni);
+		Collection<PraticaErogazione>pratiche = praticaErogazioneService.aggiornaFideiussione(mappaCodiciPraticaFideiussioni);
 	 
 		return assemblerAggiornaFideiussione.assemble(pratiche);
 	}

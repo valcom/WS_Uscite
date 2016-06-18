@@ -3,7 +3,7 @@
  */
 package it.ccse.uscite.application.service;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.springframework.data.domain.Page;
 
@@ -27,15 +27,15 @@ public interface ProcessoErogazioneService {
 	
 	public ProcessoErogazione chiudiProcessoErogazione(ProcessoErogazione processo);
 	
-	public Set<ProcessoErogazione> getProcessiErogazioneByOrdineDelGiorno(OrdineDelGiorno ordine);
+	public Collection<ProcessoErogazione> getProcessiErogazioneByOrdineDelGiorno(OrdineDelGiorno ordine);
 	
 	public ProcessoErogazione rinviaProcessoErogazione(ProcessoErogazione processo,OrdineDelGiorno ordine);
 	
-	public Set<ProcessoErogazione> getProcessiErogazioneInLavorazione(OrdineDelGiorno ordine);
+	public Collection<ProcessoErogazione> getProcessiErogazioneInLavorazione(OrdineDelGiorno ordine);
 	
-	public Set<ProcessoErogazione> getProcessiErogazioneLavorati(OrdineDelGiorno ordine);
+	public Collection<ProcessoErogazione> getProcessiErogazioneLavorati(OrdineDelGiorno ordine);
 	
-	public Set<ProcessoErogazione> getProcessiErogazioneLavorabili(OrdineDelGiorno ordine);
+	public Collection<ProcessoErogazione> getProcessiErogazioneLavorabili(OrdineDelGiorno ordine);
 	
 	public LavorazioneContabile lavorazioneContabile(ProcessoErogazione processo);
 

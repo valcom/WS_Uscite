@@ -3,7 +3,7 @@
  */
 package it.ccse.uscite.application.facade.assembler.gestionale;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.mapstruct.Mapper;
 
@@ -19,9 +19,9 @@ import it.ccse.uscite.domain.TipoPeriodo;
 @Mapper(uses=AssemblerTipoPeriodoDTO.class)
 public abstract class AssemblerGetTipiPeriodo {
 	
-	public GetTipiPeriodo_OutDTO assemble(List<TipoPeriodo> tipiPeriodo){
-		return mapToGetTipiPeriodo_OutDTO(new Container<List<TipoPeriodo>>(tipiPeriodo));
+	public GetTipiPeriodo_OutDTO assemble(Collection<TipoPeriodo> tipiPeriodo){
+		return mapToGetTipiPeriodo_OutDTO(new Container<Collection<TipoPeriodo>>(tipiPeriodo));
 	}
 	
-	protected abstract GetTipiPeriodo_OutDTO mapToGetTipiPeriodo_OutDTO(Container<List<TipoPeriodo>> container);
+	protected abstract GetTipiPeriodo_OutDTO mapToGetTipiPeriodo_OutDTO(Container<Collection<TipoPeriodo>> container);
 }
