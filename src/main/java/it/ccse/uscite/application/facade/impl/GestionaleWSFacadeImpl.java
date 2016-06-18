@@ -92,6 +92,7 @@ import it.ccse.uscite.domain.filter.ProcessoFilter;
  * @author vcompagnone
  *
  */
+
 @Transactional
 @WebService(endpointInterface="it.ccse.uscite.application.facade.GestionaleWSFacade")
 public class GestionaleWSFacadeImpl implements GestionaleWSFacade {
