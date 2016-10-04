@@ -449,6 +449,10 @@
 					<update>true</update>
 				</configuration>
 			</plugin>
+			
+		</plugins>
+		<pluginManagement>
+			<plugins>
 			<plugin>
 				<groupId>de.juplo</groupId>
 				<artifactId>hibernate-maven-plugin</artifactId>
@@ -472,7 +476,8 @@
 				</configuration>
 			</plugin>
 
-		</plugins>
+			</plugins>
+		</pluginManagement>
 	</build>
 	<!-- <scm> -->
 	<!-- <url>https://github.com/valcom/WS_Uscite</url> -->
